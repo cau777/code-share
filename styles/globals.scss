@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply text-font-1;
+    font-family: Inter, sans-serif;
+  }
+
+  body {
+    @apply bg-back-1;
+  }
+
+  a {
+    &:focus {
+      outline: none;
+    }
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+
+  svg {
+    display: inline;
+  }
+}
+
+@layer components {
+  .header-link {
+    @apply text-font-2;
+    cursor: pointer;
+
+    &:hover, &.selected {
+      @apply text-font-1;
+    }
+  }
+
+  .simple-link {
+    cursor: pointer;
+    @apply text-primary-200;
+    &:hover {
+      @apply text-primary-400;
+    }
+  }
+}
+
+@layer utilities {
+  .floating-label-input {
+    input {
+      &:focus ~ label {
+        @apply text-primary-200;
+      }
+
+      &:focus ~ label, &:not(:placeholder-shown) ~ label {
+        @apply text-xs;
+        transform: translate(0, -1.3rem);
+      }
+    }
+  }
+}
