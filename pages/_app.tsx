@@ -3,6 +3,7 @@ import "../styles/fonts.scss";
 import type {AppProps} from "next/app";
 import NavControls from "../components/NavControls";
 import Head from "next/head";
+import AuthProvider from "../components/AuthContext";
 
 function MyApp({Component, pageProps}: AppProps) {
     return (
@@ -12,9 +13,11 @@ function MyApp({Component, pageProps}: AppProps) {
                 <link rel="icon" href="/favicon.ico"/>
                 <title>code-&gr;share</title>
             </Head>
-            <NavControls>
-                <Component {...pageProps} />
-            </NavControls>
+            <AuthProvider>
+                <NavControls>
+                    <Component {...pageProps} />
+                </NavControls>
+            </AuthProvider>
         </>
     )
 }

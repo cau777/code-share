@@ -1,5 +1,6 @@
 import {NextPage} from "next";
 import Head from "next/head";
+import LogInForm from "../components/registration/LogInForm";
 
 const Login: NextPage = () => {
     return (
@@ -7,7 +8,9 @@ const Login: NextPage = () => {
             <Head>
                 <title>code-&gt;share Login</title>
             </Head>
-            Login
+            <div className={"flex"}>
+                <LogInForm></LogInForm>
+            </div>
         </div>
     )
 }

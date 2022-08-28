@@ -29,6 +29,10 @@
   svg {
     display: inline;
   }
+
+  button {
+    @apply px-2 py-1 rounded-lg;
+  }
 }
 
 @layer components {

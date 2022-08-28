@@ -1,5 +1,5 @@
 import {FC, HTMLProps} from "react";
-import WarningIcon from "../icons/WarningIcon";
+import SmallError from "./SmallError";
 
 type Props = {
     label: string;
@@ -19,12 +19,7 @@ const FloatingLabelInput: FC<Props> = (props) => {
                 <label htmlFor={id}
                        className={"px-0 text-font-2 absolute bottom-1 left-0 duration-300 font-light peer-focus:text-accent-1 group-focus:text-accent"}>{props.label}</label>
             </div>
-            {props.error &&
-                <p className={"font-light text-sm text-error-300 flex items-center mt-0.5 w-full gap-2"}>
-                    <WarningIcon width={"1rem"}></WarningIcon>
-                    {props.error}
-                </p>
-            }
+            <SmallError message={props.error}></SmallError>
         </div>
     )
 }

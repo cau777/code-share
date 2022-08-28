@@ -1,8 +1,8 @@
 import {NextPage} from "next";
 import Head from "next/head";
-import RegistrationForm from "../components/registration/RegistrationForm";
+import SignUpForm from "../components/registration/SignUpForm";
 
-const Register: NextPage = () => {
+const Signup: NextPage = () => {
     return (
         <div>
             <Head>
@@ -10,7 +10,7 @@ const Register: NextPage = () => {
             </Head>
             
             <div className={"flex"}>
-                <RegistrationForm></RegistrationForm>
+                <SignUpForm></SignUpForm>
                 <div className={"ml-auto"}>
                     <h1>Thanks for considering joining us</h1>
                 </div>
@@ -19,4 +19,4 @@ const Register: NextPage = () => {
     )
 }
 
-export default Register;
+export default Signup;

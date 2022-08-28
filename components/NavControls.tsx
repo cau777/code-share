@@ -2,6 +2,7 @@ import {FC, PropsWithChildren} from "react";
 import Link from "next/link";
 import {mergeClasses} from "../utils/attributes";
 import {useRouter} from "next/router";
+import CurrentProfileButton from "./CurrentProfileButton";
 
 const NavControls: FC<PropsWithChildren> = (props) => {
     let router = useRouter();
@@ -13,8 +14,9 @@ const NavControls: FC<PropsWithChildren> = (props) => {
                     <div className={"flex"}>
                         Logo
                         <span className={"header-link" + mergeClasses({selected: router.pathname === "/"})}>
-                    <Link href={"/"}>Home</Link>
-                    </span>
+                            <Link href={"/"}>Home</Link>
+                        </span>
+                        <CurrentProfileButton></CurrentProfileButton>
                     </div>
                 </div>
             </div>
