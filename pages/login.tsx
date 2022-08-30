@@ -8,7 +8,7 @@ const Login: NextPage = () => {
             <Head>
                 <title>code-&gt;share Login</title>
             </Head>
-            <div className={"flex"}>
+            <div className={"flex justify-center"}>
                 <LogInForm></LogInForm>
             </div>
         </div>

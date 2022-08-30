@@ -4,7 +4,6 @@ import {AuthContext} from "../../components/AuthContext";
 import Profile from "../../components/profile/Profile";
 import {useRouter} from "next/router";
 import {ProfileData, redirectToLogin} from "../../utils/auth";
-import {fromTable, supabase} from "../../utils/supabaseClient";
 import {AsyncState} from "../../utils/attributes";
 import Loading from "../../components/basic/Loading";
 
@@ -19,20 +18,13 @@ const ProfilePage: NextPage = () => {
             setState({current: "error", error: "Not logged in"});
             return;
         }
-    
-        console.log(context.id, typeof context.id);
         
-        fromTable(supabase, "UserPublicInfo")
-            .select("*")
-            .match({id: context.id})
-            .single()
-            .then(r => {
-                let data = r.data;
-                if (data === null)
-                    setState({current: "error", error: "Profile does not exist"});
-                else
-                    setState({current: "ready", value: data});
-            })
+        let data = context.profileData;
+        if (data === null)
+            setState({current: "error", error: "Profile does not exist"});
+        else
+            setState({current: "ready", value: data});
+        
     }, []);
     
     switch (state.current) {

@@ -8,6 +8,8 @@ import SmallError from "../basic/SmallError";
 import Link from "next/link";
 import Card from "../Card";
 import {useRouter} from "next/router";
+import TextWriteAnimation from "../animated/TextWriteAnimation";
+import {login} from "../../utils/auth";
 
 type Form = {
     email: string;
@@ -21,7 +23,7 @@ type State = {
 
 const LogInForm: FC = () => {
     let [state, setState] = useState<State>({busy: false});
-    let {changeCtx} = useContext(AuthContext);
+    let ctx = useContext(AuthContext);
     let {register, handleSubmit, formState: {errors}} = useForm<Form>({});
     let router = useRouter();
     
@@ -33,14 +35,18 @@ const LogInForm: FC = () => {
             console.error(error);
             setState({busy: false, error: error?.message});
         } else {
-            changeCtx({loggedIn: true, changeCtx, id: user!.id});
+            login(ctx, user!);
             await router.push("/");
         }
     }
     
     return (
         <Card>
-            <h3>Log in</h3>
+            <div className={"mb-3"}>
+                <h1 className={"monospace text-primary-200 flex justify-center"}>
+                    <TextWriteAnimation text={"Welcome back!"} triggerView={true}></TextWriteAnimation>
+                </h1>
+            </div>
             <form className={"w-[20rem]"} onSubmit={handleSubmit(submit)}>
                 <FloatingLabelInput label={"Email"} inputType={"text"} error={errors.email?.message}
                                     props={register("email")}></FloatingLabelInput>

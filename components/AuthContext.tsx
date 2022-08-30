@@ -1,4 +1,5 @@
 import {createContext, FC, PropsWithChildren, useState} from "react";
+import {ProfileData} from "../utils/auth";
 
 type BaseCtx = {
     changeCtx: (ctx: AuthCtx) => void;
@@ -11,6 +12,7 @@ export type LoggedOutCtx = BaseCtx & {
 export type LoggedInCtx = BaseCtx & {
     loggedIn: true;
     id: string;
+    profileData: ProfileData;
 };
 
 export type AuthCtx = LoggedInCtx | LoggedOutCtx;

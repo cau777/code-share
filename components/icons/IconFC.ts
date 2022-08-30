@@ -1,3 +1,3 @@
-import {FC} from "react";
+import {FC, SVGProps} from "react";
 
-export type IconFC = FC<{ width?: number | string, height?: number | string }>;
+export type IconFC = FC<SVGProps<SVGSVGElement>>;

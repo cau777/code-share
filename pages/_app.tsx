@@ -1,7 +1,7 @@
 import "../styles/globals.scss";
 import "../styles/fonts.scss";
 import type {AppProps} from "next/app";
-import NavControls from "../components/NavControls";
+import NavControls from "../components/nav/NavControls";
 import Head from "next/head";
 import AuthProvider from "../components/AuthContext";
 

@@ -7,6 +7,7 @@ import {ProfileData} from "../../utils/auth";
 import {fromTable, supabase} from "../../utils/supabaseClient";
 import Loading from "../../components/basic/Loading";
 import {useAsyncEffect} from "../../utils/hooks";
+import Head from "next/head";
 
 const ProfileByIdPage: NextPage = () => {
     let router = useRouter();
@@ -18,7 +19,7 @@ const ProfileByIdPage: NextPage = () => {
         
         let {data} = await fromTable(supabase, "UserPublicInfo")
             .select("*")
-            .match({id: id})
+            .match({id})
             .single();
         
         if (data === null)
@@ -33,7 +34,14 @@ const ProfileByIdPage: NextPage = () => {
         case "error":
             return (<p>{state.error}</p>); // TODO: error message
         case "ready":
-            return (<Profile data={state.value}></Profile>);
+            return (
+                <>
+                    <Head>
+                        <title>{state.value.name}</title>
+                    </Head>
+                    <Profile data={state.value}></Profile>
+                </>
+            );
     }
 }
 

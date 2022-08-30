@@ -8,6 +8,7 @@ import {supabase} from "../../utils/supabaseClient";
 import SmallError from "../basic/SmallError";
 import {AuthContext} from "../AuthContext";
 import {useRouter} from "next/router";
+import {login} from "../../utils/auth";
 
 type Form = {
     email: string;
@@ -22,7 +23,7 @@ type State = {
 
 const SignUpForm: FC = () => {
     let [state, setState] = useState<State>({busy: false});
-    let {changeCtx} = useContext(AuthContext);
+    let ctx = useContext(AuthContext);
     let {register, handleSubmit, formState: {errors}, getValues} = useForm<Form>({});
     let router = useRouter();
     
@@ -34,7 +35,7 @@ const SignUpForm: FC = () => {
             console.error(error);
             setState({busy: false, error: error?.message});
         } else {
-            changeCtx({loggedIn: true, changeCtx, id: user!.id});
+            login(ctx, user!);
             await router.push("/");
         }
     }
