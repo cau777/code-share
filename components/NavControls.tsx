@@ -16,6 +16,12 @@ const NavControls: FC<PropsWithChildren> = (props) => {
                         <span className={"header-link" + mergeClasses({selected: router.pathname === "/"})}>
                             <Link href={"/"}>Home</Link>
                         </span>
+                        <span className={"header-link" + mergeClasses({selected: router.pathname === "/"})}>
+                            <Link href={"/profile"}>Profile</Link>
+                        </span>
+                        <span className={"header-link" + mergeClasses({selected: router.pathname === "/"})}>
+                            <Link href={"/profile/6af7dcea-b563-4820-b2ef-3c78014ec0ba"}>Profile 6af</Link>
+                        </span>
                         <CurrentProfileButton></CurrentProfileButton>
                     </div>
                 </div>

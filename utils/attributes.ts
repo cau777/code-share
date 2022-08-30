@@ -16,3 +16,13 @@ export function mergeClasses(...items: any[]) {
     
     return result + " ";
 }
+
+export type AsyncState<T> = {
+    current: "loading"
+} | {
+    current: "error",
+    error: string,
+} | {
+    current: "ready",
+    value: T
+}

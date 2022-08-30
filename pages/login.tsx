@@ -1,6 +1,6 @@
 import {NextPage} from "next";
 import Head from "next/head";
-import LogInForm from "../components/registration/LogInForm";
+import LogInForm from "../components/login/LogInForm";
 
 const Login: NextPage = () => {
     return (

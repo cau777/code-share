@@ -1,8 +1,8 @@
 import {NextPage} from "next";
 import Head from "next/head";
-import SignUpForm from "../components/registration/SignUpForm";
+import SignUpForm from "../components/signup/SignUpForm";
 
-const Signup: NextPage = () => {
+const SignupPage: NextPage = () => {
     return (
         <div>
             <Head>
@@ -19,4 +19,4 @@ const Signup: NextPage = () => {
     )
 }
 
-export default Signup;
+export default SignupPage;

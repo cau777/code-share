@@ -1,17 +1,19 @@
 import {createContext, FC, PropsWithChildren, useState} from "react";
 
-export type AuthCtx = (LoggedInCtx | LoggedOutCtx) & {
+type BaseCtx = {
     changeCtx: (ctx: AuthCtx) => void;
 };
 
-export type LoggedOutCtx = {
+export type LoggedOutCtx = BaseCtx & {
     loggedIn: false
 };
 
-export type LoggedInCtx = {
+export type LoggedInCtx = BaseCtx & {
     loggedIn: true;
     id: string;
 };
+
+export type AuthCtx = LoggedInCtx | LoggedOutCtx;
 
 // @ts-ignore
 export const AuthContext = createContext<AuthCtx>(undefined);
