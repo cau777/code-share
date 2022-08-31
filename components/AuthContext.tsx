@@ -1,5 +1,5 @@
 import {createContext, FC, PropsWithChildren, useState} from "react";
-import {ProfileData} from "../utils/auth";
+import {ProfileData} from "../src/auth";
 
 type BaseCtx = {
     changeCtx: (ctx: AuthCtx) => void;

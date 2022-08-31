@@ -2,11 +2,11 @@ import {NextPage} from "next";
 import Profile from "../../components/profile/Profile";
 import {useRouter} from "next/router";
 import {useState} from "react";
-import {AsyncState} from "../../utils/attributes";
-import {ProfileData} from "../../utils/auth";
-import {fromTable, supabase} from "../../utils/supabaseClient";
+import {AsyncState} from "../../src/attributes";
+import {ProfileData} from "../../src/auth";
+import {fromTable, supabase} from "../../src/supabase_client";
 import Loading from "../../components/basic/Loading";
-import {useAsyncEffect} from "../../utils/hooks";
+import {useAsyncEffect} from "../../src/hooks";
 import Head from "next/head";
 
 const ProfileByIdPage: NextPage = () => {

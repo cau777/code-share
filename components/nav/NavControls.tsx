@@ -1,6 +1,6 @@
 import {FC, PropsWithChildren} from "react";
 import Link from "next/link";
-import {mergeClasses} from "../../utils/attributes";
+import {mergeClasses} from "../../src/attributes";
 import {useRouter} from "next/router";
 import CurrentProfileButton from "./CurrentProfileButton";
 

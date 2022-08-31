@@ -1,7 +1,7 @@
 import {NextRouter} from "next/router";
 import {AuthCtx} from "../components/AuthContext";
 import {User} from "@supabase/gotrue-js";
-import {fromTable, supabase} from "./supabaseClient";
+import {fromTable, supabase} from "./supabase_client";
 
 export function redirectToLogin(router: NextRouter) {
     return router.push("/login");

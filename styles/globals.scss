@@ -22,6 +22,10 @@
     outline: none;
   }
 
+  textarea:focus {
+    outline: none;
+  }
+
   h1 {
     @apply text-2xl font-semibold;
   }
@@ -40,6 +44,10 @@
 
   button {
     @apply px-2 py-1 rounded-lg;
+  }
+
+  .word-wrap-normal {
+    word-wrap: normal;
   }
 }
 
@@ -68,6 +76,15 @@
   .monospace {
     font-family: custom-mono, monospace;
   }
+
+  .code {
+    font-family: custom-mono, monospace;
+    font-size: 13px;
+  }
+
+  .code-height {
+    height: 23px!important;
+  }
 }
 
 @layer utilities {
@@ -80,6 +97,19 @@
       &:focus ~ label, &:not(:placeholder-shown) ~ label {
         @apply text-xs;
         transform: translate(0, -1.3rem);
+      }
+    }
+  }
+
+  .floating-label-textarea {
+    textarea {
+      &:focus ~ label {
+        @apply text-primary-200;
+      }
+
+      &:focus ~ label, &:not(:placeholder-shown) ~ label {
+        @apply text-xs;
+        transform: translate(0, -0.65rem);
       }
     }
   }

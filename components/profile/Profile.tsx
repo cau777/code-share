@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {ProfileData} from "../../utils/auth";
+import {ProfileData} from "../../src/auth";
 import Image from "next/image";
 import avatar from "../../public/img/profile_avatar.png";
 import VerticalLine from "../basic/VerticalLine";

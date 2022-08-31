@@ -1,7 +1,7 @@
 import {FC, useContext, useState} from "react";
 import {AuthContext} from "../AuthContext";
 import {useForm} from "react-hook-form";
-import {supabase} from "../../utils/supabaseClient";
+import {supabase} from "../../src/supabase_client";
 import FloatingLabelInput from "../basic/FloatingLabelInput";
 import BtnPrimary from "../basic/BtnPrimary";
 import SmallError from "../basic/SmallError";
@@ -9,7 +9,7 @@ import Link from "next/link";
 import Card from "../Card";
 import {useRouter} from "next/router";
 import TextWriteAnimation from "../animated/TextWriteAnimation";
-import {login} from "../../utils/auth";
+import {login} from "../../src/auth";
 
 type Form = {
     email: string;

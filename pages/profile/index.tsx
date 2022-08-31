@@ -3,8 +3,8 @@ import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../components/AuthContext";
 import Profile from "../../components/profile/Profile";
 import {useRouter} from "next/router";
-import {ProfileData, redirectToLogin} from "../../utils/auth";
-import {AsyncState} from "../../utils/attributes";
+import {ProfileData, redirectToLogin} from "../../src/auth";
+import {AsyncState} from "../../src/attributes";
 import Loading from "../../components/basic/Loading";
 
 const ProfilePage: NextPage = () => {

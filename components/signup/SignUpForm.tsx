@@ -4,11 +4,11 @@ import Card from "../Card";
 import BtnPrimary from "../basic/BtnPrimary";
 import Link from "next/link";
 import {useForm} from "react-hook-form";
-import {supabase} from "../../utils/supabaseClient";
+import {supabase} from "../../src/supabase_client";
 import SmallError from "../basic/SmallError";
 import {AuthContext} from "../AuthContext";
 import {useRouter} from "next/router";
-import {login} from "../../utils/auth";
+import {login} from "../../src/auth";
 
 type Form = {
     email: string;
