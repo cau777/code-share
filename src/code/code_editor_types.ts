@@ -8,12 +8,12 @@ export type LanguageOptions = {
     name: string;
     tab: string;
     autoIndent: boolean;
-    keywords: string[];
-    literals: string[];
+    keywordsRegex?: RegExp;
+    literalsRegex?: RegExp;
+    numberRegex?: RegExp;
     stringHighlight: boolean;
-    numberHighlight: boolean;
-    inlineComments?: string;
-    multilineComments?: {start: string, end: string};
+    inlineCommentsRegex?: RegExp;
+    multilineCommentsRegex?: RegExp;
 }
 
 export type LanguageConfig = {

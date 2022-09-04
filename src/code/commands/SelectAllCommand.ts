@@ -1,4 +1,4 @@
-import {Command} from "../CodeEditorTypes";
+import {Command} from "../code_editor_types";
 
 export const SelectAllCommand: Command = {
     canExecute: (key, {alt, ctrl, shift}) => !alt && ctrl && !shift && key === "a",

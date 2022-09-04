@@ -24,7 +24,7 @@ const CurrentProfileButton: FC = () => {
                 </div>
                 <div className={"relative"}>
                     <ChevronDownIcon height={"1rem"}></ChevronDownIcon>
-                    
+                    {/*TODO: fiz width*/}
                     {state.open &&
                         <ul className={"absolute bg-back-2 px-3 py-2 rounded-lg border-2 border-back-3 translate-y-2 -translate-x-3/4 min-w-[6rem]"}>
                             {context.loggedIn ?

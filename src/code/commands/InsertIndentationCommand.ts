@@ -1,4 +1,4 @@
-import {Command} from "../CodeEditorTypes";
+import {Command} from "../code_editor_types";
 import {insertValue} from "./commands_utils";
 
 export const InsertIndentationCommand: Command = {

@@ -1,4 +1,4 @@
-import {Command} from "../CodeEditorTypes";
+import {Command} from "../code_editor_types";
 import {SelectAllCommand} from "./SelectAllCommand";
 import {DeleteToWordStart} from "./DeleteToWordStart";
 import {EnterCommand} from "./EnterCommand";

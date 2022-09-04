@@ -1,4 +1,4 @@
-import {Command} from "../CodeEditorTypes";
+import {Command} from "../code_editor_types";
 import {countOccurrences} from "../../text";
 import {insertValue, LinkedCharacters} from "./commands_utils";
 

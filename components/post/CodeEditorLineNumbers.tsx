@@ -1,8 +1,8 @@
-import {FC, memo, RefCallback} from "react";
+import {FC, memo, RefObject} from "react";
 
 type Props = {
     lineCount: number;
-    innerRef: RefCallback<HTMLDivElement>;
+    innerRef: RefObject<HTMLTableElement>;
 }
 
 const CodeEditorLineNumbers: FC<Props> = (props) => {

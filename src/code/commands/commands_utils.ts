@@ -1,5 +1,5 @@
 import {countOccurrences} from "../../text";
-import {LanguageOptions} from "../CodeEditorTypes";
+import {LanguageOptions} from "../code_editor_types";
 import OpenCloseSet from "../../data/OpenCloseSet";
 
 export const BlockCharacters = new OpenCloseSet([["(", ")"], ["{", "}"], ["[", "]"]]);

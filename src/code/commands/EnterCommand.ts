@@ -1,4 +1,4 @@
-import {Command} from "../CodeEditorTypes";
+import {Command} from "../code_editor_types";
 import {findReversed, regexTestRange} from "../../text";
 import {calcIndentationLevel, generateIndentation, insertValue} from "./commands_utils";
 

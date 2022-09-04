@@ -1,5 +1,6 @@
 import "../styles/globals.scss";
 import "../styles/fonts.scss";
+import "../styles/syntax_highlight.scss";
 import type {AppProps} from "next/app";
 import NavControls from "../components/nav/NavControls";
 import Head from "next/head";

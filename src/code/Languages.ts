@@ -1,5 +1,11 @@
-import {LanguageOptions} from "./CodeEditorTypes";
+import {LanguageOptions} from "./code_editor_types";
 import {LanguagesConfig} from "./LanguagesConfig";
+import {escapeRegExp} from "../text";
+
+function createPattern(matches: string[]) {
+    if (matches.length === 0) return undefined;
+    return new RegExp("\\b\(" + matches.map(escapeRegExp).join("|") + "\)\\b", "g");
+}
 
 export const Languages: LanguageOptions[] = Object.entries(LanguagesConfig)
     .map(([name, props]) => {
@@ -10,13 +16,16 @@ export const Languages: LanguageOptions[] = Object.entries(LanguagesConfig)
         return {
             name,
             autoIndent: !(props.disableAutoIndent ?? false),
-            keywords,
-            tab: " ".repeat(props.spacesNumber??4),
-            literals: props.literals ?? [],
-            inlineComments: props.inlineComments,
-            multilineComments: props.multilineComments,
+            tab: " ".repeat(props.spacesNumber ?? 4),
+            literalsRegex: createPattern(props.literals ?? []),
+            keywordsRegex: createPattern(keywords),
+            inlineCommentsRegex: props.inlineComments ?
+                new RegExp(escapeRegExp(props.inlineComments) + ".*", "g") : undefined,
+            multilineCommentsRegex: props.multilineComments ?
+                new RegExp(escapeRegExp(props.multilineComments.start) + "[\\s\\S]*?(" +
+                escapeRegExp(props.multilineComments.end) + "|$)", "g") : undefined,
+            numberRegex: props.disableNumberHighlight ? undefined : /\b[_\d]+\b/g,
             stringHighlight: !(props.disableStringHighlight ?? false),
-            numberHighlight: !(props.disableNumberHighlight ?? false),
         };
     });
 

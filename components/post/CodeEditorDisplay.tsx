@@ -1,9 +1,9 @@
-import {FC, memo} from "react";
-import {LanguageOptions} from "../../src/code/CodeEditorTypes";
-import {SyntaxHighlighter} from "../../src/code/SyntaxHighlighter";
-import {mergeClasses} from "../../src/attributes";
+import {FC} from "react";
+import {LanguageOptions} from "../../src/code/code_editor_types";
+import {highlightText} from "../../src/code/syntax_highlight";
+import CodeEditorLine from "./CodeEditorLine";
 
-type Props =  {
+type Props = {
     text: string;
     selected: number;
     language: LanguageOptions;
@@ -11,22 +11,7 @@ type Props =  {
 
 const CodeEditorDisplay: FC<Props> = (props) => {
     let options = props.language;
-    let highlighter = new SyntaxHighlighter(options);
-    let text = props.text;
-    let charColors = highlighter.highlight(text);
-    let lines = highlighter.generateLines(text, charColors);
-    let tableRows: JSX.Element[] = [];
-    let lineIndex = 0;
-    
-    for (let line of lines) {
-        tableRows.push(
-            <tr key={"line " + lineIndex}>
-                <td className={mergeClasses("code-height", {"bg-back-2": props.selected === lineIndex})}>
-                    {line}
-                </td>
-            </tr>);
-        lineIndex++;
-    }
+    let linesWithColors = highlightText(props.text, options);
     
     return (
         <table className={"w-full whitespace-pre"}>
@@ -34,10 +19,12 @@ const CodeEditorDisplay: FC<Props> = (props) => {
                 <col className={"bg-back-1"}/>
             </colgroup>
             <tbody>
-            {tableRows}
+            {linesWithColors.map(([line, highlight], index) =>
+                <CodeEditorLine key={"line " + index} selected={props.selected === index} text={line}
+                                highlights={highlight}/>)}
             </tbody>
         </table>
     );
 }
 
-export default memo(CodeEditorDisplay);
+export default CodeEditorDisplay;

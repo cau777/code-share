@@ -1,15 +1,15 @@
 import {FC, useState, UIEvent, KeyboardEvent, useRef, useEffect} from "react";
-import {LanguageOptions} from "../../src/code/CodeEditorTypes";
+import {LanguageOptions} from "../../src/code/code_editor_types";
 import {UseFormRegisterReturn} from "react-hook-form";
 import {countOccurrences} from "../../src/text";
 import {CommandExecutor} from "../../src/code/CommandExecutor";
 import Commands from "../../src/code/commands/Commands";
 import CodeEditorLineNumbers from "./CodeEditorLineNumbers";
 import CodeEditorDisplay from "./CodeEditorDisplay";
+import CodeEditorTextArea from "./CodeEditorTextArea";
 
 type Props = {
     language: LanguageOptions;
-    
     textareaProps: UseFormRegisterReturn;
 }
 
@@ -41,9 +41,9 @@ const CodeEditor: FC<Props> = (props) => {
     let [state, setState] = useState<State>({text: "", selected: 0, rows: 1});
     
     let executorRef = useRef<CommandExecutor>();
-    let lineNumbersRef = useRef<HTMLElement>();
-    let textareaParentRef = useRef<HTMLDivElement>();
-    let codeTextRef = useRef<HTMLDivElement>();
+    let lineNumbersRef = useRef<HTMLElement>(null);
+    let textareaParentRef = useRef<HTMLDivElement>(null);
+    let codeTextRef = useRef<HTMLDivElement>(null);
     
     useEffect(() => {
         executorRef.current = new CommandExecutor(textareaParentRef.current!.querySelector("textarea")!);
@@ -119,23 +119,17 @@ const CodeEditor: FC<Props> = (props) => {
     
     return (
         <div className="code-editor max-h-[80vh] code flex w-full relative overflow-auto">
-            {/* @ts-ignore */}
             <CodeEditorLineNumbers lineCount={state.rows} innerRef={lineNumbersRef}/>
-            
-            {/* @ts-ignore */}
+    
             <div ref={textareaParentRef} className={"flex-grow top-0 left-0 relative w-full"}>
-                {/* @ts-ignore */}
                 <div ref={codeTextRef} className={"select-none absolute top-0 left-0 w-full overflow-hidden"}>
                     <CodeEditorDisplay selected={state.selected} text={state.text} language={props.language}/>
                 </div>
-                
+        
                 {/*TODO: mobile support + style*/}
-                <textarea id="code-input" autoCorrect={"none"} spellCheck={false}
-                          className={"resize-none top-0 left-0 absolute bg-transparent text-transparent leading-[23px] caret-font-1 w-full word-wrap-normal"}
-                          onKeyDown={keyDown} onScroll={scrollNumbers}
-                          onSelect={e => updateSelectedRow(e.currentTarget)}
-                    /* @ts-ignore */
-                          rows={1} maxLength={10_000} ref={props.ref} onChange={change}></textarea>
+                <CodeEditorTextArea onKeyDown={keyDown} onScroll={scrollNumbers}
+                                    onSelect={e => updateSelectedRow(e.currentTarget)}
+                                    textareaProps={props.textareaProps} onChange={change}/>
             </div>
         </div>
     )

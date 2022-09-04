@@ -1,4 +1,4 @@
-import {Command} from "../CodeEditorTypes";
+import {Command} from "../code_editor_types";
 import {find, findReversed} from "../../text";
 
 export const MoveLineUpCommand: Command = {

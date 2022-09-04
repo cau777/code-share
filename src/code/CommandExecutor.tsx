@@ -2,7 +2,7 @@
  * @summary Executor of the command pattern that allows undo and redo
  */
 import {CodeEditorState} from "./CodeEditorState";
-import {Command, LanguageOptions} from "./CodeEditorTypes";
+import {Command, LanguageOptions} from "./code_editor_types";
 
 export class CommandExecutor {
     private readonly history: CodeEditorState[];

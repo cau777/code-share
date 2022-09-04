@@ -1,4 +1,4 @@
-import {LanguageConfig} from "./CodeEditorTypes";
+import {LanguageConfig} from "./code_editor_types";
 
 export const LanguagesConfig: { [key: string]: LanguageConfig } = {
     Other: {
