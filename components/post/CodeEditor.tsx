@@ -112,13 +112,12 @@ const CodeEditor: FC<Props> = (props) => {
             }
         }
         
-        // TODO: optimize
         change(e).then();
     }
     
     return (
         <div className="code-editor max-h-[80vh] code flex w-full relative overflow-auto border-2 border-back-1 rounded-lg">
-            <CodeEditorLineNumbers lineCount={state.rows} innerRef={lineNumbersRef}/>
+            <CodeEditorLineNumbers lineCount={state.rows} innerRef={lineNumbersRef} offsetBottom={true}/>
     
             <div ref={textareaParentRef} className={"flex-grow top-0 left-0 relative w-full bg-back-1"}>
                 <div ref={codeTextRef} className={"select-none absolute top-0 left-0 w-full overflow-hidden"}>

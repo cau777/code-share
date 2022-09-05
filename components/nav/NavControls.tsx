@@ -9,7 +9,7 @@ const NavControls: FC<PropsWithChildren> = (props) => {
     
     return (
         <>
-            <div className={"bg-back-2"}>
+            <header className={"bg-back-2"}>
                 <div className={"container"}>
                     <div className={"flex items-center gap-3"}>
                         <div>
@@ -32,7 +32,7 @@ const NavControls: FC<PropsWithChildren> = (props) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </header>
             <div className={"container mt-3"}>
                 {props.children}
             </div>

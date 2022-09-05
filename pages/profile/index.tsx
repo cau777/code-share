@@ -6,6 +6,8 @@ import {useRouter} from "next/router";
 import {ProfileData, redirectToLogin} from "../../src/auth";
 import {AsyncState} from "../../src/attributes";
 import Loading from "../../components/basic/Loading";
+import {AppName} from "../../src/styling";
+import Head from "next/head";
 
 const ProfilePage: NextPage = () => {
     let context = useContext(AuthContext);
@@ -33,7 +35,14 @@ const ProfilePage: NextPage = () => {
         case "error":
             return (<p>{state.error}</p>); // TODO: error message
         case "ready":
-            return (<Profile data={state.value}></Profile>);
+            return (
+                <>
+                    <Head>
+                        <title>Profile {AppName}</title>
+                    </Head>
+                <Profile data={state.value}></Profile>
+                </>
+            );
     }
 }
 

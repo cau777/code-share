@@ -1,6 +1,8 @@
 import config from "../tailwind.config";
 import resolveConfig from "tailwindcss/resolveConfig";
 
+export const AppName = "code->share";
+
 let resolved = resolveConfig(config);
 
 function parseWidth(text: string) {

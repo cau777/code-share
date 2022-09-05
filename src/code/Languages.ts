@@ -34,3 +34,5 @@ export const LanguageNames = Languages.map(o => o.name);
 export function findLanguageByName(name: string) {
     return Languages.find(o => o.name === name) ?? Languages.find(o => o.name === "Other");
 }
+
+export const OtherLanguage = Languages[0];

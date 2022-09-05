@@ -2,7 +2,8 @@ import {FC, memo, RefObject} from "react";
 
 type Props = {
     lineCount: number;
-    innerRef: RefObject<HTMLTableElement>;
+    innerRef?: RefObject<HTMLTableElement>;
+    offsetBottom?: boolean;
 }
 
 const CodeEditorLineNumbers: FC<Props> = (props) => {
@@ -26,7 +27,7 @@ const CodeEditorLineNumbers: FC<Props> = (props) => {
                 {children}
                 <tr>
                     {/* Offset some display errors */}
-                    <td height={4}/>
+                    {props.offsetBottom && <td height={4}/>}
                 </tr>
                 </tbody>
             </table>

@@ -5,7 +5,7 @@ import CodeEditorLine from "./CodeEditorLine";
 
 type Props = {
     text: string;
-    selected: number;
+    selected?: number;
     language: LanguageOptions;
 }
 
@@ -14,7 +14,7 @@ const CodeEditorDisplay: FC<Props> = (props) => {
     let linesWithColors = highlightText(props.text, options);
     
     return (
-        <table className={"w-full whitespace-pre"}>
+        <table className={"w-full whitespace-pre monospace"}>
             <colgroup>
                 <col className={"bg-back-1"}/>
             </colgroup>

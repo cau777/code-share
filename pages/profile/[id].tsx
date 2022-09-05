@@ -8,6 +8,7 @@ import {fromTable, supabase} from "../../src/supabase_client";
 import Loading from "../../components/basic/Loading";
 import {useAsyncEffect} from "../../src/hooks";
 import Head from "next/head";
+import {AppName} from "../../src/styling";
 
 const ProfileByIdPage: NextPage = () => {
     let router = useRouter();
@@ -37,7 +38,7 @@ const ProfileByIdPage: NextPage = () => {
             return (
                 <>
                     <Head>
-                        <title>{state.value.name}</title>
+                        <title>{state.value.name} {AppName}</title>
                     </Head>
                     <Profile data={state.value}></Profile>
                 </>
