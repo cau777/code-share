@@ -50,7 +50,7 @@ function generate(text: string, charColors: Uint8Array) {
 const CodeEditorLine: FC<Props> = (props) => {
     return (
         <tr>
-            <td className={mergeClasses("code-height", {"bg-back-2": props.selected})}>
+            <td className={mergeClasses("code-height pl-1", {"border-y-2 border-back-3": props.selected})}>
                 {generate(props.text, props.highlights)}
             </td>
         </tr>

@@ -49,6 +49,40 @@
   .word-wrap-normal {
     word-wrap: normal;
   }
+
+  .search-select {
+    .search-select__control {
+      @apply bg-back-1 border-transparent shadow-none #{!important};
+    }
+
+    .search-select__control--is-focused {
+      @apply border-primary-500 shadow-2xl #{!important};
+    }
+
+    .search-select__value-container,  .search-select__indicator {
+      @apply bg-back-1;
+    }
+
+    .search-select__placeholder {
+      @apply text-font-2;
+    }
+
+    .search-select__single-value, .search-select__value-container {
+      @apply text-font-2;
+    }
+
+    .search-select__input-container {
+      @apply text-font-1;
+    }
+
+    .search-select__menu {
+      @apply bg-back-2 border-2 border-back-3;
+    }
+
+    .search-select__option {
+      @apply bg-back-2;
+    }
+  }
 }
 
 @layer components {
@@ -83,7 +117,7 @@
   }
 
   .code-height {
-    height: 23px!important;
+    height: 23px !important;
   }
 }
 

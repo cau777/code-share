@@ -5,7 +5,8 @@ import FloatingLabelInput from "../basic/FloatingLabelInput";
 import FloatingLabelTextarea from "../basic/FloatingLabelTextarea";
 import BtnPrimary from "../basic/BtnPrimary";
 import CodeEditor from "./CodeEditor";
-import {findLanguageByName} from "../../src/code/Languages";
+import {findLanguageByName, Languages} from "../../src/code/Languages";
+import SearchSelect from "../basic/SearchSelect";
 
 type Form = {
     title: string;
@@ -15,7 +16,8 @@ type Form = {
 }
 
 const PostForm: FC = () => {
-    let {register, handleSubmit} = useForm<Form>();
+    let {register, handleSubmit, setValue, watch} = useForm<Form>();
+    let lang = watch("lang");
     
     function submit(data: Form) {
         console.log(data);
@@ -29,7 +31,15 @@ const PostForm: FC = () => {
                 <FloatingLabelTextarea label={"Description"}
                                        props={register("description", {required: true})}></FloatingLabelTextarea>
                 
-                <CodeEditor textareaProps={register("code")} language={findLanguageByName("Java")!}></CodeEditor>
+                <div className={"mb-2"}>
+                    <SearchSelect onChange={(o: any) => setValue("lang", o.value)} placeholder={"Language"}
+                                  options={Languages.map(o => ({label: o.name, value: o.name}))}/>
+                </div>
+                
+                <div className={"mb-3"}>
+                    <CodeEditor textareaProps={register("code", {deps: ["lang"]})}
+                                language={findLanguageByName(lang)}></CodeEditor>
+                </div>
                 
                 <div>
                     <BtnPrimary type={"submit"}>Submit</BtnPrimary>

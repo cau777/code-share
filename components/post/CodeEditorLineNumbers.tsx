@@ -11,7 +11,7 @@ const CodeEditorLineNumbers: FC<Props> = (props) => {
     for (let i = 0; i < props.lineCount; i++) {
         children.push(
             <tr key={"line " + i}>
-                <td className={"px-1 code-height"}>{i + 1}</td>
+                <td className={"px-1 code-height m-1"}>{i + 1}</td>
             </tr>
         );
     }
@@ -25,7 +25,8 @@ const CodeEditorLineNumbers: FC<Props> = (props) => {
                 <tbody>
                 {children}
                 <tr>
-                    <td height={20}/>
+                    {/* Offset some display errors */}
+                    <td height={4}/>
                 </tr>
                 </tbody>
             </table>

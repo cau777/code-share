@@ -12,7 +12,7 @@ type Props = {
 const CodeEditorTextArea: FC<Props> = (props) => {
     return (
         <textarea autoCorrect={"none"} spellCheck={false}
-                  className={"resize-none top-0 left-0 absolute bg-transparent text-transparent leading-[23px] caret-font-1 w-full word-wrap-normal"}
+                  className={"resize-none top-0 left-0 absolute bg-transparent text-transparent leading-[23px] caret-font-1 w-full word-wrap-normal overflow-hidden pl-1"}
                   onKeyDown={props.onKeyDown} onScroll={props.onScroll}
                   onSelect={props.onSelect}
                   rows={1} {...props.textareaProps} onChange={props.onChange}></textarea>

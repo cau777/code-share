@@ -7,9 +7,10 @@ import Commands from "../../src/code/commands/Commands";
 import CodeEditorLineNumbers from "./CodeEditorLineNumbers";
 import CodeEditorDisplay from "./CodeEditorDisplay";
 import CodeEditorTextArea from "./CodeEditorTextArea";
+import {findLanguageByName} from "../../src/code/Languages";
 
 type Props = {
-    language: LanguageOptions;
+    language?: LanguageOptions;
     textareaProps: UseFormRegisterReturn;
 }
 
@@ -39,17 +40,16 @@ function prepareKey(key: string) {
 
 const CodeEditor: FC<Props> = (props) => {
     let [state, setState] = useState<State>({text: "", selected: 0, rows: 1});
+    let language = props.language ?? findLanguageByName("Other")!;
     
     let executorRef = useRef<CommandExecutor>();
-    let lineNumbersRef = useRef<HTMLElement>(null);
+    let lineNumbersRef = useRef<HTMLTableElement>(null);
     let textareaParentRef = useRef<HTMLDivElement>(null);
     let codeTextRef = useRef<HTMLDivElement>(null);
     
     useEffect(() => {
         executorRef.current = new CommandExecutor(textareaParentRef.current!.querySelector("textarea")!);
     }, []);
-    
-    useEffect(() => console.log("Render"));
     
     function updateSelectedRow(target: HTMLTextAreaElement) {
         let lineNum = countOccurrences(target.value, "\n", 0, target.selectionEnd);
@@ -77,7 +77,6 @@ const CodeEditor: FC<Props> = (props) => {
     }
     
     function scrollNumbers(event: UIEvent<HTMLTextAreaElement>) {
-        console.log("scroll")
         let target = event.currentTarget;
         let lines = lineNumbersRef.current;
         let codeText = codeTextRef.current;
@@ -107,7 +106,7 @@ const CodeEditor: FC<Props> = (props) => {
             for (let command of Commands) { // Chooses the appropriate and passes it to the executor
                 if (command.canExecute(key, {alt: e.altKey, ctrl: e.ctrlKey, shift: e.shiftKey})) {
                     e.preventDefault();
-                    executor.execute(command, e.currentTarget, props.language, key);
+                    executor.execute(command, e.currentTarget, language, key);
                     break;
                 }
             }
@@ -118,12 +117,12 @@ const CodeEditor: FC<Props> = (props) => {
     }
     
     return (
-        <div className="code-editor max-h-[80vh] code flex w-full relative overflow-auto">
+        <div className="code-editor max-h-[80vh] code flex w-full relative overflow-auto border-2 border-back-1 rounded-lg">
             <CodeEditorLineNumbers lineCount={state.rows} innerRef={lineNumbersRef}/>
     
-            <div ref={textareaParentRef} className={"flex-grow top-0 left-0 relative w-full"}>
+            <div ref={textareaParentRef} className={"flex-grow top-0 left-0 relative w-full bg-back-1"}>
                 <div ref={codeTextRef} className={"select-none absolute top-0 left-0 w-full overflow-hidden"}>
-                    <CodeEditorDisplay selected={state.selected} text={state.text} language={props.language}/>
+                    <CodeEditorDisplay selected={state.selected} text={state.text} language={language}/>
                 </div>
         
                 {/*TODO: mobile support + style*/}
