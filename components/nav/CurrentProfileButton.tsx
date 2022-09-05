@@ -22,18 +22,22 @@ const CurrentProfileButton: FC = () => {
                 <div className={"w-10"}>
                     <Image src={avatar} layout={"responsive"}></Image>
                 </div>
+                
                 <div className={"relative"}>
                     <ChevronDownIcon height={"1rem"}></ChevronDownIcon>
                     {/*TODO: fiz width*/}
                     {state.open &&
-                        <ul className={"absolute bg-back-2 px-3 py-2 rounded-lg border-2 border-back-3 translate-y-2 -translate-x-3/4 min-w-[6rem]"}>
+                        <ul className={"absolute bg-back-2 px-3 py-2 rounded-lg border-2 border-back-3 translate-y-2 -translate-x-3/4 w-36 z-20 text-font-2"}>
                             {context.loggedIn ?
                                 <>
-                                    <li>Logged in as {context.profileData.name}</li>
-                                    <li><Link href={"/profile"}>Profile</Link></li>
-                                    <li><Link href={"/logout"}>Logout</Link></li>
+                                    <li className={"w-36 mb-2 text-xs cursor-auto"} onClick={e => e.stopPropagation()}>
+                                        Logged in as <b>{context.profileData.name}</b>
+                                    </li>
+                                    
+                                    <Link href={"/profile"}><li>Profile</li></Link>
+                                    <Link href={"/logout"}><li>Logout</li></Link>
                                 </> : <>
-                                    <li><Link href={"/login"}>Login</Link></li>
+                                    <Link href={"/login"}><li>Login</li></Link>
                                 </>}
                         </ul>
                     }

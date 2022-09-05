@@ -12,6 +12,15 @@ export type Tables = {
         name: string;
         bio: string;
         created_at: string;
+    },
+    Posts: {
+        id: number;
+        author: string;
+        created_at: string;
+        title: string;
+        description: string;
+        code: string;
+        lang: string;
     }
 }
 
