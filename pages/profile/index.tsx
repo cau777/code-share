@@ -40,7 +40,7 @@ const ProfilePage: NextPage = () => {
                     <Head>
                         <title>Profile {AppName}</title>
                     </Head>
-                <Profile data={state.value}></Profile>
+                <Profile {...state.value} id={context.loggedIn ? context.id : null!}></Profile>
                 </>
             );
     }

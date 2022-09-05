@@ -21,7 +21,7 @@ const SnippetPost: FC<Props> = (props) => {
                     <h5 className={"text-font-2"}>{props.description}</h5>
                 </header>
                 
-                <div className={"mt-2 mb-1 flex rounded border-back-1 border-2 overflow-auto"}>
+                <div className={"mt-2 mb-1 flex rounded border-back-1 border-2 overflow-auto monospace"}>
                     <CodeEditorLineNumbers lineCount={countOccurrences(props.code, "\n")+1}></CodeEditorLineNumbers>
                     <CodeEditorDisplay text={props.code} language={findLanguageByName(props.lang) ?? OtherLanguage}></CodeEditorDisplay>
                 </div>

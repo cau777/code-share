@@ -15,6 +15,10 @@ export type Snippet = {
     code: string;
 }
 
+type Props = {
+    specificUser?: string;
+}
+
 type State = {
     snippets: Snippet[];
     hasMore: boolean;
@@ -26,7 +30,7 @@ function defaultState(): State {
     return {snippets: [], hasMore: true, page: 0, initialTime: new Date().toISOString()};
 }
 
-const SnippetsFeed: FC = () => {
+const SnippetsFeed: FC<Props> = (props) => {
     let [state, setState] = useState<State>(defaultState());
     
     useEffect(() => {
@@ -34,11 +38,17 @@ const SnippetsFeed: FC = () => {
     }, []);
     
     async function next() {
-        let records = await fromTable(supabase, "Posts")
+        let query = fromTable(supabase, "Posts")
             .select("*")
             .order("created_at", {ascending: false})
             .lt("created_at", state.initialTime) // Ignore snippets posted after query
-            .range(state.page * PageSize, (state.page + 1) * PageSize);
+        
+        if (props.specificUser)
+            query = query.match({author: props.specificUser});
+        
+        query = query.range(state.page * PageSize, (state.page + 1) * PageSize);
+        let records = await query;
+        
         console.log("records", records);
         
         if (records.data === null) {
@@ -56,7 +66,8 @@ const SnippetsFeed: FC = () => {
     }
     
     return (
-        <InfiniteScroll next={next} hasMore={state.hasMore} endMessage={<p className={"text-center"}>That's all. Come back later</p> }
+        <InfiniteScroll next={next} hasMore={state.hasMore}
+                        endMessage={<p className={"text-center"}>That's all. Come back later</p>}
                         loader={<Loading></Loading>} dataLength={state.snippets.length}>
             {state.snippets.map(o => (<SnippetPost {...o} key={o.id}></SnippetPost>))}
         </InfiniteScroll>

@@ -40,7 +40,7 @@ const ProfileByIdPage: NextPage = () => {
                     <Head>
                         <title>{state.value.name} {AppName}</title>
                     </Head>
-                    <Profile data={state.value}></Profile>
+                    <Profile {...state.value} id={id as string}></Profile>
                 </>
             );
     }

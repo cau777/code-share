@@ -20,6 +20,7 @@ const CurrentProfileButton: FC = () => {
             
             <div className={"flex items-center cursor-pointer"} onClick={() => setState({open: !state.open})}>
                 <div className={"w-10"}>
+                    {/*TODO: dicebear*/}
                     <Image src={avatar} layout={"responsive"}></Image>
                 </div>
                 
