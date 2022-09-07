@@ -1,19 +1,20 @@
 import {NextPage} from "next";
 import Head from "next/head";
-import LogInForm from "../components/login/LogInForm";
 import {AppName} from "../src/styling";
+import FirstLoginForm from "../components/firstlogin/FirstLoginForm";
 
-const Login: NextPage = () => {
+const FirstLogin: NextPage = () => {
     return (
         <div>
             <Head>
-                <title>Post Snippet {AppName}</title>
+                <title>Sign up {AppName}</title>
             </Head>
+            
             <div className={"grid-center"}>
-                <LogInForm></LogInForm>
+                <FirstLoginForm></FirstLoginForm>
             </div>
         </div>
     )
 }
 
-export default Login;
+export default FirstLogin;

@@ -1,5 +1,4 @@
-import {FC, useRef, useState} from "react";
-import {useInView} from "react-intersection-observer";
+import {FC, useEffect, useRef, useState} from "react";
 
 type Props = {
     text: string;
@@ -10,22 +9,38 @@ type State = {
     current: number;
     fixedWidth?: number;
     interval?: any;
-    first: boolean;
 }
 
 const TextWriteAnimation: FC<Props> = (props) => {
     let len = props.text.length;
-    let [state, setState] = useState<State>({current: len, first: true});
+    let [state, setState] = useState<State>({current: len});
+    let shouldTriggerOnView = useRef(props.triggerView);
     
-    let viewRef = undefined;
-    if (props.triggerView) {
-        [viewRef] = useInView({
-            onChange: startWriteAnimation,
-            triggerOnce: true
+    
+    let viewRef = useRef<HTMLSpanElement>(null);
+    
+    function registerObserver() {
+        if (typeof IntersectionObserver === "undefined")
+            return;
+        
+        let observer = new IntersectionObserver(() => {
+            if (shouldTriggerOnView.current)
+                startWriteAnimation();
+            shouldTriggerOnView.current = false;
+        }, {
+            threshold: 0.9
         });
+        
+        if (viewRef.current)
+            observer.observe(viewRef.current);
     }
     
-    let ref = useRef<HTMLDivElement>();
+    useEffect(() => {
+        let handle = window.requestIdleCallback(registerObserver);
+        return () => window.cancelIdleCallback(handle);
+    }, []);
+    
+    let ref = useRef<HTMLDivElement>(null);
     
     function startWriteAnimation() {
         if (state.interval != undefined) return;
@@ -47,14 +62,13 @@ const TextWriteAnimation: FC<Props> = (props) => {
     
     function endWriteAnimation() {
         clearInterval(state.interval);
-        setState({current: len, first: false});
+        setState({current: len});
     }
     
     return (
         <span ref={viewRef}>
-        {/* @ts-ignore */}
-        <div onMouseEnter={startWriteAnimation} style={{minWidth: state.fixedWidth}} ref={ref}
-             onMouseOut={endWriteAnimation}>{props.text.substring(0, state.current)}</div>
+            <div onMouseEnter={startWriteAnimation} style={{minWidth: state.fixedWidth}} ref={ref}
+                 onMouseOut={endWriteAnimation}>{props.text.substring(0, state.current)}</div>
         </span>
     )
 }

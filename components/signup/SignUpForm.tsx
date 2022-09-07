@@ -9,6 +9,7 @@ import SmallError from "../basic/SmallError";
 import {AuthContext} from "../AuthContext";
 import {useRouter} from "next/router";
 import {login} from "../../src/auth";
+import TextWriteAnimation from "../animated/TextWriteAnimation";
 
 type Form = {
     email: string;
@@ -52,7 +53,11 @@ const SignUpForm: FC = () => {
     
     return (
         <Card>
-            <h3>Sign Up</h3>
+            <div className={"mb-3"}>
+                <h1 className={"monospace text-primary-200 flex justify-center"}>
+                    <TextWriteAnimation text={"Join us"} triggerView={true}></TextWriteAnimation>
+                </h1>
+            </div>
             <form className={"w-[20rem]"} onSubmit={handleSubmit(submit)}>
                 <FloatingLabelInput label={"Email"} inputType={"text"} error={errors.email?.message}
                                     props={register("email", {
