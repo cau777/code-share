@@ -1,7 +1,7 @@
 import {NextPage} from "next";
 import Profile from "../../components/profile/Profile";
 import {useRouter} from "next/router";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {AsyncState} from "../../src/attributes";
 import {ProfileData} from "../../src/auth";
 import {fromTable, supabase} from "../../src/supabase_client";
@@ -9,11 +9,18 @@ import Loading from "../../components/basic/Loading";
 import {useAsyncEffect} from "../../src/hooks";
 import Head from "next/head";
 import {AppName} from "../../src/styling";
+import {AuthContext} from "../../components/AuthContext";
 
 const ProfileByIdPage: NextPage = () => {
     let router = useRouter();
     let {id} = router.query;
     let [state, setState] = useState<AsyncState<ProfileData>>({current: "loading"});
+    let context = useContext(AuthContext);
+    
+    if (context.loggedIn && context.id === id) {
+        router.push("/profile").then();
+        return (<p>Redirecting</p>);
+    }
     
     useAsyncEffect(async () => {
         if (id === undefined) return;

@@ -35,12 +35,13 @@ const LogInForm: FC = () => {
             console.error(error);
             setState({busy: false, error: error?.message});
         } else {
-            login(ctx, user!);
+            await login(ctx, user!);
             await router.push("/");
         }
     }
     
     return (
+        // TODO: login providers
         <Card>
             <div className={"mb-3"}>
                 <h1 className={"monospace text-primary-200 flex justify-center"}>

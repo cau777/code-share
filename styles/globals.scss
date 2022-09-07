@@ -151,4 +151,8 @@
       }
     }
   }
+
+  .grid-center {
+    @apply grid align-middle justify-center;
+  }
 }

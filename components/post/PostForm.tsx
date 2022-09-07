@@ -10,7 +10,7 @@ import SearchSelect from "../basic/SearchSelect";
 import {AboveLg, BelowXl} from "../basic/Breakpoints";
 import {fromTable, supabase} from "../../src/supabase_client";
 import {AuthContext} from "../AuthContext";
-import Link from "next/link";
+import MustBeLoggedIn from "../basic/MustBeLoggedIn";
 
 type Form = {
     title: string;
@@ -73,13 +73,7 @@ const PostForm: FC = () => {
     }
     
     if (!context.loggedIn) {
-        return (
-            <h3>
-                You must be logged in to post snippets. <span className={"simple-link"}><Link
-                href={"/login"}>Login</Link></span> or <span className={"simple-link"}><Link
-                href={"signup"}>Sign up</Link></span>
-            </h3>
-        )
+        return (<MustBeLoggedIn action={"post snippets"}></MustBeLoggedIn>);
     }
     
     return (

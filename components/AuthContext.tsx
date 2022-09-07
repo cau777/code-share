@@ -1,4 +1,4 @@
-import {createContext, FC, PropsWithChildren, useState} from "react";
+import {createContext, FC, PropsWithChildren, useEffect, useState} from "react";
 import {ProfileData} from "../src/auth";
 
 type BaseCtx = {
@@ -22,6 +22,11 @@ export const AuthContext = createContext<AuthCtx>(undefined);
 
 const AuthProvider: FC<PropsWithChildren> = (props) => {
     let [state, setState] = useState<AuthCtx>({loggedIn: false, changeCtx: (ctx) => setState(ctx)});
+    
+    useEffect(() => {
+        console.log("New context", state);
+    }, [state]);
+    
     return (
         <AuthContext.Provider value={state}>
             {props.children}
