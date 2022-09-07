@@ -24,6 +24,12 @@ export type Tables = {
     }
 }
 
+export type StorageBuckets = "profile-pictures";
+
 export function fromTable<T extends keyof Tables>(supabase: SupabaseClient, name: T): SupabaseQueryBuilder<Tables[T]> {
     return supabase.from<Tables[T]>(name);
+}
+
+export function fromStorage(supabase: SupabaseClient, name: StorageBuckets) {
+    return supabase.storage.from(name);
 }

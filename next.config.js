@@ -2,7 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  output: "standalone"
+  output: "standalone",
+  images: {
+    domains: ["ckqwtaorsntwgqmcfsmi.supabase.co"]
+  }
 }
 
 module.exports = nextConfig

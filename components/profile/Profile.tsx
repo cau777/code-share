@@ -8,6 +8,7 @@ import ProfileDataEdit from "./ProfileDataEdit";
 import Card from "../Card";
 import PenSquareIcon from "../icons/PenSquareIcon";
 import {AuthContext} from "../AuthContext";
+import {AboveSm, BelowMd} from "../basic/Breakpoints";
 
 type Props = ProfileData & { id: string; }
 
@@ -15,39 +16,65 @@ const Profile: FC<Props> = (props) => {
     let [editing, setEditing] = useState(false);
     let context = useContext(AuthContext);
     
+    function profileData() {
+        return editing ?
+            <ProfileDataEdit data={props} id={context.loggedIn ? context.id : null!}
+                             onSave={(data) => {
+                                 if (data && context.loggedIn)
+                                     context.changeCtx({...context, profileData: data});
+                                 setEditing(false);
+                             }}></ProfileDataEdit>
+            : <>
+                {(context.loggedIn && context.id === props.id) &&
+                    <button
+                        className={"float-right rounded bg-back-3 p-1 grid-center cursor-pointer"}
+                        onClick={() => setEditing(true)}>
+                        <PenSquareIcon width={"1rem"} height={"1rem"}></PenSquareIcon>
+                    </button>}
+                <h2>{props.name}</h2>
+                <p>{props.bio}</p>
+            </>
+    }
+    
     return (
-        <div className={"md:flex gap-3"}>
-            <div className={"md:basis-1/4"}>
+        <>
+            <AboveSm>
+                <div className={"flex gap-3"}>
+                    <div className={"basis-1/4"}>
+                        <Card>
+                            <div>
+                                <Image src={avatar} objectFit={"contain"}></Image>
+                            </div>
+                            {profileData()}
+                        </Card>
+                    </div>
+                    <div>
+                        <VerticalLine></VerticalLine>
+                    </div>
+                    <div className={"flex-grow"}>
+                        <SnippetsFeed specificUser={props.id}></SnippetsFeed>
+                    </div>
+                </div>
+            </AboveSm>
+            
+            <BelowMd>
                 <Card>
-                    <div className={"flex items-center gap-4 md:block"}>
-                        <div className={"basis-1/4 md:basis-auto"}>
+                    <div className={"flex gap-4"}>
+                        <div className={"basis-1/4"}>
                             <Image src={avatar} objectFit={"contain"}></Image>
                         </div>
+                        <div className={"basis-3/4"}>
+                            {profileData()}
+                        </div>
                     </div>
-                    {editing ?
-                        <ProfileDataEdit data={props} id={context.loggedIn ? context.id : null!} onSave={(data) => {
-                            if (data && context.loggedIn)
-                                context.changeCtx({...context, profileData: data});
-                            setEditing(false);
-                        }}></ProfileDataEdit>
-                        : <>
-                            {(context.loggedIn && context.id === props.id) &&
-                                <button className={"float-right rounded bg-back-3 p-1 grid-center cursor-pointer"}
-                                           onClick={() => setEditing(true)}>
-                                    <PenSquareIcon width={"1rem"} height={"1rem"}></PenSquareIcon>
-                                </button>}
-                            <h2>{props.name}</h2>
-                            <p>{props.bio}</p>
-                        </>}
                 </Card>
-            </div>
-            <div className={"hidden md:block"}>
-                <VerticalLine></VerticalLine>
-            </div>
-            <div className={"flex-grow"}>
-                <SnippetsFeed specificUser={props.id}></SnippetsFeed>
-            </div>
-        </div>
+                <hr className={"my-2"}/>
+                <div className={"flex-grow"}>
+                    <SnippetsFeed specificUser={props.id}></SnippetsFeed>
+                </div>
+            </BelowMd>
+        </>
+    
     );
 }
 

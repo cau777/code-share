@@ -13,6 +13,7 @@ export type Snippet = {
     description: string;
     lang: string;
     code: string;
+    author: string;
 }
 
 type Props = {

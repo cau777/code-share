@@ -59,9 +59,9 @@ const SignUpForm: FC = () => {
                 </h1>
             </div>
             <form className={"w-[20rem]"} onSubmit={handleSubmit(submit)}>
-                <FloatingLabelInput label={"Email"} inputType={"text"} error={errors.email?.message}
+                <FloatingLabelInput label={"Email"} inputType={"text"} error={errors.email?.message} autoCapitalize={"off"}
                                     props={register("email", {
-                                        pattern: {message: "Invalid email", value: /\w+@\w+\.\w+/}
+                                        pattern: {message: "Invalid email", value: /\w+@\w+\.\w+/},
                                     })}></FloatingLabelInput>
                 
                 <FloatingLabelInput label={"Password"} inputType={"password"} error={errors.password?.message}
