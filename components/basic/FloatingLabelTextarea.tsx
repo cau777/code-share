@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, HTMLProps} from "react";
+import {ChangeEvent, FC, HTMLProps, useEffect, useRef} from "react";
 import SmallError from "./SmallError";
 
 type Props = {
@@ -10,19 +10,30 @@ type Props = {
 
 const FloatingLabelInput: FC<Props> = (props) => {
     let id = props.label.replace(" ", "_") + "_input";
+    let parentRef = useRef<HTMLDivElement>(null);
+    
+    useEffect(() => {
+        updateHeight(parentRef.current!.querySelector("textarea")!)
+    }, []);
+    
+    function updateHeight(element: HTMLTextAreaElement) {
+        // Reset the height to calculate the scroll height
+        element.style.height = "0px";
+        element.style.height = (element.scrollHeight + 10) + "px";
+    }
     
     function change(event: ChangeEvent<HTMLTextAreaElement>) {
-        let element = event.currentTarget;
-        element.rows = (element.value.match(/\n/g) || []).length + 2;
+        updateHeight(event.currentTarget);
         props.props?.onChange?.(event);
     }
     
     return (
         <div className={"mb-2"}>
             {/* Needs to be flex to avoid a black line below the border */}
-            <div className={"floating-label-textarea relative pt-5 w-full bg-back-1 rounded rounded-b-none flex flex-col"}>
+            <div ref={parentRef}
+                 className={"floating-label-textarea relative pt-5 w-full bg-back-1 rounded rounded-b-none flex flex-col"}>
                 <textarea id={id} placeholder={" "} {...props.props} onChange={change}
-                       className={"px-2 bg-transparent border-b-2 border-font-2 focus:border-primary-400 rounded-4xl peer w-full duration-200 transition-color resize-none"}>
+                          className={"px-2 bg-transparent border-b-2 border-font-2 focus:border-primary-400 rounded-4xl peer w-full duration-200 transition-none transition-color resize-none max-h-96"}>
                 </textarea>
                 
                 <label htmlFor={id}
