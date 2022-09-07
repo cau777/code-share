@@ -1,7 +1,4 @@
 import {FC, useContext, useState} from "react";
-import {ProfileData} from "../../src/auth";
-import Image from "next/image";
-import avatar from "../../public/img/profile_avatar.png";
 import VerticalLine from "../basic/VerticalLine";
 import SnippetsFeed from "../home/SnippetsFeed";
 import ProfileDataEdit from "./ProfileDataEdit";
@@ -9,8 +6,10 @@ import Card from "../Card";
 import PenSquareIcon from "../icons/PenSquareIcon";
 import {AuthContext} from "../AuthContext";
 import {AboveSm, BelowMd} from "../basic/Breakpoints";
+import ProfilePicture from "../basic/ProfilePicture";
+import {UserData} from "../../src/db_types";
 
-type Props = ProfileData & { id: string; }
+type Props = UserData;
 
 const Profile: FC<Props> = (props) => {
     let [editing, setEditing] = useState(false);
@@ -42,8 +41,8 @@ const Profile: FC<Props> = (props) => {
                 <div className={"flex gap-3"}>
                     <div className={"basis-1/4"}>
                         <Card>
-                            <div>
-                                <Image src={avatar} objectFit={"contain"}></Image>
+                            <div className={"p-2"}>
+                                <ProfilePicture id={props.id}></ProfilePicture>
                             </div>
                             {profileData()}
                         </Card>
@@ -52,7 +51,7 @@ const Profile: FC<Props> = (props) => {
                         <VerticalLine></VerticalLine>
                     </div>
                     <div className={"flex-grow"}>
-                        <SnippetsFeed specificUser={props.id}></SnippetsFeed>
+                        <SnippetsFeed key={"feed " + props.id} specificUser={props.id}></SnippetsFeed>
                     </div>
                 </div>
             </AboveSm>
@@ -61,7 +60,7 @@ const Profile: FC<Props> = (props) => {
                 <Card>
                     <div className={"flex gap-4"}>
                         <div className={"basis-1/4"}>
-                            <Image src={avatar} objectFit={"contain"}></Image>
+                            <ProfilePicture id={props.id}></ProfilePicture>
                         </div>
                         <div className={"basis-3/4"}>
                             {profileData()}

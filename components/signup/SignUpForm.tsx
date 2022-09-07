@@ -4,7 +4,7 @@ import Card from "../Card";
 import BtnPrimary from "../basic/BtnPrimary";
 import Link from "next/link";
 import {useForm} from "react-hook-form";
-import {fromTable, supabase} from "../../src/supabase_client";
+import {supabase} from "../../src/supabase_client";
 import SmallError from "../basic/SmallError";
 import {AuthContext} from "../AuthContext";
 import {useRouter} from "next/router";
@@ -31,15 +31,13 @@ const SignUpForm: FC = () => {
     async function submit(data: Form) {
         setState({busy: true});
         let {user, error} = await supabase.auth.signUp({email: data.email, password: data.password});
-        await fromTable(supabase, "UserPublicInfo")
-            .insert({id: user!.id, name: "No name", bio: ""}); // TODO: interactive post-register
         
         if (error) {
             console.error(error);
             setState({busy: false, error: error?.message});
         } else {
             await login(ctx, user!);
-            await router.push("/");
+            await router.push("/firstlogin");
         }
     }
     

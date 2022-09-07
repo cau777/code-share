@@ -6,6 +6,7 @@ import NavControls from "../components/nav/NavControls";
 import Head from "next/head";
 import AuthProvider from "../components/AuthContext";
 import {AppName} from "../src/styling";
+import AssertProfileComplete from "../components/AssertProfileComplete";
 
 function MyApp({Component, pageProps}: AppProps) {
     return (
@@ -17,7 +18,9 @@ function MyApp({Component, pageProps}: AppProps) {
             </Head>
             <AuthProvider>
                 <NavControls>
-                    <Component {...pageProps} />
+                    <AssertProfileComplete>
+                        <Component {...pageProps} />
+                    </AssertProfileComplete>
                 </NavControls>
             </AuthProvider>
         </>

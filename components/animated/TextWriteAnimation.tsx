@@ -19,23 +19,24 @@ const TextWriteAnimation: FC<Props> = (props) => {
     
     let viewRef = useRef<HTMLSpanElement>(null);
     
-    function registerObserver() {
-        if (typeof IntersectionObserver === "undefined")
-            return;
-        
-        let observer = new IntersectionObserver(() => {
-            if (shouldTriggerOnView.current)
-                startWriteAnimation();
-            shouldTriggerOnView.current = false;
-        }, {
-            threshold: 0.9
-        });
-        
-        if (viewRef.current)
-            observer.observe(viewRef.current);
-    }
     
     useEffect(() => {
+        function registerObserver() {
+            if (typeof IntersectionObserver === "undefined")
+                return;
+            
+            let observer = new IntersectionObserver(() => {
+                if (shouldTriggerOnView.current)
+                    startWriteAnimation();
+                shouldTriggerOnView.current = false;
+            }, {
+                threshold: 0.9
+            });
+            
+            if (viewRef.current)
+                observer.observe(viewRef.current);
+        }
+        
         let handle = window.requestIdleCallback(registerObserver);
         return () => window.cancelIdleCallback(handle);
     }, []);

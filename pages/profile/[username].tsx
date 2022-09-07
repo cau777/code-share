@@ -3,38 +3,40 @@ import Profile from "../../components/profile/Profile";
 import {useRouter} from "next/router";
 import {useContext, useState} from "react";
 import {AsyncState} from "../../src/attributes";
-import {ProfileData} from "../../src/auth";
 import {fromTable, supabase} from "../../src/supabase_client";
 import Loading from "../../components/basic/Loading";
 import {useAsyncEffect} from "../../src/hooks";
 import Head from "next/head";
 import {AppName} from "../../src/styling";
 import {AuthContext} from "../../components/AuthContext";
+import {UserData} from "../../src/db_types";
 
-const ProfileByIdPage: NextPage = () => {
+const ProfileByUsernamePage: NextPage = () => {
     let router = useRouter();
-    let {id} = router.query;
-    let [state, setState] = useState<AsyncState<ProfileData>>({current: "loading"});
+    let {username} = router.query;
+    let [state, setState] = useState<AsyncState<UserData>>({current: "loading"});
     let context = useContext(AuthContext);
-    
-    if (context.loggedIn && context.id === id) {
-        router.push("/profile").then();
-        return (<p>Redirecting</p>);
-    }
+    let shouldRedirect = context.loggedIn && context.profileData.name === username;
     
     useAsyncEffect(async () => {
-        if (id === undefined) return;
+        if (shouldRedirect) return;
+        if (username === undefined) return;
         
         let {data} = await fromTable(supabase, "UserPublicInfo")
             .select("*")
-            .match({id})
+            .match({username})
             .single();
         
         if (data === null)
             setState({current: "error", error: "Profile does not exist"});
         else
             setState({current: "ready", value: data});
-    }, [id]);
+    }, [username]);
+    
+    if (shouldRedirect) {
+        router.push("/profile").then();
+        return (<p>Redirecting</p>);
+    }
     
     switch (state.current) {
         case "loading":
@@ -47,10 +49,10 @@ const ProfileByIdPage: NextPage = () => {
                     <Head>
                         <title>{state.value.name} {AppName}</title>
                     </Head>
-                    <Profile {...state.value} id={id as string}></Profile>
+                    <Profile {...state.value}></Profile>
                 </>
             );
     }
 }
 
-export default ProfileByIdPage;
+export default ProfileByUsernamePage;

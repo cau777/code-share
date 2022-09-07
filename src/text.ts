@@ -20,7 +20,7 @@ export function regexTestRange(str: string, regex: RegExp, start: number = 0, en
 export function countOccurrences(str: string, pattern: string, start: number = 0, end: number = str.length - pattern.length + 1): number {
     let count = 0;
     for (let i = start; i < end; i++) {
-        let sub = str.substr(i, pattern.length);
+        let sub = str.substring(i, i+pattern.length);
         if (sub === pattern) count++;
     }
     return count;
@@ -37,7 +37,7 @@ export function find(str: string, pattern: string, start: number = 0, end: numbe
     let targetLen = pattern.length;
     
     for (let i = start; i < end; i++) {
-        if (str.substr(i, targetLen) === pattern) return i;
+        if (str.substring(i, i+targetLen) === pattern) return i;
     }
     
     return undefined;

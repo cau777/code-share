@@ -1,11 +1,11 @@
 import {FC} from "react";
-import {ProfileData} from "../../src/auth";
 import {useForm} from "react-hook-form";
 import FloatingLabelInput from "../basic/FloatingLabelInput";
 import BtnPrimary from "../basic/BtnPrimary";
 import FloatingLabelTextarea from "../basic/FloatingLabelTextarea";
 import BtnSecondary from "../basic/BtnSecondary";
 import {fromTable, supabase} from "../../src/supabase_client";
+import {ProfileData} from "../../src/db_types";
 
 type Props = {
     id: string;

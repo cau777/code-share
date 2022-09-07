@@ -8,7 +8,7 @@ type Props = {
     error?: string;
 };
 
-const FloatingLabelInput: FC<Props> = (props) => {
+const FloatingLabelTextarea: FC<Props> = (props) => {
     let id = props.label.replace(" ", "_") + "_input";
     let parentRef = useRef<HTMLDivElement>(null);
     
@@ -44,4 +44,4 @@ const FloatingLabelInput: FC<Props> = (props) => {
     )
 }
 
-export default FloatingLabelInput;
+export default FloatingLabelTextarea;

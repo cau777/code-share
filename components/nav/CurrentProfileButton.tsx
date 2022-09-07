@@ -12,7 +12,7 @@ type State = {
 const CurrentProfileButton: FC = () => {
     let context = useContext(AuthContext);
     let [state, setState] = useState<State>({open: false});
-    
+
     return (
         <>
             {state.open && <ScreenCover onClick={() => setState({open: false})}></ScreenCover>}

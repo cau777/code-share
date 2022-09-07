@@ -60,7 +60,7 @@ const LogInForm: FC = () => {
                 </div>
                 <SmallError message={state.error}></SmallError>
             </form>
-            <p className={"mt-2 text-sm"}>Don't have an account? <span className={"simple-link"}><Link href={"/signup"}>Sign up</Link></span>
+            <p className={"mt-2 text-sm"}>Don&apos;t have an account? <span className={"simple-link"}><Link href={"/signup"}>Sign up</Link></span>
             </p>
         </Card>
     )

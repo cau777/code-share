@@ -21,21 +21,20 @@ async function getProfileData(id: string) {
         .select("*")
         .match({id})
         .single();
-    if (response.data === null) throw new Error("Logged in profile not found in database");
     return response.data;
 }
 
 export async function login(context: AuthCtx, user: User) {
     let profileData = await getProfileData(user.id);
+    let result = profileData !== undefined;
+    
     context.changeCtx({
+        completedProfile: result,
         loggedIn: true,
         changeCtx: context.changeCtx,
-        profileData,
+        profileData: profileData ?? {bio: "", name: ""},
         id: user.id
     });
-}
-
-export type ProfileData = {
-    name: string;
-    bio: string;
+    
+    return result;
 }
