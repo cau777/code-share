@@ -20,7 +20,7 @@ const Profile: FC<Props> = (props) => {
             <ProfileDataEdit data={props} id={context.loggedIn ? context.id : null!}
                              onSave={(data) => {
                                  if (data && context.loggedIn)
-                                     context.changeCtx({...context, profileData: data});
+                                     context.changeCtx({...context, profileData: {...context.profileData, ...data}});
                                  setEditing(false);
                              }}></ProfileDataEdit>
             : <>
@@ -31,6 +31,8 @@ const Profile: FC<Props> = (props) => {
                         <PenSquareIcon width={"1rem"} height={"1rem"}></PenSquareIcon>
                     </button>}
                 <h2>{props.name}</h2>
+                <h3 className={"text-font-2"}>@{props.username}</h3>
+                <hr className={"my-2"}/>
                 <p>{props.bio}</p>
             </>
     }

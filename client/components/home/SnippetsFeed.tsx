@@ -1,8 +1,9 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {fromTable, supabase} from "../../src/supabase_client";
 import Loading from "../basic/Loading";
 import SnippetPost from "./SnippetPost";
+import {useEffectOnMount} from "../../src/hooks";
 
 const PageSize = 15;
 
@@ -13,7 +14,11 @@ export type Snippet = {
     description: string;
     lang: string;
     code: string;
-    author: string;
+    author: {
+        id: string;
+        name: string;
+        username: string;
+    }
 }
 
 type Props = {
@@ -34,9 +39,9 @@ function defaultState(): State {
 const SnippetsFeed: FC<Props> = (props) => {
     let [state, setState] = useState<State>(defaultState());
     
-    useEffect(() => {
+    useEffectOnMount(() => {
         next().then();
-    }, []);
+    });
     
     async function next() {
         let query = fromTable(supabase, "Posts")
@@ -57,7 +62,33 @@ const SnippetsFeed: FC<Props> = (props) => {
             return;
         }
         
-        let nSnippets: Snippet[] = [...state.snippets, ...records.data];
+        let promises: Promise<Snippet>[] = records.data.map(async o => {
+            let userData = await fromTable(supabase, "UserPublicInfo")
+                .select("id, name, username")
+                .match({id: o.author})
+                .single();
+            
+            if (!userData.data) throw userData.error;
+            
+            let result: Snippet = {
+                id: o.id,
+                code: o.code,
+                title: o.title,
+                created_at: o.created_at,
+                lang: o.lang,
+                description: o.description,
+                author: {
+                    id: o.author,
+                    name: userData.data.name,
+                    username: userData.data.username,
+                },
+            }
+            return result;
+        });
+        
+        let data = await Promise.all(promises);
+        
+        let nSnippets: Snippet[] = [...state.snippets, ...data];
         setState({
             snippets: nSnippets,
             page: state.page + 1,

@@ -1,9 +1,18 @@
-import {useEffect, useState} from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import {EffectCallback, useEffect, useState} from "react";
 
 export function useAsyncEffect(func: () => Promise<any>, deps?: any[]) {
     useEffect(() => {
         func().then()
     }, deps);
+}
+
+/**
+ * @summary Utility hook to avoid eslint inspection and improve readability
+ * @param func
+ */
+export function useEffectOnMount(func: EffectCallback) {
+    useEffect(func, []);
 }
 
 function getWindowSize() {
@@ -16,11 +25,12 @@ function getWindowSize() {
 export function useWindowSize() {
     // Initialize state with undefined width/height so server and client renders match
     // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-    const [windowSize, setWindowSize] = useState<{width?: number, height?: number}>({});
+    const [windowSize, setWindowSize] = useState<{ width?: number, height?: number }>({});
     useEffect(() => {
         function handleResize() {
             setWindowSize(getWindowSize());
         }
+        
         // Add event listener
         window.addEventListener("resize", handleResize);
         // Call handler right away so state gets updated with initial window size

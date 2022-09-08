@@ -24,4 +24,5 @@ export type UserData = ProfileData & {
 export type ProfileData = {
     name: string;
     bio: string;
+    username: string;
 }
