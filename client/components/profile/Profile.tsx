@@ -20,7 +20,7 @@ const Profile: FC<Props> = (props) => {
             <ProfileDataEdit data={props} id={context.loggedIn ? context.id : null!}
                              onSave={(data) => {
                                  if (data && context.loggedIn)
-                                     context.changeCtx({...context, profileData: data});
+                                     context.changeCtx({...context, profileData: {...context.profileData, ...data}});
                                  setEditing(false);
                              }}></ProfileDataEdit>
             : <>

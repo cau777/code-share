@@ -1,4 +1,5 @@
-import {FC, useEffect, useRef, useState} from "react";
+import {FC, useRef, useState} from "react";
+import {useEffectOnMount} from "../../src/hooks";
 
 type Props = {
     text: string;
@@ -20,7 +21,7 @@ const TextWriteAnimation: FC<Props> = (props) => {
     let viewRef = useRef<HTMLSpanElement>(null);
     
     
-    useEffect(() => {
+    useEffectOnMount(() => {
         function registerObserver() {
             if (typeof IntersectionObserver === "undefined")
                 return;
@@ -39,7 +40,7 @@ const TextWriteAnimation: FC<Props> = (props) => {
         
         let handle = window.requestIdleCallback(registerObserver);
         return () => window.cancelIdleCallback(handle);
-    }, []);
+    });
     
     let ref = useRef<HTMLDivElement>(null);
     

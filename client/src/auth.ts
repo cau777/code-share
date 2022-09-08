@@ -7,15 +7,6 @@ export function redirectToLogin(router: NextRouter) {
     return router.push("/login");
 }
 
-export async function getLoggedContextOrRedirect(router: NextRouter, context: AuthCtx) {
-    console.log(context);
-    if (context.loggedIn) {
-        return context;
-    }
-    await redirectToLogin(router);
-    return null;
-}
-
 async function getProfileData(id: string) {
     let response = await fromTable(supabase, "UserPublicInfo")
         .select("*")
@@ -32,7 +23,7 @@ export async function login(context: AuthCtx, user: User) {
         completedProfile: result,
         loggedIn: true,
         changeCtx: context.changeCtx,
-        profileData: profileData ?? {bio: "", name: ""},
+        profileData: profileData ?? {bio: "", name: "", username: ""},
         id: user.id
     });
     

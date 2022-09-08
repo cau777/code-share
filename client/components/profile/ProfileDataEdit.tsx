@@ -10,7 +10,7 @@ import {ProfileData} from "../../src/db_types";
 type Props = {
     id: string;
     data: ProfileData;
-    onSave: (data?: ProfileData) => void;
+    onSave: (data?: Partial<ProfileData>) => void;
 }
 
 type Form = {

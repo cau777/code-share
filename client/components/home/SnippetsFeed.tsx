@@ -1,8 +1,9 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useState} from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {fromTable, supabase} from "../../src/supabase_client";
 import Loading from "../basic/Loading";
 import SnippetPost from "./SnippetPost";
+import {useEffectOnMount} from "../../src/hooks";
 
 const PageSize = 15;
 
@@ -38,9 +39,9 @@ function defaultState(): State {
 const SnippetsFeed: FC<Props> = (props) => {
     let [state, setState] = useState<State>(defaultState());
     
-    useEffect(() => {
+    useEffectOnMount(() => {
         next().then();
-    }, []);
+    });
     
     async function next() {
         let query = fromTable(supabase, "Posts")
