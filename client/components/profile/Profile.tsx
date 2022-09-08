@@ -31,6 +31,8 @@ const Profile: FC<Props> = (props) => {
                         <PenSquareIcon width={"1rem"} height={"1rem"}></PenSquareIcon>
                     </button>}
                 <h2>{props.name}</h2>
+                <h3 className={"text-font-2"}>@{props.username}</h3>
+                <hr className={"my-2"}/>
                 <p>{props.bio}</p>
             </>
     }
