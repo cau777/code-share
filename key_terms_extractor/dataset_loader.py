@@ -3,14 +3,10 @@ import string
 import sys
 import time
 from collections import defaultdict
-from nltk.corpus import stopwords
-from text_processing import extract_pos_tokens, lemmatize_tokens, normalize_text
+from text_processing import extract_pos_tokens, lemmatize_tokens, normalize_text, ENGLISH_STOPWORDS
 
 
 def main():
-    #  Words to ignore in the documents
-    words_to_remove = set(list(stopwords.words('english')) + list(string.punctuation))
-
     # Dict representing in how many documents words are present, to be used by tf-idf
     doc_frequency = defaultdict(int)
     doc_count = 0
@@ -24,7 +20,7 @@ def main():
             print(f"Started file {file} at {time.thread_time()}")
             for line in f:
                 line: str = normalize_text(line[1:-1])
-                tokens = extract_pos_tokens(line, words_to_remove)
+                tokens = extract_pos_tokens(line, ENGLISH_STOPWORDS)
                 lemmatized = lemmatize_tokens(tokens)  # Lemmatize using Part Of Speach tagging
                 for word in set(lemmatized):  # Avoid duplicates
                     doc_frequency[word] += 1

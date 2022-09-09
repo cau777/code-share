@@ -1,7 +1,11 @@
 import re
+import string
 
 from nltk import word_tokenize, pos_tag, WordNetLemmatizer
-from nltk.corpus import wordnet
+from nltk.corpus import wordnet, stopwords
+
+#  Words to ignore in the documents
+ENGLISH_STOPWORDS = set(list(stopwords.words('english')) + list(string.punctuation))
 
 
 def translate_pos_tag(nltk_tag: str):
