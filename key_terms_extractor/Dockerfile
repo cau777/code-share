@@ -1,4 +1,4 @@
-FROM python:slim-buster AS deps
+FROM python:slim-buster
 WORKDIR /app
 
 ENV VIRTUAL_ENV=/opt/venv
@@ -15,4 +15,4 @@ COPY app.py dataset_loader.py lazy_data.py text_processing.py documents.json ./
 
 EXPOSE 5000
 #ENTRYPOINT ["tail", "-f", "/dev/null"]
-CMD python app.py
+CMD waitress-serve --listen 0.0.0.0:5000 --threads 1 app:app
