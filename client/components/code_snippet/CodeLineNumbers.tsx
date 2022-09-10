@@ -6,7 +6,7 @@ type Props = {
     offsetBottom?: boolean;
 }
 
-const CodeEditorLineNumbers: FC<Props> = (props) => {
+const CodeLineNumbers: FC<Props> = (props) => {
     let children: JSX.Element[] = [];
     
     for (let i = 0; i < props.lineCount; i++) {
@@ -35,4 +35,4 @@ const CodeEditorLineNumbers: FC<Props> = (props) => {
     );
 }
 
-export default memo(CodeEditorLineNumbers);
+export default memo(CodeLineNumbers);

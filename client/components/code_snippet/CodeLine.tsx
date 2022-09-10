@@ -47,7 +47,7 @@ function generate(text: string, charColors: Uint8Array) {
     return result;
 }
 
-const CodeEditorLine: FC<Props> = (props) => {
+const CodeLine: FC<Props> = (props) => {
     return (
         <tr>
             <td className={mergeClasses("code-height pl-1", {"border-y-2 border-back-3": props.selected})}>
@@ -57,7 +57,7 @@ const CodeEditorLine: FC<Props> = (props) => {
     );
 }
 
-export default memo(CodeEditorLine, (prev, next) => {
+export default memo(CodeLine, (prev, next) => {
     return prev.text === next.text &&
         prev.selected === next.selected &&
         arraysAreEqual(prev.highlights, next.highlights)

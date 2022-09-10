@@ -14,6 +14,7 @@ export type Tables = {
         description: string;
         code: string;
         lang: string;
+        keywords: string[];
     }
 }
 

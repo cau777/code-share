@@ -1,11 +1,12 @@
 import {FC, memo} from "react";
 import {Snippet} from "./SnippetsFeed";
 import Card from "../Card";
-import CodeEditorDisplay from "../post/CodeEditorDisplay";
+import CodeDisplay from "../code_snippet/CodeDisplay";
 import {findLanguageByName, OtherLanguage} from "../../src/code/Languages";
-import CodeEditorLineNumbers from "../post/CodeEditorLineNumbers";
+import CodeEditorLineNumbers from "../code_snippet/CodeLineNumbers";
 import {countOccurrences} from "../../src/text";
 import ProfilePicture from "../basic/ProfilePicture";
+import KeywordList from "../basic/KeywordsList";
 
 type Props = Snippet;
 
@@ -28,16 +29,21 @@ const SnippetPost: FC<Props> = (props) => {
                         </div>
                     </div>
                     <h4>{props.title}</h4>
-                    <h5 className={"text-font-2"}>{props.description}</h5>
+                    <p className={"text-font-2 text-sm"}>{props.description}</p>
                 </header>
                 
-                <div className={"mt-2 mb-1 flex rounded border-back-1 border-2 overflow-auto monospace"}>
+                <div className={"mt-2 mb-2 flex rounded border-back-1 border-2 overflow-auto monospace"}>
                     <CodeEditorLineNumbers lineCount={countOccurrences(props.code, "\n") + 1}></CodeEditorLineNumbers>
-                    <CodeEditorDisplay text={props.code}
-                                       language={findLanguageByName(props.lang) ?? OtherLanguage}></CodeEditorDisplay>
+                    <CodeDisplay text={props.code}
+                                 language={findLanguageByName(props.lang) ?? OtherLanguage}></CodeDisplay>
                 </div>
                 
-                <p className={"text-right text-xs"}>{date.toLocaleString()}</p>
+                <footer className={"flex justify-between align-middle"}>
+                    <KeywordList keywords={props.keywords}></KeywordList>
+                    <div>
+                        <span className={"text-xs inline-block align-middle"}>{date.toLocaleString()}</span>
+                    </div>
+                </footer>
             </Card>
         </article>
     );

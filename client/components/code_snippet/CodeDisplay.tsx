@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {LanguageOptions} from "../../src/code/code_editor_types";
 import {highlightText} from "../../src/code/syntax_highlight";
-import CodeEditorLine from "./CodeEditorLine";
+import CodeEditorLine from "./CodeLine";
 
 type Props = {
     text: string;
@@ -9,7 +9,7 @@ type Props = {
     language: LanguageOptions;
 }
 
-const CodeEditorDisplay: FC<Props> = (props) => {
+const CodeDisplay: FC<Props> = (props) => {
     let options = props.language;
     let linesWithColors = highlightText(props.text, options);
     
@@ -27,4 +27,4 @@ const CodeEditorDisplay: FC<Props> = (props) => {
     );
 }
 
-export default CodeEditorDisplay;
+export default CodeDisplay;

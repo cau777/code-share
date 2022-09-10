@@ -37,7 +37,7 @@ const FirstLoginForm: FC = () => {
             .insert({id: context.id, name: data.name, bio: data.bio, username: data.username});
         
         if (response.error) {
-            console.error(response.error);
+            console.error(response.error); // TODO: error
             setBusy(false);
         } else {
             await router.push("/");

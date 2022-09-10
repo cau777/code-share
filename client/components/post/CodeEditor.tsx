@@ -4,8 +4,8 @@ import {UseFormRegisterReturn} from "react-hook-form";
 import {countOccurrences} from "../../src/text";
 import {CommandExecutor} from "../../src/code/CommandExecutor";
 import Commands from "../../src/code/commands/Commands";
-import CodeEditorLineNumbers from "./CodeEditorLineNumbers";
-import CodeEditorDisplay from "./CodeEditorDisplay";
+import CodeEditorLineNumbers from "../code_snippet/CodeLineNumbers";
+import CodeDisplay from "../code_snippet/CodeDisplay";
 import CodeEditorTextArea from "./CodeEditorTextArea";
 import {findLanguageByName} from "../../src/code/Languages";
 
@@ -121,7 +121,7 @@ const CodeEditor: FC<Props> = (props) => {
     
             <div ref={textareaParentRef} className={"flex-grow top-0 left-0 relative w-full bg-back-1"}>
                 <div ref={codeTextRef} className={"select-none absolute top-0 left-0 w-full overflow-hidden"}>
-                    <CodeEditorDisplay selected={state.selected} text={state.text} language={language}/>
+                    <CodeDisplay selected={state.selected} text={state.text} language={language}/>
                 </div>
         
                 {/*TODO: mobile support + style*/}

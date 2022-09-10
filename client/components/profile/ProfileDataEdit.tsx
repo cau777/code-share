@@ -19,11 +19,9 @@ type Form = {
 }
 
 const ProfileDataEdit: FC<Props> = (props) => {
-    console.log(props.data)
     let {register, handleSubmit} = useForm<Form>({defaultValues: {name: props.data.name, bio: props.data.bio}});
     
     async function submit(data: Form) {
-        console.log(data);
         await fromTable(supabase, "UserPublicInfo")
             .update({name: data.name, bio: data.bio})
             .match({id: props.id});

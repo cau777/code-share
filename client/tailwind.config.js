@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {import("tailwindcss").Config} */
 module.exports = {
     content: [
         "./pages/**/*.{js,ts,jsx,tsx}",
@@ -13,13 +13,18 @@ module.exports = {
                     3: "#505050",
                 },
                 primary: {
+                    50: "#f6e6ff",
+                    100: "#e8c1fe",
                     200: "#d996ff",
                     300: "#c969ff",
                     400: "#ba41fe",
                     500: "#aa1bf4",
                     600: "#971dee",
+                    700: "#7b29d9",
+                    800: "#6527d0",
+                    900: "#5b20b9",
                 },
-                error:{
+                error: {
                     200: "#ff96bd",
                     300: "#ff69a0",
                     400: "#fe4789",
@@ -28,7 +33,19 @@ module.exports = {
                 font: {
                     1: "#FFFFFF",
                     2: "#c9c9c9"
-                }
+                },
+                analog: {
+                    50: "#f6e6ff",
+                    100: "#cac0ff",
+                    200: "#a496ff",
+                    300: "#7f6df4",
+                    400: "#694ce2",
+                    500: "#5626d0",
+                    600: "#511ac5",
+                    700: "#4904b8",
+                    800: "#4300aa",
+                    900: "#390092",
+                },
             },
 
             container: {

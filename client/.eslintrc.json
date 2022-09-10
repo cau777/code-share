@@ -1,7 +1,7 @@
 {
   "extends": "next/core-web-vitals",
   "rules": {
-    "no-console": "off",
+    "no-console": "warn",
     "require-await": "warn",
     "quotes": "warn",
     "jsx-quotes": "warn"
