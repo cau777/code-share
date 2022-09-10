@@ -17,6 +17,9 @@ def hello_world():
     text = request_json["text"]
     count = int(request_json["count"])
 
+    if len(text) > 4_000:
+        raise BadRequest("Text too long")
+
     text = normalize_text(text)
     tokens = extract_pos_tokens(text, ENGLISH_STOPWORDS)
 

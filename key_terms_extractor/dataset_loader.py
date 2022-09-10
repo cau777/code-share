@@ -28,7 +28,7 @@ def main():
     print("doc_count", doc_count)
 
     print("Started saving at", time.thread_time())
-    with open(r".\documents.txt", "w", encoding="utf-8") as f:
+    with open(r"./documents.json", "w", encoding="utf-8") as f:
         json.dump({"count": doc_count, "frequencies": doc_frequency}, f)
 
 
