@@ -11,7 +11,7 @@ RUN pip install -r requirements.txt
 COPY nltk_setup.py ./
 RUN python nltk_setup.py
 
-COPY app.py dataset_loader.py lazy_data.py text_processing.py documents.txt ./
+COPY app.py dataset_loader.py lazy_data.py text_processing.py documents.json ./
 
 EXPOSE 5000
 #ENTRYPOINT ["tail", "-f", "/dev/null"]
