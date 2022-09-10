@@ -6,7 +6,7 @@ document_frequencies: dict[str, int]
 
 def load_document():
     global document_count, document_frequencies
-    with open(r"./results.txt", "r", encoding="utf-8") as f:
+    with open(r"./documents.txt", "r", encoding="utf-8") as f:
         loaded = json.load(f)
         document_count = loaded["count"]
         document_frequencies = loaded["frequencies"]

@@ -3,7 +3,6 @@ from math import log
 from flask import Flask, jsonify, request
 from werkzeug.exceptions import BadRequest
 from lazy_data import load_document
-
 from text_processing import extract_pos_tokens, lemmatize_tokens, normalize_text, ENGLISH_STOPWORDS
 
 app = Flask(__name__)
@@ -49,4 +48,4 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0", port=5000)

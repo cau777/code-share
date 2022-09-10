@@ -1,5 +1,4 @@
 import json
-import string
 import sys
 import time
 from collections import defaultdict
@@ -29,7 +28,7 @@ def main():
     print("doc_count", doc_count)
 
     print("Started saving at", time.thread_time())
-    with open(r".\results.txt", "w", encoding="utf-8") as f:
+    with open(r".\documents.txt", "w", encoding="utf-8") as f:
         json.dump({"count": doc_count, "frequencies": doc_frequency}, f)
 
 
