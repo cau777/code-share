@@ -19,6 +19,7 @@ export type Snippet = {
         name: string;
         username: string;
     }
+    keywords: string[];
 }
 
 type Props = {
@@ -55,10 +56,8 @@ const SnippetsFeed: FC<Props> = (props) => {
         query = query.range(state.page * PageSize, (state.page + 1) * PageSize);
         let records = await query;
         
-        console.log("records", records);
-        
         if (records.data === null) {
-            console.error(records.error);
+            console.error(records.error); // TODO: error
             return;
         }
         
@@ -82,6 +81,7 @@ const SnippetsFeed: FC<Props> = (props) => {
                     name: userData.data.name,
                     username: userData.data.username,
                 },
+                keywords: o.keywords
             }
             return result;
         });

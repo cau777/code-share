@@ -1,4 +1,4 @@
-import {FC, useContext} from "react";
+import {FC, useContext, useRef} from "react";
 import Card from "../Card";
 import {useForm} from "react-hook-form";
 import FloatingLabelInput from "../basic/FloatingLabelInput";
@@ -11,18 +11,25 @@ import {AboveLg, BelowXl} from "../basic/Breakpoints";
 import {fromTable, supabase} from "../../src/supabase_client";
 import {AuthContext} from "../AuthContext";
 import MustBeLoggedIn from "../basic/MustBeLoggedIn";
+import DynamicKeywords from "./DynamicKeywords";
 
 type Form = {
     title: string;
     description: string;
     lang: string;
     code: string;
+    keywords: string[];
 }
 
 const PostForm: FC = () => {
-    let {register, handleSubmit, setValue, watch} = useForm<Form>();
+    let {register, handleSubmit, setValue, watch} = useForm<Form>({defaultValues: {title: "", description: ""}});
+    let title = watch("title");
+    let description = watch("description");
     let lang = watch("lang");
+    
+    
     let context = useContext(AuthContext);
+    let keywords = useRef<Promise<string[]>>();
     
     async function submit(data: Form) {
         if (!context.loggedIn) return;
@@ -33,7 +40,8 @@ const PostForm: FC = () => {
                 title: data.title,
                 description: data.description,
                 code: data.code,
-                lang: data.lang
+                lang: data.lang,
+                keywords: (await keywords.current) ?? []
             });
     }
     
@@ -48,8 +56,10 @@ const PostForm: FC = () => {
                     <SearchSelect onChange={(o: any) => setValue("lang", o.value)} placeholder={"Language"}
                                   options={Languages.map(o => ({label: o.name, value: o.name}))}/>
                 </div>
-            
-            
+                
+                <div className={"mb-2"}>
+                    <DynamicKeywords title={title} description={description}></DynamicKeywords>
+                </div>
             </>
         );
     }

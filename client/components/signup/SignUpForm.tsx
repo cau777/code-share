@@ -33,7 +33,7 @@ const SignUpForm: FC = () => {
         let {user, error} = await supabase.auth.signUp({email: data.email, password: data.password});
         
         if (error) {
-            console.error(error);
+            console.error(error); // TODO: error
             setState({busy: false, error: error?.message});
         } else {
             await login(ctx, user!);

@@ -34,7 +34,6 @@ export function compareEntriesBut<T>(object1: T, object2: T, except: (keyof T)[]
         if (exceptSet.has(key))
             continue;
         if (object1[key] !== object2[key]) {
-            console.log("Different but", object1[key] , object2[key])
             return false;
         }
     }
@@ -45,7 +44,6 @@ export function compareEntriesBut<T>(object1: T, object2: T, except: (keyof T)[]
 export function compareEntries<T>(object1: T, object2: T) {
     for (const key in object1) {
         if (object1[key] !== object2[key]) {
-            console.log("Different", object1[key] , object2[key])
             return false;
         }
     }
