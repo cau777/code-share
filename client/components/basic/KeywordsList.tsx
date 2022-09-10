@@ -4,7 +4,7 @@ type Props = {
     keywords: string[]
 }
 
-const TagList: FC<Props> = (props) => {
+const KeywordsList: FC<Props> = (props) => {
     return (
         <div className={"rounded-lg flex gap-2 flex-wrap"}>
             {props.keywords.map(o => (
@@ -16,4 +16,4 @@ const TagList: FC<Props> = (props) => {
     )
 }
 
-export default TagList;
+export default KeywordsList;

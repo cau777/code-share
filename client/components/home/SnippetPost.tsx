@@ -6,7 +6,7 @@ import {findLanguageByName, OtherLanguage} from "../../src/code/Languages";
 import CodeEditorLineNumbers from "../code_snippet/CodeLineNumbers";
 import {countOccurrences} from "../../src/text";
 import ProfilePicture from "../basic/ProfilePicture";
-import KeywordList from "../basic/TagList";
+import KeywordList from "../basic/KeywordsList";
 
 type Props = Snippet;
 

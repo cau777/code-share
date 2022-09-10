@@ -1,7 +1,7 @@
 import {FC, useEffect, useRef, useState} from "react";
 import {AsyncState} from "../../src/attributes";
 import Loading from "../basic/Loading";
-import TagList from "../basic/TagList";
+import KeywordsList from "../basic/KeywordsList";
 import {fetchPostKeywords, KeywordsRequestManager} from "../../src/keywords";
 import {sleep} from "../../src/promises";
 
@@ -29,14 +29,14 @@ const DynamicKeywords: FC<Props> = (props) => {
         case "loading":
             return (
                 <>
-                    {prev.current && <TagList keywords={prev.current}></TagList>}
+                    {prev.current && <KeywordsList keywords={prev.current}></KeywordsList>}
                     <Loading></Loading>
                 </>
             );
         case "error":
             return (<p>{state.error}</p>); // TODO: error
         case "ready":
-            return (<TagList keywords={state.value}></TagList>);
+            return (<KeywordsList keywords={state.value}></KeywordsList>);
     }
 }
 
