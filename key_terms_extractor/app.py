@@ -24,7 +24,7 @@ def hello_world():
     tokens = extract_pos_tokens(text, ENGLISH_STOPWORDS)
 
     if len(tokens) <= count:
-        return tokens + ((len(tokens) - count) * [""])
+        return [token for token, pos in tokens] + ((len(tokens) - count) * [""])
 
     lemmatized = lemmatize_tokens(tokens)
     frequencies = defaultdict(int)
