@@ -11,6 +11,7 @@ import {AppName} from "../../src/styling";
 import {AuthContext} from "../../components/AuthContext";
 import {UserData} from "../../src/db_types";
 import {getServerCommonTranslations} from "../../src/i18n";
+import BlockError from "../../components/basic/BlockError";
 
 const ProfileByUsernamePage: NextPage = () => {
     let router = useRouter();
@@ -43,7 +44,7 @@ const ProfileByUsernamePage: NextPage = () => {
         case "loading":
             return (<Loading></Loading>);
         case "error":
-            return (<p>{state.error}</p>); // TODO: error message
+            return (<BlockError>{state.error}</BlockError>);
         case "ready":
             return (
                 <>

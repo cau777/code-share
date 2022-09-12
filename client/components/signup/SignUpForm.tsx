@@ -11,6 +11,7 @@ import {useRouter} from "next/router";
 import {login} from "../../src/auth";
 import TextWriteAnimation from "../animated/TextWriteAnimation";
 import {useTranslation} from "next-i18next";
+import BlockError from "../basic/BlockError";
 
 type Form = {
     email: string;
@@ -35,8 +36,7 @@ const SignUpForm: FC = () => {
         let {user, error} = await supabase.auth.signUp({email: data.email, password: data.password});
         
         if (error) {
-            console.error(error); // TODO: error
-            setState({busy: false, error: error?.message});
+            setState({busy: false, error: error?.message}); // TODO: translate
         } else {
             await login(ctx, user!);
             await router.push("/firstlogin");
@@ -59,6 +59,8 @@ const SignUpForm: FC = () => {
                 </h1>
             </div>
             <form className={"w-[20rem]"} onSubmit={handleSubmit(submit)}>
+                <BlockError>{state.error}</BlockError>
+                
                 <FloatingLabelInput label={t("email")} inputType={"text"} error={errors.email?.message} autoCapitalize={"off"}
                                     props={register("email", {
                                         pattern: {message: "Invalid email", value: /\w+@\w+\.\w+/},
@@ -80,8 +82,7 @@ const SignUpForm: FC = () => {
                 </div>
                 <SmallError message={state.error}></SmallError>
             </form>
-            <p className={"mt-2 text-sm"}>{t("alreadyRegistered")} <span className={"simple-link"}><Link href={"/login"}>{t("login")}</Link></span>
-            </p>
+            <p className={"mt-2 text-sm"}>{t("alreadyRegistered")} <span className={"simple-link"}><Link href={"/login"}>{t("login")}</Link></span></p>
         </Card>
     )
 }

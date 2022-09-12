@@ -9,6 +9,7 @@ import FloatingLabelTextarea from "../basic/FloatingLabelTextarea";
 import {AuthContext} from "../AuthContext";
 import MustBeLoggedIn from "../basic/MustBeLoggedIn";
 import {useRouter} from "next/router";
+import BlockError from "../basic/BlockError";
 
 type Form = {
     username: string;
@@ -19,6 +20,7 @@ type Form = {
 const FirstLoginForm: FC = () => {
     let {handleSubmit, register, formState} = useForm<Form>({defaultValues: {bio: ""}});
     let [busy, setBusy] = useState(false);
+    let [error, setError] = useState<string>();
     let context = useContext(AuthContext);
     let router = useRouter();
     
@@ -37,7 +39,7 @@ const FirstLoginForm: FC = () => {
             .insert({id: context.id, name: data.name, bio: data.bio, username: data.username});
         
         if (response.error) {
-            console.error(response.error); // TODO: error
+            setError(response.error.message); // TODO: translate
             setBusy(false);
         } else {
             await router.push("/");
@@ -70,7 +72,10 @@ const FirstLoginForm: FC = () => {
                     <TextWriteAnimation text={"A little about you"} triggerView={true}></TextWriteAnimation>
                 </h1>
             </div>
+            
             <form className={"w-[20rem]"} onSubmit={handleSubmit(submit)}>
+                <BlockError>{error}</BlockError>
+                
                 <FloatingLabelInput label={"Username"} props={register("username", {
                     required: true,
                     validate: validateUsername

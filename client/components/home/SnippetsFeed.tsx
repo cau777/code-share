@@ -5,6 +5,7 @@ import Loading from "../basic/Loading";
 import SnippetPost from "./SnippetPost";
 import {useEffectOnMount} from "../../src/hooks";
 import {useTranslation} from "next-i18next";
+import BlockError from "../basic/BlockError";
 
 const PageSize = 15;
 
@@ -40,6 +41,7 @@ function defaultState(): State {
 
 const SnippetsFeed: FC<Props> = (props) => {
     let [state, setState] = useState<State>(defaultState());
+    let [error, setError] = useState<string>();
     let {t} = useTranslation();
     
     useEffectOnMount(() => {
@@ -59,7 +61,7 @@ const SnippetsFeed: FC<Props> = (props) => {
         let records = await query;
         
         if (records.data === null) {
-            console.error(records.error); // TODO: error
+            setError(records.error.message); // TODO: translate
             return;
         }
         
@@ -100,11 +102,14 @@ const SnippetsFeed: FC<Props> = (props) => {
     }
     
     return (
-        <InfiniteScroll next={next} hasMore={state.hasMore}
-                        endMessage={<p className={"text-center"}>{t("feedEnd")}</p>}
-                        loader={<Loading></Loading>} dataLength={state.snippets.length}>
-            {state.snippets.map(o => (<SnippetPost {...o} key={o.id}></SnippetPost>))}
-        </InfiniteScroll>
+        <>
+            <BlockError>{error}</BlockError>
+            <InfiniteScroll next={next} hasMore={state.hasMore}
+                            endMessage={<p className={"text-center"}>{t("feedEnd")}</p>}
+                            loader={<Loading></Loading>} dataLength={state.snippets.length}>
+                {state.snippets.map(o => (<SnippetPost {...o} key={o.id}></SnippetPost>))}
+            </InfiniteScroll>
+        </>
     )
 }
 

@@ -4,6 +4,7 @@ import Loading from "../basic/Loading";
 import KeywordsList from "../basic/KeywordsList";
 import {fetchPostKeywords, KeywordsRequestManager} from "../../src/keywords";
 import {sleep} from "../../src/promises";
+import BlockError from "../basic/BlockError";
 
 type Props = {
     title: string;
@@ -34,7 +35,7 @@ const DynamicKeywords: FC<Props> = (props) => {
                 </>
             );
         case "error":
-            return (<p>{state.error}</p>); // TODO: error
+            return (<BlockError>{state.error}</BlockError>);
         case "ready":
             return (<KeywordsList keywords={state.value}></KeywordsList>);
     }

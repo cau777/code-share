@@ -8,6 +8,7 @@ import {useTranslation} from "next-i18next";
 const Login: NextPage = () => {
     let {t} = useTranslation();
     
+    //TODO: translate login errors
     return (
         <div>
             <Head>
