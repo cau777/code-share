@@ -1,4 +1,4 @@
-import {FC, useContext, useRef} from "react";
+import {FC, useContext} from "react";
 import Card from "../Card";
 import {useForm} from "react-hook-form";
 import FloatingLabelInput from "../basic/FloatingLabelInput";
@@ -12,6 +12,7 @@ import {fromTable, supabase} from "../../src/supabase_client";
 import {AuthContext} from "../AuthContext";
 import MustBeLoggedIn from "../basic/MustBeLoggedIn";
 import DynamicKeywords from "./DynamicKeywords";
+import {fetchPostKeywords} from "../../src/keywords";
 
 type Form = {
     title: string;
@@ -22,14 +23,18 @@ type Form = {
 }
 
 const PostForm: FC = () => {
-    let {register, handleSubmit, setValue, watch} = useForm<Form>({defaultValues: {title: "", description: ""}});
+    let {register, handleSubmit, setValue, watch, reset} = useForm<Form>({
+        defaultValues: {
+            title: "",
+            description: "",
+            code: ""
+        }
+    });
     let title = watch("title");
     let description = watch("description");
     let lang = watch("lang");
     
-    
     let context = useContext(AuthContext);
-    let keywords = useRef<Promise<string[]>>();
     
     async function submit(data: Form) {
         if (!context.loggedIn) return;
@@ -41,13 +46,16 @@ const PostForm: FC = () => {
                 description: data.description,
                 code: data.code,
                 lang: data.lang,
-                keywords: (await keywords.current) ?? []
+                keywords: await fetchPostKeywords(data.title, data.description)
             });
+        
+        reset();
     }
     
     function basicFields() {
         return (
             <>
+                {/*TODO: wrap*/}
                 <FloatingLabelInput label={"Title"} props={register("title", {required: true})}></FloatingLabelInput>
                 <FloatingLabelTextarea label={"Description"}
                                        props={register("description", {required: true})}></FloatingLabelTextarea>
@@ -68,7 +76,7 @@ const PostForm: FC = () => {
         return (
             <div className={"mb-3 h-full"}>
                 <h5 className={"monospace text-sm pl-2"}>Write your code below</h5>
-                <CodeEditor textareaProps={register("code", {deps: ["lang"]})}
+                <CodeEditor text={watch("code")} onChange={o => setValue("code", o)}
                             language={findLanguageByName(lang)}></CodeEditor>
             </div>
         )

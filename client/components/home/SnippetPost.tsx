@@ -16,7 +16,6 @@ const SnippetPost: FC<Props> = (props) => {
     return (
         <article className={"mb-3"}>
             <Card>
-                {/* TODO: style */}
                 <header>
                     <p className={"float-right monospace"}>{props.lang}</p>
                     <div className={"flex gap-1 mb-1"}>
@@ -32,7 +31,7 @@ const SnippetPost: FC<Props> = (props) => {
                     <p className={"text-font-2 text-sm"}>{props.description}</p>
                 </header>
                 
-                <div className={"mt-2 mb-2 flex rounded border-back-1 border-2 overflow-auto monospace"}>
+                <div className={"mt-2 mb-2 flex rounded border-back-1 border-2 overflow-auto monospace max-h-[40vh] overflow-auto"}>
                     <CodeEditorLineNumbers lineCount={countOccurrences(props.code, "\n") + 1}></CodeEditorLineNumbers>
                     <CodeDisplay text={props.code}
                                  language={findLanguageByName(props.lang) ?? OtherLanguage}></CodeDisplay>

@@ -11,7 +11,7 @@ const CodeLineNumbers: FC<Props> = (props) => {
     
     for (let i = 0; i < props.lineCount; i++) {
         children.push(
-            <tr key={"line " + i}>
+            <tr key={"line " + i} className={"relative z-40 bg-back-2"}>
                 <td className={"px-1 code-height m-1"}>{i + 1}</td>
             </tr>
         );
@@ -19,9 +19,9 @@ const CodeLineNumbers: FC<Props> = (props) => {
     
     return (
         <div>
-            <table className="left-0" ref={props.innerRef}>
+            <table className={"left-0"} ref={props.innerRef}>
                 <colgroup>
-                    <col/>
+                    <col className={"bg-back-2"}/>
                 </colgroup>
                 <tbody>
                 {children}
