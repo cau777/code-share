@@ -10,6 +10,7 @@ import {AuthContext} from "../AuthContext";
 import {useRouter} from "next/router";
 import {login} from "../../src/auth";
 import TextWriteAnimation from "../animated/TextWriteAnimation";
+import {useTranslation} from "next-i18next";
 
 type Form = {
     email: string;
@@ -27,6 +28,7 @@ const SignUpForm: FC = () => {
     let ctx = useContext(AuthContext);
     let {register, handleSubmit, formState: {errors}, getValues} = useForm<Form>({});
     let router = useRouter();
+    let {t} = useTranslation();
     
     async function submit(data: Form) {
         setState({busy: true});
@@ -53,32 +55,32 @@ const SignUpForm: FC = () => {
         <Card>
             <div className={"mb-3"}>
                 <h1 className={"monospace text-primary-200 flex justify-center"}>
-                    <TextWriteAnimation text={"Join us"} triggerView={true}></TextWriteAnimation>
+                    <TextWriteAnimation text={t("joinUs")} triggerView={true}></TextWriteAnimation>
                 </h1>
             </div>
             <form className={"w-[20rem]"} onSubmit={handleSubmit(submit)}>
-                <FloatingLabelInput label={"Email"} inputType={"text"} error={errors.email?.message} autoCapitalize={"off"}
+                <FloatingLabelInput label={t("email")} inputType={"text"} error={errors.email?.message} autoCapitalize={"off"}
                                     props={register("email", {
                                         pattern: {message: "Invalid email", value: /\w+@\w+\.\w+/},
                                     })}></FloatingLabelInput>
                 
-                <FloatingLabelInput label={"Password"} inputType={"password"} error={errors.password?.message}
+                <FloatingLabelInput label={t("password")} inputType={"password"} error={errors.password?.message}
                                     props={register("password", {
                                         minLength: {value: 6, message: "Password should be at least 6 characters long"},
                                         validate: complexEnough
                                     })}></FloatingLabelInput>
                 
-                <FloatingLabelInput label={"Repeat password"} inputType={"password"}
+                <FloatingLabelInput label={t("repeatPassword")} inputType={"password"}
                                     error={errors.passwordRepeat?.message}
                                     props={register("passwordRepeat", {
                                         validate: o => o === getValues("password") ? undefined : "Passwords don't match"
                                     })}></FloatingLabelInput>
                 <div className={"mt-3"}>
-                    <BtnPrimary disabled={state.busy} type={"submit"}>Sign Up</BtnPrimary>
+                    <BtnPrimary disabled={state.busy} type={"submit"}>{t("signUp")}</BtnPrimary>
                 </div>
                 <SmallError message={state.error}></SmallError>
             </form>
-            <p className={"mt-2 text-sm"}>Already registered? <span className={"simple-link"}><Link href={"/login"}>Log in</Link></span>
+            <p className={"mt-2 text-sm"}>{t("alreadyRegistered")} <span className={"simple-link"}><Link href={"/login"}>{t("login")}</Link></span>
             </p>
         </Card>
     )

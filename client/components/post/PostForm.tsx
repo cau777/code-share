@@ -13,6 +13,7 @@ import {AuthContext} from "../AuthContext";
 import MustBeLoggedIn from "../basic/MustBeLoggedIn";
 import DynamicKeywords from "./DynamicKeywords";
 import {fetchPostKeywords} from "../../src/keywords";
+import {useTranslation} from "next-i18next";
 
 type Form = {
     title: string;
@@ -34,6 +35,7 @@ const PostForm: FC = () => {
     let description = watch("description");
     let lang = watch("lang");
     
+    let {t} = useTranslation();
     let context = useContext(AuthContext);
     
     async function submit(data: Form) {
@@ -56,12 +58,12 @@ const PostForm: FC = () => {
         return (
             <>
                 {/*TODO: wrap*/}
-                <FloatingLabelInput label={"Title"} props={register("title", {required: true})}></FloatingLabelInput>
-                <FloatingLabelTextarea label={"Description"}
+                <FloatingLabelInput label={t("postTitle")} props={register("title", {required: true})}></FloatingLabelInput>
+                <FloatingLabelTextarea label={t("postDescription")}
                                        props={register("description", {required: true})}></FloatingLabelTextarea>
                 
                 <div className={"mb-2"}>
-                    <SearchSelect onChange={(o: any) => setValue("lang", o.value)} placeholder={"Language"}
+                    <SearchSelect onChange={(o: any) => setValue("lang", o.value)} placeholder={t("postLanguage")}
                                   options={Languages.map(o => ({label: o.name, value: o.name}))}/>
                 </div>
                 
@@ -75,7 +77,7 @@ const PostForm: FC = () => {
     function editor() {
         return (
             <div className={"mb-3 h-full"}>
-                <h5 className={"monospace text-sm pl-2"}>Write your code below</h5>
+                <h5 className={"monospace text-sm pl-2"}>{t("writeCodeBelow")}</h5>
                 <CodeEditor text={watch("code")} onChange={o => setValue("code", o)}
                             language={findLanguageByName(lang)}></CodeEditor>
             </div>
@@ -91,7 +93,7 @@ const PostForm: FC = () => {
     }
     
     if (!context.loggedIn) {
-        return (<MustBeLoggedIn action={"post snippets"}></MustBeLoggedIn>);
+        return (<MustBeLoggedIn actionKey={"postSnippet"}></MustBeLoggedIn>);
     }
     
     return (

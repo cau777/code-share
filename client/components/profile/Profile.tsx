@@ -16,6 +16,7 @@ const Profile: FC<Props> = (props) => {
     let context = useContext(AuthContext);
     
     function profileData() {
+        //TODO: fix overflow
         return editing ?
             <ProfileDataEdit data={props} id={context.loggedIn ? context.id : null!}
                              onSave={(data) => {

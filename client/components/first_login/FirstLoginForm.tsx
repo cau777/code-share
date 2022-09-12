@@ -23,7 +23,7 @@ const FirstLoginForm: FC = () => {
     let router = useRouter();
     
     if (!context.loggedIn)
-        return (<MustBeLoggedIn action={"create your profile"}></MustBeLoggedIn>);
+        return (<MustBeLoggedIn actionKey={"createYouProfile"}></MustBeLoggedIn>);
     
     if (context.completedProfile) {
         router.push("/").then();

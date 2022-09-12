@@ -6,6 +6,7 @@ import FloatingLabelTextarea from "../basic/FloatingLabelTextarea";
 import BtnSecondary from "../basic/BtnSecondary";
 import {fromTable, supabase} from "../../src/supabase_client";
 import {ProfileData} from "../../src/db_types";
+import {useTranslation} from "next-i18next";
 
 type Props = {
     id: string;
@@ -20,6 +21,7 @@ type Form = {
 
 const ProfileDataEdit: FC<Props> = (props) => {
     let {register, handleSubmit} = useForm<Form>({defaultValues: {name: props.data.name, bio: props.data.bio}});
+    let {t} = useTranslation();
     
     async function submit(data: Form) {
         await fromTable(supabase, "UserPublicInfo")
@@ -30,11 +32,11 @@ const ProfileDataEdit: FC<Props> = (props) => {
     
     return (
         <form onSubmit={handleSubmit(submit)}>
-            <FloatingLabelInput label={"Name"} props={register("name", {required: true})}></FloatingLabelInput>
-            <FloatingLabelTextarea label={"Bio"} props={register("bio")}></FloatingLabelTextarea>
+            <FloatingLabelInput label={t("name")} props={register("name", {required: true})}></FloatingLabelInput>
+            <FloatingLabelTextarea label={t("bio")} props={register("bio")}></FloatingLabelTextarea>
             <div className={"flex justify-between"}>
-                <BtnSecondary type={"button"} onClick={()=>props.onSave()}>Cancel</BtnSecondary>
-                <BtnPrimary type={"submit"}>Save</BtnPrimary>
+                <BtnSecondary type={"button"} onClick={()=>props.onSave()}>{t("cancel")}</BtnSecondary>
+                <BtnPrimary type={"submit"}>{t("save")}</BtnPrimary>
             </div>
         </form>
     )

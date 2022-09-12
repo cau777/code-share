@@ -4,6 +4,7 @@ import ChevronDownIcon from "../icons/ChevronDownIcon";
 import ScreenCover from "../basic/ScreenCover";
 import Link from "next/link";
 import ProfilePicture from "../basic/ProfilePicture";
+import {useTranslation} from "next-i18next";
 
 type State = {
     open: boolean;
@@ -12,7 +13,8 @@ type State = {
 const CurrentProfileButton: FC = () => {
     let context = useContext(AuthContext);
     let [state, setState] = useState<State>({open: false});
-
+    let {t} = useTranslation();
+    //TODO: language switch
     return (
         <>
             {state.open && <ScreenCover onClick={() => setState({open: false})}></ScreenCover>}
@@ -29,13 +31,13 @@ const CurrentProfileButton: FC = () => {
                             {context.loggedIn ?
                                 <>
                                     <li className={"w-full mb-2 text-xs cursor-auto word-wrap-normal"} onClick={e => e.stopPropagation()}>
-                                        Logged in as <b>{context.profileData.name}</b>
+                                        {t("loggedInAs")} <b>{context.profileData.name}</b>
                                     </li>
                                     
-                                    <Link href={"/profile"}><li>Profile</li></Link>
-                                    <Link href={"/logout"}><li>Logout</li></Link>
+                                    <Link href={"/profile"}><li>{t("profile")}</li></Link>
+                                    <Link href={"/logout"}><li>{t("logOut")}</li></Link>
                                 </> : <>
-                                    <Link href={"/login"}><li>Login</li></Link>
+                                    <Link href={"/login"}><li>{t("login")}</li></Link>
                                 </>}
                         </ul>
                     }

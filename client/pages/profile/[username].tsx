@@ -10,6 +10,7 @@ import Head from "next/head";
 import {AppName} from "../../src/styling";
 import {AuthContext} from "../../components/AuthContext";
 import {UserData} from "../../src/db_types";
+import {getServerCommonTranslations} from "../../src/i18n";
 
 const ProfileByUsernamePage: NextPage = () => {
     let router = useRouter();
@@ -54,5 +55,7 @@ const ProfileByUsernamePage: NextPage = () => {
             );
     }
 }
+
+export const getServerSideProps = getServerCommonTranslations();
 
 export default ProfileByUsernamePage;

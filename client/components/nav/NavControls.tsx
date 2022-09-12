@@ -3,9 +3,11 @@ import Link from "next/link";
 import {mergeClasses} from "../../src/attributes";
 import {useRouter} from "next/router";
 import CurrentProfileButton from "./CurrentProfileButton";
+import {useTranslation} from "next-i18next";
 
 const NavControls: FC<PropsWithChildren> = (props) => {
     let router = useRouter();
+    let {t} = useTranslation();
     
     return (
         <>
@@ -16,13 +18,13 @@ const NavControls: FC<PropsWithChildren> = (props) => {
                             Logo
                         </div>
                         <span className={"header-link" + mergeClasses({selected: router.pathname === "/"})}>
-                            <Link href={"/"}>Home</Link>
+                            <Link href={"/"}>{t("home")}</Link>
                         </span>
                         <span className={"header-link" + mergeClasses({selected: router.pathname === "/post"})}>
-                            <Link href={"/post"}>Post snippet</Link>
+                            <Link href={"/post"}>{t("postSnippet")}</Link>
                         </span>
                         <span className={"header-link" + mergeClasses({selected: router.pathname === "/profile"})}>
-                            <Link href={"/profile"}>Profile</Link>
+                            <Link href={"/profile"}>{t("profile")}</Link>
                         </span>
                         <span className={"header-link" + mergeClasses({selected: router.pathname === "/profile/test1"})}>
                             <Link href={"/profile/test1"}>Profile 1</Link>

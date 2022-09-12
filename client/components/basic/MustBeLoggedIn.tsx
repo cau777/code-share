@@ -1,16 +1,19 @@
 import {FC} from "react";
 import Link from "next/link";
+import {useTranslation} from "next-i18next";
 
 type Props = {
-    action: string;
+    actionKey: string;
 }
 
 const MustBeLoggedIn: FC<Props> = (props) => {
+    let {t} = useTranslation();
+    
     return (
         <h3>
-            You must be logged in to {props.action}. <span className={"simple-link"}><Link
-            href={"/login"}>Login</Link></span> or <span className={"simple-link"}><Link
-            href={"signup"}>Sign up</Link></span>
+            {t("youMustLogin")} {t(props.actionKey)}. <span className={"simple-link"}><Link
+            href={"/login"}>{t("login")}</Link></span> or <span className={"simple-link"}><Link
+            href={"signup"}>{t("signup")}</Link></span>
         </h3>
     )
 }
