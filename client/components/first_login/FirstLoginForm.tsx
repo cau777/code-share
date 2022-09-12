@@ -17,6 +17,7 @@ type Form = {
     bio: string;
 }
 
+// TODO: translate
 const FirstLoginForm: FC = () => {
     let {handleSubmit, register, formState} = useForm<Form>({defaultValues: {bio: ""}});
     let [busy, setBusy] = useState(false);

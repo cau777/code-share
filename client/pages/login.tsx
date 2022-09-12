@@ -12,7 +12,7 @@ const Login: NextPage = () => {
     return (
         <div>
             <Head>
-                <title>{t("login")} {AppName}</title>
+                <title>{t("login") + " " + AppName}</title>
             </Head>
             <div className={"grid-center"}>
                 <LogInForm></LogInForm>

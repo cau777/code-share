@@ -3,7 +3,6 @@ import {ProfileData} from "../src/db_types";
 import {useAsyncEffect} from "../src/hooks";
 import {supabase} from "../src/supabase_client";
 import {login} from "../src/auth";
-import Loading from "./basic/Loading";
 
 type BaseCtx = {
     changeCtx: (ctx: AuthCtx) => void;
@@ -26,7 +25,7 @@ export type AuthCtx = LoggedInCtx | LoggedOutCtx;
 export const AuthContext = createContext<AuthCtx>(undefined);
 
 const AuthProvider: FC<PropsWithChildren> = (props) => {
-    let [state, setState] = useState<AuthCtx>();
+    let [state, setState] = useState<AuthCtx>({loggedIn: false, changeCtx: (ctx) => setState(ctx)});
     
     useAsyncEffect(async () => {
         let context: AuthCtx = {loggedIn: false, changeCtx: (ctx) => setState(ctx)};
@@ -44,10 +43,7 @@ const AuthProvider: FC<PropsWithChildren> = (props) => {
             setState(context);
     }, []);
     
-    if (!state)
-        return (<Loading></Loading>);
-    
-    return (
+    return ( // TODO: key necessary?
         <AuthContext.Provider value={state} key={supabase.auth.session()?.access_token ?? "null"}>
             {props.children}
         </AuthContext.Provider>

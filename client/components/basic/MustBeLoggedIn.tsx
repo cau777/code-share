@@ -13,7 +13,7 @@ const MustBeLoggedIn: FC<Props> = (props) => {
         <h3>
             {t("youMustLogin")} {t(props.actionKey)}. <span className={"simple-link"}><Link
             href={"/login"}>{t("login")}</Link></span> or <span className={"simple-link"}><Link
-            href={"signup"}>{t("signup")}</Link></span>
+            href={"signup"}>{t("signUp")}</Link></span>
         </h3>
     )
 }

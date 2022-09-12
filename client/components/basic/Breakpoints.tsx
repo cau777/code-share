@@ -1,6 +1,5 @@
 import {FC, PropsWithChildren} from "react";
 import {useWindowWidth} from "../../src/hooks";
-import Loading from "./Loading";
 import {LgScreen, MdScreen, XlScreen} from "../../src/styling";
 
 type Breakpoint = FC<PropsWithChildren>
@@ -25,8 +24,7 @@ export const BelowXl: Breakpoint = (props) =>
 
 // noinspection JSUnusedLocalSymbols - WebStorm gives wrong inspection
 const Breakpoint: FC<PropsWithChildren<{ minWidth?: number, maxWidth?: number }>> = (props) => {
-    let windowWidth = useWindowWidth();
-    if (!windowWidth) return (<Loading></Loading>);
+    let windowWidth = useWindowWidth() ?? MdScreen;
     
     return (props.minWidth !== undefined && windowWidth <= props.minWidth) || (props.maxWidth !== undefined && windowWidth > props.maxWidth)
         ? <></>

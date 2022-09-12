@@ -7,7 +7,7 @@ const AssertProfileComplete: FC<PropsWithChildren> = (props) => {
     let router = useRouter();
     if (context.loggedIn && !context.completedProfile) {
         router.push("/firstlogin").then();
-        return (<h3>You must complete your profile to access this page</h3>);
+        return (<h3>You must complete your profile to access this page</h3>); // TODO: translate
     }
     return (<>{props.children}</>);
 }
