@@ -15,7 +15,7 @@ const ProfilePicture: FC<Props> = (props) => {
     
     return (
         <Image priority={false} src={url} layout={"responsive"} alt={"Profile picture of " + props.id}
-               height={"100%"} width={"100%"} onError={() => setUrl(defaultUser)}></Image>
+               height={"100%"} width={"100%"} onError={() => setUrl(defaultUser)} className={"rounded-full"}></Image>
     )
 }
 

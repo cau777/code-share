@@ -1,14 +1,17 @@
-const { i18n } = require("./next-i18next.config");
+const {i18n} = require("./next-i18next.config");
 
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 const nextConfig = {
-  i18n,
-  reactStrictMode: true,
-  swcMinify: true,
-  output: "standalone",
-  images: {
-    domains: ["ckqwtaorsntwgqmcfsmi.supabase.co"]
-  }
+    i18n,
+    reactStrictMode: true,
+    swcMinify: true,
+    output: "standalone",
+    images: {
+        domains: [
+            "ckqwtaorsntwgqmcfsmi.supabase.co",
+            "avatars.dicebear.com"
+        ]
+    }
 }
 
 module.exports = nextConfig

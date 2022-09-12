@@ -8,7 +8,6 @@ import {UserData} from "../../src/db_types";
 import BlockError from "../../components/basic/BlockError";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import Head from "next/head";
-import {useTranslation} from "next-i18next";
 import {AppName} from "../../src/styling";
 
 type Props = { found: false; } | ({ found: true; } & UserData);

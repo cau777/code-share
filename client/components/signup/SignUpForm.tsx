@@ -68,7 +68,7 @@ const SignUpForm: FC = () => {
                 
                 <FloatingLabelInput label={t("password")} inputType={"password"} error={errors.password?.message}
                                     props={register("password", {
-                                        minLength: {value: 6, message: "Password should be at least 6 characters long"},
+                                        minLength: {value: 6, message: "Password should be at least 6 characters long"}, // TODO: translate errors
                                         validate: complexEnough
                                     })}></FloatingLabelInput>
                 
@@ -82,7 +82,7 @@ const SignUpForm: FC = () => {
                 </div>
                 <SmallError message={state.error}></SmallError>
             </form>
-            <p className={"mt-2 text-sm"}>{t("alreadyRegistered")} <span className={"simple-link"}><Link href={"/login"}>{t("login")}</Link></span></p>
+            <p className={"mt-2 text-sm"}>{t("alreadyRegistered?")} <span className={"simple-link"}><Link href={"/login"}>{t("login")}</Link></span></p>
         </Card>
     )
 }

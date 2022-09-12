@@ -43,8 +43,10 @@ const AuthProvider: FC<PropsWithChildren> = (props) => {
             setState(context);
     }, []);
     
-    return ( // TODO: key necessary?
-        <AuthContext.Provider value={state} key={supabase.auth.session()?.access_token ?? "null"}>
+    return (
+        // TODO: needed?
+        // Key attribute forces re-render when the user data changes
+        <AuthContext.Provider value={state} key={JSON.stringify(state)}>
             {props.children}
         </AuthContext.Provider>
     )
