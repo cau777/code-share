@@ -4,10 +4,14 @@ import {mergeClasses} from "../../src/attributes";
 import {useRouter} from "next/router";
 import CurrentProfileButton from "./CurrentProfileButton";
 import {useTranslation} from "next-i18next";
+import {AboveSm, BelowMd} from "../basic/Breakpoints";
+import HomeIcon from "../icons/HomeIcon";
+import CodeSquareIcon from "../icons/CodeSquareIcon";
 
 const NavControls: FC<PropsWithChildren> = (props) => {
     let router = useRouter();
     let {t} = useTranslation();
+    let path = router.pathname;
     
     return (
         <>
@@ -17,21 +21,27 @@ const NavControls: FC<PropsWithChildren> = (props) => {
                         <div>
                             Logo
                         </div>
-                        <span className={"header-link" + mergeClasses({selected: router.pathname === "/"})}>
+                        
+                        <AboveSm>
+                        <span className={"header-link" + mergeClasses({selected: path === "/"})}>
                             <Link href={"/"}>{t("home")}</Link>
                         </span>
-                        <span className={"header-link" + mergeClasses({selected: router.pathname === "/post"})}>
+                            <span className={"header-link" + mergeClasses({selected: path === "/post"})}>
                             <Link href={"/post"}>{t("postSnippet")}</Link>
                         </span>
-                        <span className={"header-link" + mergeClasses({selected: router.pathname === "/profile"})}>
+                            <span className={"header-link" + mergeClasses({selected: path === "/profile"})}>
                             <Link href={"/profile"}>{t("profile")}</Link>
                         </span>
-                        <span className={"header-link" + mergeClasses({selected: router.pathname === "/profile/test1"})}>
+                            <span
+                                className={"header-link" + mergeClasses({selected: path === "/profile/test1"})}>
                             <Link href={"/profile/test1"}>Profile 1</Link>
                         </span>
-                        <span className={"header-link" + mergeClasses({selected: router.pathname === "/profile/test2"})}>
+                            <span
+                                className={"header-link" + mergeClasses({selected: path === "/profile/test2"})}>
                             <Link href={"/profile/test2"}>Profile 2</Link>
                         </span>
+                        </AboveSm>
+                        
                         <div className={"ml-auto"}>
                             <CurrentProfileButton></CurrentProfileButton>
                         </div>
@@ -41,6 +51,22 @@ const NavControls: FC<PropsWithChildren> = (props) => {
             <div className={"container mt-3"}>
                 {props.children}
             </div>
+            <BelowMd>
+                <footer className={"fixed left-0 bottom-0 w-full bg-back-2 border-t-2 border-back-1 z-50"}>
+                    <div className={"flex justify-around my-1"}>
+                        <span className={"header-link" + mergeClasses({selected: path === "/"})}>
+                            <Link href={"/"}>
+                                <HomeIcon height={"2rem"}></HomeIcon>
+                            </Link>
+                        </span>
+                        <span className={"header-link" + mergeClasses({selected: path === "/post"})}>
+                            <Link href={"/post"}>
+                                <CodeSquareIcon height={"2rem"}></CodeSquareIcon>
+                            </Link>
+                        </span>
+                    </div>
+                </footer>
+            </BelowMd>
         </>
     );
 }
