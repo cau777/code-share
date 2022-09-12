@@ -10,6 +10,7 @@ import Card from "../Card";
 import {useRouter} from "next/router";
 import TextWriteAnimation from "../animated/TextWriteAnimation";
 import {login} from "../../src/auth";
+import {useTranslation} from "next-i18next";
 
 type Form = {
     email: string;
@@ -26,6 +27,7 @@ const LogInForm: FC = () => {
     let ctx = useContext(AuthContext);
     let {register, handleSubmit, formState: {errors}} = useForm<Form>({});
     let router = useRouter();
+    let {t} = useTranslation();
     
     async function submit(data: Form) {
         setState({busy: true});
@@ -45,22 +47,22 @@ const LogInForm: FC = () => {
         <Card>
             <div className={"mb-3"}>
                 <h1 className={"monospace text-primary-200 flex justify-center"}>
-                    <TextWriteAnimation text={"Welcome back!"} triggerView={true}></TextWriteAnimation>
+                    <TextWriteAnimation text={t("welcomeBack")+"!"} triggerView={true}></TextWriteAnimation>
                 </h1>
             </div>
             <form className={"w-[20rem]"} onSubmit={handleSubmit(submit)}>
-                <FloatingLabelInput label={"Email"} inputType={"text"} error={errors.email?.message} autoCapitalize={"off"}
+                <FloatingLabelInput label={t("email")} inputType={"text"} error={errors.email?.message} autoCapitalize={"off"}
                                     props={register("email")}></FloatingLabelInput>
                 
-                <FloatingLabelInput label={"Password"} inputType={"password"} error={errors.password?.message}
+                <FloatingLabelInput label={t("password")} inputType={"password"} error={errors.password?.message}
                                     props={register("password")}></FloatingLabelInput>
                 
                 <div className={"mt-3"}>
-                    <BtnPrimary disabled={state.busy} type={"submit"}>Log In</BtnPrimary>
+                    <BtnPrimary disabled={state.busy} type={"submit"}>{t("login")}</BtnPrimary>
                 </div>
                 <SmallError message={state.error}></SmallError>
             </form>
-            <p className={"mt-2 text-sm"}>Don&apos;t have an account? <span className={"simple-link"}><Link href={"/signup"}>Sign up</Link></span>
+            <p className={"mt-2 text-sm"}>{t("noAccount?")} <span className={"simple-link"}><Link href={"/signup"}>{t("signUp")}</Link></span>
             </p>
         </Card>
     )

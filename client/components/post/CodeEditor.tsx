@@ -1,6 +1,5 @@
 import {FC, useState, UIEvent, KeyboardEvent, useRef, useEffect} from "react";
 import {LanguageOptions} from "../../src/code/code_editor_types";
-import {UseFormRegisterReturn} from "react-hook-form";
 import {countOccurrences} from "../../src/text";
 import {CommandExecutor} from "../../src/code/CommandExecutor";
 import Commands from "../../src/code/commands/Commands";
@@ -11,11 +10,11 @@ import {findLanguageByName} from "../../src/code/Languages";
 
 type Props = {
     language?: LanguageOptions;
-    textareaProps: UseFormRegisterReturn;
+    text: string;
+    onChange: (value: string) => void;
 }
 
 type State = {
-    text: string;
     selected: number;
     rows: number;
 }
@@ -39,9 +38,8 @@ function prepareKey(key: string) {
 }
 
 const CodeEditor: FC<Props> = (props) => {
-    let [state, setState] = useState<State>({text: "", selected: 0, rows: 1});
+    let [state, setState] = useState<State>({selected: 0, rows: 1});
     let language = props.language ?? findLanguageByName("Other")!;
-    
     let executorRef = useRef<CommandExecutor>();
     let lineNumbersRef = useRef<HTMLTableElement>(null);
     let textareaParentRef = useRef<HTMLDivElement>(null);
@@ -49,7 +47,11 @@ const CodeEditor: FC<Props> = (props) => {
     
     useEffect(() => {
         executorRef.current = new CommandExecutor(textareaParentRef.current!.querySelector("textarea")!);
-    }, []);
+    });
+    
+    useEffect(() => {
+        updateRowsAndCols(textareaParentRef.current!.querySelector("textarea")!);
+    }, [props.text]);
     
     function updateSelectedRow(target: HTMLTextAreaElement) {
         let lineNum = countOccurrences(target.value, "\n", 0, target.selectionEnd);
@@ -73,7 +75,7 @@ const CodeEditor: FC<Props> = (props) => {
         let target = e.currentTarget;
         updateRowsAndCols(target);
         setState(s => ({...s, text: target.value}));
-        await props.textareaProps.onChange(e);
+        await props.onChange(target.value);
     }
     
     function scrollNumbers(event: UIEvent<HTMLTextAreaElement>) {
@@ -90,6 +92,7 @@ const CodeEditor: FC<Props> = (props) => {
             codeText.style.top = -target.scrollTop + "px";
             codeText.style.left = -target.scrollLeft + "px";
         }
+        
     }
     
     function keyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
@@ -116,18 +119,19 @@ const CodeEditor: FC<Props> = (props) => {
     }
     
     return (
-        <div className="code-editor max-h-[80vh] code flex w-full relative overflow-auto border-2 border-back-1 rounded-lg">
+        <div
+            className="code-editor max-h-[80vh] code flex w-full relative overflow-hidden border-2 border-back-1 rounded-lg">
             <CodeEditorLineNumbers lineCount={state.rows} innerRef={lineNumbersRef} offsetBottom={true}/>
-    
+            
             <div ref={textareaParentRef} className={"flex-grow top-0 left-0 relative w-full bg-back-1"}>
-                <div ref={codeTextRef} className={"select-none absolute top-0 left-0 w-full overflow-hidden"}>
-                    <CodeDisplay selected={state.selected} text={state.text} language={language}/>
+                <div ref={codeTextRef} className={"select-none absolute min-w-full top-0 left-0 overflow-hidden "}>
+                    <CodeDisplay selected={state.selected} text={props.text} language={language}/>
                 </div>
-        
+                
                 {/*TODO: mobile support + style*/}
                 <CodeEditorTextArea onKeyDown={keyDown} onScroll={scrollNumbers}
                                     onSelect={e => updateSelectedRow(e.currentTarget)}
-                                    textareaProps={props.textareaProps} onChange={change}/>
+                                    value={props.text} onChange={change}/>
             </div>
         </div>
     )

@@ -40,8 +40,8 @@ const Profile: FC<Props> = (props) => {
     return (
         <>
             <AboveSm>
-                <div className={"flex gap-3"}>
-                    <div className={"basis-1/4"}>
+                <div className={"flex gap-3 w-full"}>
+                    <div className={"w-1/4"}>
                         <Card>
                             <div className={"p-2"}>
                                 <ProfilePicture id={props.id}></ProfilePicture>
@@ -52,7 +52,7 @@ const Profile: FC<Props> = (props) => {
                     <div>
                         <VerticalLine></VerticalLine>
                     </div>
-                    <div className={"flex-grow"}>
+                    <div className={"w-3/4"}>
                         <SnippetsFeed key={"feed " + props.id} specificUser={props.id}></SnippetsFeed>
                     </div>
                 </div>
@@ -75,8 +75,8 @@ const Profile: FC<Props> = (props) => {
                 </div>
             </BelowMd>
         </>
-    
-    );
+
+);
 }
 
 export default Profile;

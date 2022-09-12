@@ -5,12 +5,13 @@ import Profile from "../../components/profile/Profile";
 import {AppName} from "../../src/styling";
 import Head from "next/head";
 import MustBeLoggedIn from "../../components/basic/MustBeLoggedIn";
+import {getStaticCommonTranslations} from "../../src/i18n";
 
 const ProfilePage: NextPage = () => {
     let context = useContext(AuthContext);
     
     if (!context.loggedIn) {
-        return (<MustBeLoggedIn action={"access your own profile"}></MustBeLoggedIn>);
+        return (<MustBeLoggedIn actionKey={"accessOwnProfile"}></MustBeLoggedIn>);
     }
     
     return (
@@ -22,5 +23,7 @@ const ProfilePage: NextPage = () => {
         </>
     );
 }
+
+export const getStaticProps = getStaticCommonTranslations();
 
 export default ProfilePage;

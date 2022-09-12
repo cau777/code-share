@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {EffectCallback, useEffect, useState} from "react";
+import {LgScreen, MdScreen, SmScreen, XlScreen} from "./styling";
 
 export function useAsyncEffect(func: () => Promise<any>, deps?: any[]) {
     useEffect(() => {
@@ -43,4 +44,18 @@ export function useWindowSize() {
 
 export function useWindowWidth() {
     return useWindowSize().width;
+}
+
+export function useRelativeWindowSize() {
+    let width = useWindowWidth();
+    if (width === undefined)
+        return "";
+    if (width < SmScreen)
+        return "sm";
+    if (width < MdScreen)
+        return "md";
+    if (width < LgScreen)
+        return "lg";
+    if (width < XlScreen)
+        return "xl";
 }
