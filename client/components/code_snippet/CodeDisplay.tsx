@@ -14,7 +14,7 @@ const CodeDisplay: FC<Props> = (props) => {
     let linesWithColors = highlightText(props.text, options);
     
     return (
-        <table className={"w-full whitespace-pre monospace"}>
+        <table className={"w-full whitespace-pre monospace code"}>
             <colgroup>
                 <col className={"bg-back-1"}/>
             </colgroup>

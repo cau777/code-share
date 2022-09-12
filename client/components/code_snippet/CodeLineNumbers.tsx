@@ -18,7 +18,7 @@ const CodeLineNumbers: FC<Props> = (props) => {
     }
     
     return (
-        <div>
+        <div className={"code"}>
             <table className={"left-0"} ref={props.innerRef}>
                 <colgroup>
                     <col className={"bg-back-2"}/>
