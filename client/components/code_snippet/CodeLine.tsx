@@ -49,11 +49,9 @@ function generate(text: string, charColors: Uint8Array) {
 
 const CodeLine: FC<Props> = (props) => {
     return (
-        <tr>
-            <td className={mergeClasses("code-height pl-1", {"border-y-2 border-back-3": props.selected})}>
-                {generate(props.text, props.highlights)}
-            </td>
-        </tr>
+        <div className={mergeClasses("code-height pl-1", {"border-y-2 border-back-3": props.selected})}>
+            {generate(props.text, props.highlights)}
+        </div>
     );
 }
 
