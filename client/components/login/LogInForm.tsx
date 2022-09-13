@@ -11,6 +11,7 @@ import TextWriteAnimation from "../animated/TextWriteAnimation";
 import {login} from "../../src/auth";
 import {useTranslation} from "next-i18next";
 import BlockError from "../basic/BlockError";
+import {ApiError} from "@supabase/gotrue-js";
 
 type Form = {
     email: string;
@@ -29,12 +30,23 @@ const LogInForm: FC = () => {
     let router = useRouter();
     let {t} = useTranslation();
     
+    function translateError(error: ApiError|null){
+        if(error === null) return undefined;
+        
+        switch (error.status) {
+            case 400:
+                return t("errorInvalidCredentials");
+            default:
+                return error.message;
+        }
+    }
+    
     async function submit(data: Form) {
         setState({busy: true});
         let {user, error} = await supabase.auth.signIn({email: data.email, password: data.password});
         
         if (error) {
-            setState({busy: false, error: error?.message});
+            setState({busy: false, error: translateError(error)});
         } else {
             await login(ctx, user!);
             await router.push("/");
@@ -52,10 +64,10 @@ const LogInForm: FC = () => {
             <BlockError>{state.error}</BlockError>
             <form className={"w-[20rem]"} onSubmit={handleSubmit(submit)}>
                 <FloatingLabelInput label={t("email")} inputType={"text"} error={errors.email?.message} autoCapitalize={"off"}
-                                    props={register("email")}></FloatingLabelInput>
+                                    props={register("email", {required: true})}></FloatingLabelInput>
                 
                 <FloatingLabelInput label={t("password")} inputType={"password"} error={errors.password?.message}
-                                    props={register("password")}></FloatingLabelInput>
+                                    props={register("password", {required: true})}></FloatingLabelInput>
                 
                 <div className={"mt-3"}>
                     <BtnPrimary disabled={state.busy} type={"submit"}>{t("login")}</BtnPrimary>

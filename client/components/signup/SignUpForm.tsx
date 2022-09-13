@@ -5,13 +5,13 @@ import BtnPrimary from "../basic/BtnPrimary";
 import Link from "next/link";
 import {useForm} from "react-hook-form";
 import {supabase} from "../../src/supabase_client";
-import SmallError from "../basic/SmallError";
 import {AuthContext} from "../AuthContext";
 import {useRouter} from "next/router";
 import {login} from "../../src/auth";
 import TextWriteAnimation from "../animated/TextWriteAnimation";
 import {useTranslation} from "next-i18next";
 import BlockError from "../basic/BlockError";
+import {ApiError} from "@supabase/gotrue-js";
 
 type Form = {
     email: string;
@@ -31,12 +31,24 @@ const SignUpForm: FC = () => {
     let router = useRouter();
     let {t} = useTranslation();
     
+    function translateError(error: ApiError|null) {
+        if(error === null) return undefined;
+    
+        // console.log(error.status, error.message);
+        switch (error.status) {
+            case 400:
+                return t("errorAlreadyRegistered");
+            default:
+                return error.message;
+        }
+    }
+    
     async function submit(data: Form) {
         setState({busy: true});
         let {user, error} = await supabase.auth.signUp({email: data.email, password: data.password});
         
         if (error) {
-            setState({busy: false, error: error?.message}); // TODO: translate
+            setState({busy: false, error: translateError(error)});
         } else {
             await login(ctx, user!);
             await router.push("/firstlogin");
@@ -48,7 +60,7 @@ const SignUpForm: FC = () => {
             /\d/.test(password) &&
             /[A-Z]/.test(password) &&
             /[a-z]/.test(password)
-        )) return "Password should contain lowercase and uppercase letters, and at least one digit";
+        )) return t("errorPasswordComplexity", {});
     }
     
     return (
@@ -58,29 +70,29 @@ const SignUpForm: FC = () => {
                     <TextWriteAnimation text={t("joinUs")} triggerView={true}></TextWriteAnimation>
                 </h1>
             </div>
+            
             <form className={"w-[20rem]"} onSubmit={handleSubmit(submit)}>
                 <BlockError>{state.error}</BlockError>
                 
                 <FloatingLabelInput label={t("email")} inputType={"text"} error={errors.email?.message} autoCapitalize={"off"}
                                     props={register("email", {
-                                        pattern: {message: "Invalid email", value: /\w+@\w+\.\w+/},
+                                        pattern: {value: /\w+@\w+\.\w+/, message: t("errorInvalidEmail")},
                                     })}></FloatingLabelInput>
                 
                 <FloatingLabelInput label={t("password")} inputType={"password"} error={errors.password?.message}
                                     props={register("password", {
-                                        minLength: {value: 6, message: "Password should be at least 6 characters long"}, // TODO: translate errors
+                                        minLength: {value: 6, message: t("errorPasswordLength", {count: 6})},
                                         validate: complexEnough
                                     })}></FloatingLabelInput>
                 
                 <FloatingLabelInput label={t("repeatPassword")} inputType={"password"}
                                     error={errors.passwordRepeat?.message}
                                     props={register("passwordRepeat", {
-                                        validate: o => o === getValues("password") ? undefined : "Passwords don't match"
+                                        validate: o => o === getValues("password") ? undefined : t("errorPasswordsDontMatch")
                                     })}></FloatingLabelInput>
                 <div className={"mt-3"}>
                     <BtnPrimary disabled={state.busy} type={"submit"}>{t("signUp")}</BtnPrimary>
                 </div>
-                <SmallError message={state.error}></SmallError>
             </form>
             <p className={"mt-2 text-sm"}>{t("alreadyRegistered?")} <span className={"simple-link"}><Link href={"/login"}>{t("login")}</Link></span></p>
         </Card>

@@ -26,5 +26,24 @@
   "writeCodeBelow": "Write your code below",
   "postTitle": "Title",
   "postDescription": "Description",
-  "postLanguage": "Language"
+  "postLanguage": "Language",
+  "cantChangeLater": "You won't be able to change this later",
+  "profileImage": "Profile image",
+  "aLittleAboutYou": "A little about you",
+  "random": "Random",
+  "chooseFromFile": "Choose from file",
+  "username": "Username",
+  "redirectingTo": "Redirecting to",
+
+  "errorInvalidCredentials": "Invalid login credentials",
+  "errorProfileNotFound": "This profile could not be found",
+  "errorPasswordComplexity": "Password should contain lowercase and uppercase letters, and at least one digit",
+  "errorPasswordLength": "Password should be at least {{count}} characters long",
+  "errorInvalidEmail": "Invalid email",
+  "errorPasswordsDontMatch": "Passwords don't match",
+  "errorAlreadyRegistered": "Email already registered",
+  "errorUsernameInUse": "This username is already in use",
+  "errorProfileDone": "Your profile is already done",
+
+  "altRandomAvatar": "Randomly generated robot avatar"
 }

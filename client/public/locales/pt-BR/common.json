@@ -26,5 +26,24 @@
   "writeCodeBelow": "Escreva seu código abaixo",
   "postTitle": "Título (apenas inglês)",
   "postDescription": "Descrição (apenas inglês)",
-  "postLanguage": "Linguagem"
+  "postLanguage": "Linguagem",
+  "cantChangeLater": "Você não poderá alterar isso depois",
+  "profileImage": "Imagem de perfil",
+  "aLittleAboutYou": "Um pouco sobre você",
+  "random": "Aleatório",
+  "chooseFromFile": "Escolher de arquivo",
+  "username": "Nome de usuário",
+  "redirectingTo": "Redirecionando para",
+
+  "errorInvalidCredentials": "Credenciais inválidas",
+  "errorProfileNotFound": "Esse perfil não pôde ser encontrado",
+  "errorPasswordComplexity": "A senha deve conter letras maiúsculas e minúsculas, e ao menos um dígito",
+  "errorPasswordLength": "A senha deve ter pelo menos {{count}} caracteres",
+  "errorInvalidEmail": "E-mail inválido",
+  "errorPasswordsDontMatch": "As senhas não correspondem",
+  "errorAlreadyRegistered": "E-mail já registrado",
+  "errorUsernameInUse": "Esse nome de usuário já está em uso",
+  "errorProfileDone": "Seu perfil já está pronto",
+
+  "altRandomAvatar": "Avatar de robô gerado aleatoriamente"
 }

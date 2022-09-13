@@ -6,7 +6,7 @@ import defaultUser from "../../public/img/profile_avatar.png";
 type Props = {
     id?: string;
 }
-// TODO: dicebear
+
 const ProfilePicture: FC<Props> = (props) => {
     let [url, setUrl] = useState(props.id
         ? (fromStorage(supabase, "profile-pictures").getPublicUrl(props.id + ".jpg").publicURL ?? defaultUser)

@@ -15,6 +15,8 @@ import {nanoid} from "nanoid";
 import {createDicebearUrl} from "../../src/images";
 import BtnSecondary from "../basic/BtnSecondary";
 import axios from "axios";
+import {useTranslation} from "next-i18next";
+import Redirect from "../basic/Redirect";
 
 type Form = {
     username: string;
@@ -31,14 +33,13 @@ function randId(): ImgSource {
     return {type: "dicebear", src: createDicebearUrl(nanoid(10))};
 }
 
-// TODO: translate
-// TODO: validation rules
 const FirstLoginForm: FC = () => {
     let {handleSubmit, register, formState} = useForm<Form>({defaultValues: {bio: ""}});
     let [busy, setBusy] = useState(false);
     let [error, setError] = useState<string>();
     let [imgSource, setImgSource] = useState<ImgSource>(randId());
     
+    let {t} = useTranslation();
     let context = useContext(AuthContext);
     let router = useRouter();
     
@@ -46,8 +47,8 @@ const FirstLoginForm: FC = () => {
         return (<MustBeLoggedIn actionKey={"createYouProfile"}></MustBeLoggedIn>);
     
     if (context.completedProfile) {
-        // router.push("/").then();
-        // return (<h3>Your profile is already done. Redirecting to Home</h3>); TODO
+        router.push("/").then();
+        return (<Redirect message={t("errorProfileDone")} target={t("home")}></Redirect>)
     }
     
     async function submit(data: Form) {
@@ -64,7 +65,7 @@ const FirstLoginForm: FC = () => {
             .insert({id: context.id, name: data.name, bio: data.bio, username: data.username});
         
         if (response.error) {
-            setError(response.error.message); // TODO: translate
+            setError(response.error.message);
             setBusy(false);
         } else {
             context.changeCtx({
@@ -83,57 +84,57 @@ const FirstLoginForm: FC = () => {
             .match({username})
             .maybeSingle();
         if (response.error)
-            return "Error";
+            return response.error.message;
         if (response.data)
-            return "This username is already in use";
+            return t("errorUsernameInUse");
     }
     
     function formatUsernameError() {
         if (formState.errors.username)
             return formState.errors.username.message;
         if (formState.dirtyFields.username)
-            return "You won't be able to change this later";
+            return t("cantChangeLater");
     }
     
     return (
         <Card>
             <div className={"mb-3"}>
                 <h1 className={"monospace text-primary-200 flex justify-center"}>
-                    <TextWriteAnimation text={"A little about you"} triggerView={true}></TextWriteAnimation>
+                    <TextWriteAnimation text={t("aLittleAboutYou")} triggerView={true}></TextWriteAnimation>
                 </h1>
             </div>
             
             <form className={"w-[20rem]"} onSubmit={handleSubmit(submit)}>
                 <BlockError>{error}</BlockError>
                 
-                <FloatingLabelInput label={"Username"} props={register("username", {
+                <FloatingLabelInput label={t("username")} props={register("username", {
                     required: true,
                     validate: validateUsername
                 })} error={formatUsernameError()}></FloatingLabelInput>
                 
                 <div className={"mt-2"}></div>
-                <FloatingLabelInput label={"Name"} props={register("name", {
+                <FloatingLabelInput label={t("name")} props={register("name", {
                     required: true
                 })}></FloatingLabelInput>
                 
-                <FloatingLabelTextarea label={"Bio"} props={register("bio")}></FloatingLabelTextarea>
+                <FloatingLabelTextarea label={t("bio")} props={register("bio")}></FloatingLabelTextarea>
                 
-                <h4 className={"mt-4 mb-2 font-semibold"}>Profile image</h4>
+                <h4 className={"mt-4 mb-2 font-semibold"}>{t("profileImage")}</h4>
                 <div className={"mx-3 mb-4"}>
                     <div className={"relative mb-1"}>
-                        <Image src={imgSource.src} alt={"Randomly generated robot avatar"} width={"100%"}
+                        <Image src={imgSource.src} alt={t("altRandomAvatar")} width={"100%"}
                                height={"100%"}
                                layout={"responsive"} objectFit={"contain"} className={"rounded-full"}/>
                     </div>
                     <div className={"flex gap-1 justify-center"}>
-                        <BtnSecondary type={"button"} onClick={() => setImgSource(randId())}>Random</BtnSecondary>
-                        <BtnSecondary type={"button"} onClick={() => setImgSource(randId())}>Choose file</BtnSecondary>
+                        <BtnSecondary type={"button"} onClick={() => setImgSource(randId())}>{t("random")}</BtnSecondary>
+                        <BtnSecondary type={"button"} onClick={() => setImgSource(randId())}>{t("chooseFromFile")}</BtnSecondary>
                         {/*    TODO: implement file*/}
                     </div>
                 </div>
                 
                 <div>
-                    <BtnPrimary disabled={busy} type={"submit"}>Submit</BtnPrimary>
+                    <BtnPrimary disabled={busy} type={"submit"}>{t("save")}</BtnPrimary>
                 </div>
             </form>
         </Card>

@@ -61,7 +61,7 @@ const SnippetsFeed: FC<Props> = (props) => {
         let records = await query;
         
         if (records.data === null) {
-            setError(records.error.message); // TODO: translate
+            setError(records.error.message);
             return;
         }
         

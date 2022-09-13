@@ -9,12 +9,14 @@ import BlockError from "../../components/basic/BlockError";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import {AppName} from "../../src/styling";
+import {useTranslation} from "next-i18next";
 
 type Props = { found: false; } | ({ found: true; } & UserData);
 
 const ProfileByUsernamePage: NextPage<Props> = (props) => {
     let router = useRouter();
     let context = useContext(AuthContext);
+    let {t} = useTranslation();
     
     useEffect(() => {
         if (props.found && context.loggedIn && context.profileData.username === props.username)
@@ -22,9 +24,9 @@ const ProfileByUsernamePage: NextPage<Props> = (props) => {
         // @ts-ignore
     }, [context.loggedIn, context.profileData?.username, props.found, props.username, router]);
     
-    if (!props.found) // TODO: translate
+    if (!props.found)
         return (
-            <BlockError>Sorry, this profile could not be found</BlockError>
+            <BlockError>{t("errorProfileNotFound")}</BlockError>
         )
     
     return (
