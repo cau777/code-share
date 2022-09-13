@@ -7,6 +7,10 @@ import CodeEditorLineNumbers from "../code_snippet/CodeLineNumbers";
 import CodeDisplay from "../code_snippet/CodeDisplay";
 import CodeEditorTextArea from "./CodeEditorTextArea";
 import {findLanguageByName} from "../../src/code/Languages";
+import {BelowMd} from "../basic/Breakpoints";
+import BtnSecondary from "../basic/BtnSecondary";
+import ArrowLeftIcon from "../icons/ArrowLeftIcon";
+import ArrowRightIcon from "../icons/ArrowRightIcon";
 
 type Props = {
     language?: LanguageOptions;
@@ -119,6 +123,18 @@ const CodeEditor: FC<Props> = (props) => {
     }
     
     return (
+        <>
+            <BelowMd>
+                <div className={"flex justify-end gap-1"}>
+                    <BtnSecondary className={"ml-auto"}>
+                        <ArrowLeftIcon className={"grid-center my-1"} width={"1rem"}></ArrowLeftIcon>
+                    </BtnSecondary>
+                    
+                    <BtnSecondary>
+                        <ArrowRightIcon className={"grid-center my-1"} width={"1rem"}></ArrowRightIcon>
+                    </BtnSecondary>
+                </div>
+            </BelowMd>
         <div
             className="code-editor max-h-[80vh] code flex w-full relative overflow-hidden border-2 border-back-1 rounded-lg">
             <CodeEditorLineNumbers lineCount={state.rows} innerRef={lineNumbersRef}/>
@@ -134,6 +150,7 @@ const CodeEditor: FC<Props> = (props) => {
                                     value={props.text} onChange={change}/>
             </div>
         </div>
+        </>
     )
 }
 
