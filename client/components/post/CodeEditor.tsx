@@ -45,7 +45,7 @@ const CodeEditor: FC<Props> = (props) => {
     let [state, setState] = useState<State>({selected: 0, rows: 1});
     let language = props.language ?? findLanguageByName("Other")!;
     let executorRef = useRef<CommandExecutor>();
-    let lineNumbersRef = useRef<HTMLDivElement>(null);
+    let lineNumbersRef = useRef<HTMLTableElement>(null);
     let textareaParentRef = useRef<HTMLDivElement>(null);
     let codeTextRef = useRef<HTMLDivElement>(null);
     
@@ -137,7 +137,7 @@ const CodeEditor: FC<Props> = (props) => {
             </BelowMd>
         <div
             className="code-editor max-h-[80vh] code flex w-full relative overflow-hidden border-2 border-back-1 rounded-lg">
-            <CodeEditorLineNumbers lineCount={state.rows} innerRef={lineNumbersRef}/>
+            <CodeEditorLineNumbers lineCount={state.rows} innerRef={lineNumbersRef} offsetBottom={true}/>
             
             <div ref={textareaParentRef} className={"flex-grow top-0 left-0 relative w-full bg-back-1"}>
                 <div ref={codeTextRef} className={"select-none absolute min-w-full top-0 left-0 overflow-hidden "}>

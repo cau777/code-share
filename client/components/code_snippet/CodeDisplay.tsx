@@ -14,14 +14,16 @@ const CodeDisplay: FC<Props> = (props) => {
     let linesWithColors = highlightText(props.text, options);
     
     return (
-        <div>
-            
-            <div className={"w-full whitespace-pre monospace code bg-back-1"}>
-                {linesWithColors.map(([line, highlight], index) =>
-                    <CodeEditorLine key={"line " + index} selected={props.selected === index} text={line}
-                                    highlights={highlight}/>)}
-            </div>
-        </div>
+        <table className={"w-full whitespace-pre monospace code"}>
+            <colgroup>
+                <col className={"bg-back-1"}/>
+            </colgroup>
+            <tbody>
+            {linesWithColors.map(([line, highlight], index) =>
+                <CodeEditorLine key={"line " + index} selected={props.selected === index} text={line}
+                                highlights={highlight}/>)}
+            </tbody>
+        </table>
     );
 }
 
