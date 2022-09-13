@@ -9,6 +9,8 @@ import {AppName} from "../src/styling";
 import AssertProfileComplete from "../components/AssertProfileComplete";
 import {appWithTranslation, useTranslation} from "next-i18next";
 
+// TODO: PWA
+
 function MyApp({Component, pageProps}: AppProps) {
     let {t} = useTranslation();
     
