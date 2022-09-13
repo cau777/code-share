@@ -1,8 +1,9 @@
-import {FC} from "react";
+import {FC, HTMLProps} from "react";
+import {mergeClasses} from "../../src/attributes";
 
-const VerticalLine: FC = () => {
+const VerticalLine: FC<HTMLProps<HTMLDivElement>> = (props) => {
     return (
-        <div className={"border-l-2 border-font-2 h-full my-1"}>
+        <div {...props} className={mergeClasses("border-l-2 border-font-2 h-full my-1", props.className)}>
         
         </div>
     )

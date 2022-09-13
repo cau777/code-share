@@ -42,7 +42,7 @@ const Profile: FC<Props> = (props) => {
         <>
             <AboveSm>
                 <div className={"flex gap-3 w-full"}>
-                    <div className={"w-1/4"}>
+                    <div className={"w-[24%]"}>
                         <Card>
                             <div className={"p-2"}>
                                 <ProfilePicture id={props.id}></ProfilePicture>
@@ -50,10 +50,10 @@ const Profile: FC<Props> = (props) => {
                             {profileData()}
                         </Card>
                     </div>
-                    <div>
-                        <VerticalLine></VerticalLine>
+                    <div className={"flex-grow"}>
+                        <span className={"grid-center h-full"}><VerticalLine></VerticalLine></span>
                     </div>
-                    <div className={"w-3/4"}>
+                    <div className={"w-[73%]"}>
                         <SnippetsFeed key={"feed " + props.id} specificUser={props.id}></SnippetsFeed>
                     </div>
                 </div>

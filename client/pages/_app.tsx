@@ -1,7 +1,7 @@
 import "../styles/globals.scss";
 import "../styles/fonts.scss";
 import "../styles/syntax_highlight.scss";
-import type {AppProps} from "next/app";
+import type {AppProps, NextWebVitalsMetric} from "next/app";
 import NavControls from "../components/nav/NavControls";
 import Head from "next/head";
 import AuthProvider from "../components/AuthContext";
@@ -30,6 +30,10 @@ function MyApp({Component, pageProps}: AppProps) {
             </AuthProvider>
         </>
     )
+}
+
+export const reportWebVitals = (metric: NextWebVitalsMetric) => {
+    console.log(metric.startTime, metric.name);
 }
 
 export default appWithTranslation(MyApp);

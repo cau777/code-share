@@ -20,6 +20,7 @@ const NavControls: FC<PropsWithChildren> = (props) => {
                     <div className={"flex items-center gap-3"}>
                         <div>
                             Logo
+                        {/*    TODO: logo*/}
                         </div>
                         
                         <AboveSm>
@@ -56,12 +57,16 @@ const NavControls: FC<PropsWithChildren> = (props) => {
                     <div className={"flex justify-around my-1"}>
                         <span className={"header-link" + mergeClasses({selected: path === "/"})}>
                             <Link href={"/"}>
+                                <span>
                                 <HomeIcon height={"2rem"}></HomeIcon>
+                                </span>
                             </Link>
                         </span>
                         <span className={"header-link" + mergeClasses({selected: path === "/post"})}>
                             <Link href={"/post"}>
+                                <span>
                                 <CodeSquareIcon height={"2rem"}></CodeSquareIcon>
+                                </span>
                             </Link>
                         </span>
                     </div>
