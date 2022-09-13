@@ -44,6 +44,7 @@
   "errorAlreadyRegistered": "Email already registered",
   "errorUsernameInUse": "This username is already in use",
   "errorProfileDone": "Your profile is already done",
+  "errorMustCompleteProfile": "You must complete your profile to access this page",
 
   "altRandomAvatar": "Randomly generated robot avatar"
 }

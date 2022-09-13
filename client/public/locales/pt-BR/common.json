@@ -44,6 +44,7 @@
   "errorAlreadyRegistered": "E-mail já registrado",
   "errorUsernameInUse": "Esse nome de usuário já está em uso",
   "errorProfileDone": "Seu perfil já está pronto",
+  "errorMustCompleteProfile": "Você deve primeiro completar seu perfil para acessar esta página",
 
   "altRandomAvatar": "Avatar de robô gerado aleatoriamente"
 }
