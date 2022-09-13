@@ -7,10 +7,12 @@ import CodeEditorLineNumbers from "../code_snippet/CodeLineNumbers";
 import CodeDisplay from "../code_snippet/CodeDisplay";
 import CodeEditorTextArea from "./CodeEditorTextArea";
 import {findLanguageByName} from "../../src/code/Languages";
-import {BelowMd} from "../basic/Breakpoints";
 import BtnSecondary from "../basic/BtnSecondary";
-import ArrowLeftIcon from "../icons/ArrowLeftIcon";
-import ArrowRightIcon from "../icons/ArrowRightIcon";
+import {InsertIndentationCommand} from "../../src/code/commands/InsertIndentationCommand";
+import ArrowsRightLeftIcon from "../icons/ArrowsRightLeftIcon";
+import UndoIcon from "../icons/UndoIcon";
+import RedoIcon from "../icons/RedoIcon";
+import {MobileView} from "react-device-detect";
 
 type Props = {
     language?: LanguageOptions;
@@ -44,18 +46,18 @@ function prepareKey(key: string) {
 const CodeEditor: FC<Props> = (props) => {
     let [state, setState] = useState<State>({selected: 0, rows: 1});
     let language = props.language ?? findLanguageByName("Other")!;
-    let executorRef = useRef<CommandExecutor>();
+    let executorRef = useRef<CommandExecutor>(new CommandExecutor());
     let lineNumbersRef = useRef<HTMLTableElement>(null);
     let textareaParentRef = useRef<HTMLDivElement>(null);
     let codeTextRef = useRef<HTMLDivElement>(null);
     
     useEffect(() => {
-        executorRef.current = new CommandExecutor(textareaParentRef.current!.querySelector("textarea")!);
-    });
-    
-    useEffect(() => {
-        updateRowsAndCols(textareaParentRef.current!.querySelector("textarea")!);
+        updateRowsAndCols(getTextarea());
     }, [props.text]);
+    
+    function getTextarea() {
+        return textareaParentRef.current!.querySelector("textarea")!;
+    }
     
     function updateSelectedRow(target: HTMLTextAreaElement) {
         let lineNum = countOccurrences(target.value, "\n", 0, target.selectionEnd);
@@ -100,12 +102,14 @@ const CodeEditor: FC<Props> = (props) => {
     }
     
     function keyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
-        let executor = executorRef.current!;
+        let executor = executorRef.current;
+        let target = e.currentTarget;
+        
         if (!e.altKey && e.ctrlKey && !e.shiftKey && e.key === "z") {
-            executor.undo();
+            executor.undo(target);
             e.preventDefault();
         } else if (!e.altKey && e.ctrlKey && e.shiftKey && e.key === "Z") {
-            executor.redo();
+            executor.redo(target);
             e.preventDefault();
         } else {
             let key = prepareKey(e.key);
@@ -113,7 +117,7 @@ const CodeEditor: FC<Props> = (props) => {
             for (let command of Commands) { // Chooses the appropriate and passes it to the executor
                 if (command.canExecute(key, {alt: e.altKey, ctrl: e.ctrlKey, shift: e.shiftKey})) {
                     e.preventDefault();
-                    executor.execute(command, e.currentTarget, language, key);
+                    executor.execute(command, target, language, key);
                     break;
                 }
             }
@@ -122,34 +126,46 @@ const CodeEditor: FC<Props> = (props) => {
         change(e).then();
     }
     
+    function executeCustom(e: any, func: (executor: CommandExecutor, target: HTMLTextAreaElement) => void) {
+        e.preventDefault();
+        let target = getTextarea();
+        func(executorRef.current, target);
+        change({currentTarget: target, target, type: "keydown"}).then();
+        target.focus();
+    }
+    
     return (
         <>
-            <BelowMd>
+            <MobileView>
                 <div className={"flex justify-end gap-1"}>
-                    <BtnSecondary className={"ml-auto"}>
-                        <ArrowLeftIcon className={"grid-center my-1"} width={"1rem"}></ArrowLeftIcon>
+                    <BtnSecondary type={"button"} className={"ml-auto"}
+                                  onClick={e => executeCustom(e, (exec, target) => exec.execute(InsertIndentationCommand, target, language, "Tab"))}>
+                        <ArrowsRightLeftIcon className={"grid-center my-1"} width={"1rem"}></ArrowsRightLeftIcon>
                     </BtnSecondary>
                     
-                    <BtnSecondary>
-                        <ArrowRightIcon className={"grid-center my-1"} width={"1rem"}></ArrowRightIcon>
+                    <BtnSecondary type={"button"} className={"ml-auto"} onClick={e => executeCustom(e, (exec, target) => exec.undo(target))}>
+                        <UndoIcon className={"grid-center my-1"} width={"1rem"}></UndoIcon>
+                    </BtnSecondary>
+                    
+                    <BtnSecondary type={"button"} className={"ml-auto"} onClick={e => executeCustom(e, (exec, target) => exec.redo(target))}>
+                        <RedoIcon className={"grid-center my-1"} width={"1rem"}></RedoIcon>
                     </BtnSecondary>
                 </div>
-            </BelowMd>
-        <div
-            className="code-editor max-h-[80vh] code flex w-full relative overflow-hidden border-2 border-back-1 rounded-lg">
-            <CodeEditorLineNumbers lineCount={state.rows} innerRef={lineNumbersRef} offsetBottom={true}/>
-            
-            <div ref={textareaParentRef} className={"flex-grow top-0 left-0 relative w-full bg-back-1"}>
-                <div ref={codeTextRef} className={"select-none absolute min-w-full top-0 left-0 overflow-hidden "}>
-                    <CodeDisplay selected={state.selected} text={props.text} language={language}/>
-                </div>
+            </MobileView>
+            <div
+                className="code-editor max-h-[80vh] code flex w-full relative overflow-hidden border-2 border-back-1 rounded-lg">
+                <CodeEditorLineNumbers lineCount={state.rows} innerRef={lineNumbersRef} offsetBottom={true}/>
                 
-                {/*TODO: mobile support + style*/}
-                <CodeEditorTextArea onKeyDown={keyDown} onScroll={scrollNumbers}
-                                    onSelect={e => updateSelectedRow(e.currentTarget)}
-                                    value={props.text} onChange={change}/>
+                <div ref={textareaParentRef} className={"flex-grow top-0 left-0 relative w-full bg-back-1"}>
+                    <div ref={codeTextRef} className={"select-none absolute min-w-full top-0 left-0 overflow-hidden "}>
+                        <CodeDisplay selected={state.selected} text={props.text} language={language}/>
+                    </div>
+                    
+                    <CodeEditorTextArea onKeyDown={keyDown} onScroll={scrollNumbers}
+                                        onSelect={e => updateSelectedRow(e.currentTarget)}
+                                        value={props.text} onChange={change}/>
+                </div>
             </div>
-        </div>
         </>
     )
 }

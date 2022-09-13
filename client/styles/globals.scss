@@ -81,6 +81,7 @@
 
     .search-select__menu {
       @apply bg-back-2 border-2 border-back-3;
+      z-index: 20;
     }
 
     .search-select__option {

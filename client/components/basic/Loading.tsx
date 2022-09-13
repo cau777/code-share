@@ -1,7 +1,7 @@
 import {FC} from "react";
 
 const Loading: FC = () => {
-    //TOOD: animation
+    //TODO: animation
     return (
         <span>
             Loading
