@@ -10,6 +10,7 @@ import KeywordList from "../basic/KeywordsList";
 
 type Props = Snippet;
 
+//TODO: no render out of sight + intersection observer + recalc size when screen changes
 const SnippetPost: FC<Props> = (props) => {
     let date = new Date(props.created_at);
     
