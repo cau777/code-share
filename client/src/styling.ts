@@ -1,7 +1,7 @@
 import config from "../tailwind.config";
 import resolveConfig from "tailwindcss/resolveConfig";
 
-export const AppName = "code->share";
+export const AppName = "Code.Share";
 
 let resolved = resolveConfig(config);
 

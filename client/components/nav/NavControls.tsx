@@ -7,6 +7,7 @@ import {useTranslation} from "next-i18next";
 import {AboveSm, BelowMd} from "../basic/Breakpoints";
 import HomeIcon from "../icons/HomeIcon";
 import CodeSquareIcon from "../icons/CodeSquareIcon";
+import Logo from "../basic/Logo";
 
 const NavControls: FC<PropsWithChildren> = (props) => {
     let router = useRouter();
@@ -18,10 +19,7 @@ const NavControls: FC<PropsWithChildren> = (props) => {
             <header className={"bg-back-2"}>
                 <div className={"container"}>
                     <div className={"flex items-center gap-3"}>
-                        <div>
-                            Logo
-                        {/*    TODO: logo*/}
-                        </div>
+                        <Logo className={"my-auto"}></Logo>
                         
                         <AboveSm>
                         <span className={"header-link" + mergeClasses({selected: path === "/"})}>
