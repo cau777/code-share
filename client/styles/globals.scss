@@ -156,6 +156,10 @@
   .grid-center {
     @apply grid align-middle justify-center;
   }
+
+  .text-center {
+    text-align: center;
+  }
 }
 
 .image-container {

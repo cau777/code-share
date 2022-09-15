@@ -16,6 +16,12 @@ export function useEffectOnMount(func: EffectCallback) {
     useEffect(func, []);
 }
 
+export function useAsyncEffectOnMount(func: () => Promise<any>) {
+    useEffect(() => {
+        func().then()
+    }, []);
+}
+
 function getWindowSize() {
     return {
         width: window.innerWidth,

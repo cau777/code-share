@@ -15,6 +15,11 @@ export type Tables = {
         code: string;
         lang: string;
         keywords: string[];
+    },
+    Likes: {
+        author: string;
+        target: number;
+        created_at: string;
     }
 }
 

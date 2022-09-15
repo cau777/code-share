@@ -24,6 +24,7 @@ export type AuthCtx = LoggedInCtx | LoggedOutCtx;
 // @ts-ignore
 export const AuthContext = createContext<AuthCtx>(undefined);
 
+// TODO: logging in state
 const AuthProvider: FC<PropsWithChildren> = (props) => {
     let [state, setState] = useState<AuthCtx>({loggedIn: false, changeCtx: (ctx) => setState(ctx)});
     
