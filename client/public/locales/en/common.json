@@ -45,6 +45,8 @@
   "errorUsernameInUse": "This username is already in use",
   "errorProfileDone": "Your profile is already done",
   "errorMustCompleteProfile": "You must complete your profile to access this page",
+  "errorUsernameHasSpace": "Username can't contain spaces",
+  "errorUsernameCharset": "Username can't have special characters",
 
   "altRandomAvatar": "Randomly generated robot avatar"
 }

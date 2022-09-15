@@ -79,6 +79,9 @@ const FirstLoginForm: FC = () => {
     
     async function validateUsername(username?: string) {
         if (username === undefined) return false;
+        if (username.includes(" ")) return t("errorUsernameHasSpace");
+        if (!/^[\x00-\x7F]+$/.test(username)) return t("errorUsernameCharset");
+        
         let response = await fromTable(supabase, "UserPublicInfo")
             .select("username")
             .match({username})
