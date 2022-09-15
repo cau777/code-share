@@ -23,9 +23,6 @@ def hello_world():
     text = normalize_text(text)
     tokens = extract_pos_tokens(text, ENGLISH_STOPWORDS)
 
-    if len(tokens) <= count:
-        return [token for token, pos in tokens] + ((len(tokens) - count) * [""])
-
     lemmatized = lemmatize_tokens(tokens)
     frequencies = defaultdict(int)
     word_count = 0
@@ -46,7 +43,7 @@ def hello_world():
         words_scores[word] = tf * idf
 
     # Only get the count words with the highest score
-    s = sorted(words_scores.items(), key=lambda item: -item[1])[:count]
+    s = sorted(words_scores.items(), key=lambda item: -item[1])[:min(count, len(words_scores))]
     return jsonify([key for key, value in s])
 
 
