@@ -17,7 +17,7 @@ async function getProfileData(id: string) {
 
 export async function login(context: AuthCtx, user: User) {
     let profileData = await getProfileData(user.id);
-    let result = profileData !== undefined;
+    let result = profileData !== null;
     
     context.changeCtx({
         completedProfile: result,
