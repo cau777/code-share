@@ -1,11 +1,11 @@
 import {NextPage} from "next";
-import PostForm from "../components/post/PostForm";
+import CreatePostForm from "../../components/create_post/CreatePostForm";
 import Head from "next/head";
-import {AppName} from "../src/styling";
-import {getStaticCommonTranslations} from "../src/i18n";
+import {AppName} from "../../src/styling";
+import {getStaticCommonTranslations} from "../../src/i18n";
 import {useTranslation} from "next-i18next";
 
-const PostPage: NextPage = () => {
+const CreatePostPage: NextPage = () => {
     let {t} = useTranslation();
     
     return (
@@ -13,11 +13,11 @@ const PostPage: NextPage = () => {
             <Head>
                 <title>{t("postSnippet")} {AppName}</title>
             </Head>
-            <PostForm></PostForm>
+            <CreatePostForm></CreatePostForm>
         </div>
     )
 }
 
 export const getStaticProps = getStaticCommonTranslations();
 
-export default PostPage;
+export default CreatePostPage;

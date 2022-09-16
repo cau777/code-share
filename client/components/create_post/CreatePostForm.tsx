@@ -23,7 +23,7 @@ type Form = {
     keywords: string[];
 }
 
-const PostForm: FC = () => {
+const CreatePostForm: FC = () => {
     let {register, handleSubmit, setValue, watch, reset} = useForm<Form>({
         defaultValues: {
             title: "",
@@ -126,4 +126,4 @@ const PostForm: FC = () => {
     );
 }
 
-export default PostForm;
+export default CreatePostForm;

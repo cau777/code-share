@@ -47,6 +47,7 @@
   "errorMustCompleteProfile": "Você deve primeiro completar seu perfil para acessar esta página",
   "errorUsernameHasSpace": "O nome de usuário não pode conter espaços",
   "errorUsernameCharset": "O nome de usuário não pode conter caracteres especiais",
+  "errorPostNotFound": "Essa publicação não pôde ser encontrada",
 
   "altRandomAvatar": "Avatar de robô gerado aleatoriamente"
 }

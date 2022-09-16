@@ -12,8 +12,10 @@ import {useAsyncEffect} from "../../src/hooks";
 import {fromTable, supabase} from "../../src/supabase_client";
 import {AuthContext} from "../AuthContext";
 import BlockError from "../basic/BlockError";
+import Link from "next/link";
+import {mergeClasses} from "../../src/attributes";
 
-type Props = Snippet;
+type Props = Snippet & { limitHeight?: boolean };
 
 type LikeState = {
     hasLiked: boolean;
@@ -34,24 +36,24 @@ const SnippetPost: FC<Props> = (props) => {
                 .select("target, author")
                 .match({target: props.id})
                 .match({author: context.id})
-
+            
             if (result.error) {
                 setError(result.error.message);
                 return;
             }
-
+            
             hasLikedResult = result.body !== null && result.body.length !== 0;
         }
         
         let likesCountResult = await fromTable(supabase, "Likes")
             .select("target")
             .match({target: props.id});
-
+        
         if (likesCountResult.error) {
             setError(likesCountResult.error.message);
             return;
         }
-
+        
         setError(undefined);
         setLikeState({hasLiked: hasLikedResult, likeCount: likesCountResult.data!.length})
     }
@@ -94,17 +96,25 @@ const SnippetPost: FC<Props> = (props) => {
                             <ProfilePicture id={props.author.id}></ProfilePicture>
                         </div>
                         <div>
-                            <p className={""}>{props.author.name}</p>
+                            <Link href={"/profile/" + props.author.username}>
+                                <p className={"cursor-pointer"}>{props.author.name}</p>
+                            </Link>
                             <p className={"text-font-2 text-sm"}>@{props.author.username}</p>
                         </div>
                     </div>
-                    <h4>{props.title}</h4>
-                    <p className={"text-font-2 text-sm"}>{props.description}</p>
+                    <Link href={"/post/" + props.id}>
+                        <div className={"cursor-pointer"}>
+                            
+                            <h4>{props.title}</h4>
+                            <p className={"text-font-2 text-sm"}>{props.description}</p>
+                        </div>
+                    </Link>
                 </header>
                 <KeywordList keywords={props.keywords}></KeywordList>
                 <div
-                    className={"mt-2 mb-2 flex rounded border-back-1 border-2 overflow-auto monospace max-h-[40vh] overflow-auto"}>
-                    <CodeEditorLineNumbers lineCount={countOccurrences(props.code, "\n") + 1}></CodeEditorLineNumbers>
+                    className={mergeClasses("mt-2 mb-2 flex rounded border-back-1 border-2 overflow-auto monospace overflow-auto", {"max-h-[40vh]": props.limitHeight})}>
+                    <CodeEditorLineNumbers
+                        lineCount={countOccurrences(props.code, "\n") + 1}></CodeEditorLineNumbers>
                     <CodeDisplay text={props.code}
                                  language={findLanguageByName(props.lang) ?? OtherLanguage}></CodeDisplay>
                 </div>

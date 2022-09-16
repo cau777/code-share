@@ -6,6 +6,7 @@ import SnippetPost from "./SnippetPost";
 import {useEffectOnMount} from "../../src/hooks";
 import {useTranslation} from "next-i18next";
 import BlockError from "../basic/BlockError";
+import {completeSnippetData} from "../../src/post";
 
 const PageSize = 15;
 
@@ -65,30 +66,7 @@ const SnippetsFeed: FC<Props> = (props) => {
             return;
         }
         
-        let promises: Promise<Snippet>[] = records.data.map(async o => {
-            let userData = await fromTable(supabase, "UserPublicInfo")
-                .select("id, name, username")
-                .match({id: o.author})
-                .single();
-            
-            if (!userData.data) throw userData.error;
-            
-            let result: Snippet = {
-                id: o.id,
-                code: o.code,
-                title: o.title,
-                created_at: o.created_at,
-                lang: o.lang,
-                description: o.description,
-                author: {
-                    id: o.author,
-                    name: userData.data.name,
-                    username: userData.data.username,
-                },
-                keywords: o.keywords
-            }
-            return result;
-        });
+        let promises: Promise<Snippet>[] = records.data.map(completeSnippetData);
         
         let data = await Promise.all(promises);
         
@@ -107,7 +85,7 @@ const SnippetsFeed: FC<Props> = (props) => {
             <InfiniteScroll next={next} hasMore={state.hasMore}
                             endMessage={<p className={"text-center"}>{t("feedEnd")}</p>}
                             loader={<Loading></Loading>} dataLength={state.snippets.length}>
-                {state.snippets.map(o => (<SnippetPost {...o} key={o.id}></SnippetPost>))}
+                {state.snippets.map(o => (<SnippetPost limitHeight={true} {...o} key={o.id}></SnippetPost>))}
             </InfiniteScroll>
         </>
     )
