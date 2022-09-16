@@ -1,13 +1,11 @@
-import {FC, PropsWithChildren} from "react";
+import {FC, HTMLProps, PropsWithChildren} from "react";
 import {mergeClasses} from "../src/attributes";
 
-type Props = {
-    className?: string;
-}
+type Props = HTMLProps<HTMLDivElement>;
 
 const Card: FC<PropsWithChildren<Props>> = (props) => {
     return (
-        <div className={mergeClasses("rounded-xl p-4 bg-back-2", props.className)}>
+        <div {...props} className={mergeClasses("rounded-xl p-4 bg-back-2", props.className)}>
             {props.children}
         </div>
     );

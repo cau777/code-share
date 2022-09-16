@@ -16,7 +16,7 @@ import {createDicebearUrl} from "../../src/images";
 import BtnSecondary from "../basic/BtnSecondary";
 import axios from "axios";
 import {useTranslation} from "next-i18next";
-import Redirect from "../basic/Redirect";
+import ImageCropAndResize from "../basic/ImageCropAndResize";
 
 type Form = {
     username: string;
@@ -47,8 +47,8 @@ const FirstLoginForm: FC = () => {
         return (<MustBeLoggedIn actionKey={"createYouProfile"}></MustBeLoggedIn>);
     
     if (context.completedProfile) {
-        router.push("/").then();
-        return (<Redirect message={t("errorProfileDone")} target={t("home")}></Redirect>)
+        // router.push("/").then(); TODO
+        // return (<Redirect message={t("errorProfileDone")} target={t("home")}></Redirect>)
     }
     
     async function submit(data: Form) {
@@ -100,47 +100,51 @@ const FirstLoginForm: FC = () => {
     }
     
     return (
-        <Card>
-            <div className={"mb-3"}>
-                <h1 className={"monospace text-primary-200 flex justify-center"}>
-                    <TextWriteAnimation text={t("aLittleAboutYou")} triggerView={true}></TextWriteAnimation>
-                </h1>
-            </div>
+        <>
+            <ImageCropAndResize width={400} height={900} src={"https://dummyimage.com/400x900/f00/000"+""} onCancel={()=>console.log("cancel")} onSubmit={console.log}></ImageCropAndResize>
+            <Card>
+                <div className={"mb-3"}>
+                    <h1 className={"monospace text-primary-200 flex justify-center"}>
+                        <TextWriteAnimation text={t("aLittleAboutYou")} triggerView={true}></TextWriteAnimation>
+                    </h1>
+                </div>
+        
+                <form className={"w-[20rem]"} onSubmit={handleSubmit(submit)}>
+                    <BlockError>{error}</BlockError>
             
-            <form className={"w-[20rem]"} onSubmit={handleSubmit(submit)}>
-                <BlockError>{error}</BlockError>
-                
-                <FloatingLabelInput label={t("username")} props={register("username", {
-                    required: true,
-                    validate: validateUsername
-                })} error={formatUsernameError()}></FloatingLabelInput>
-                
-                <div className={"mt-2"}></div>
-                <FloatingLabelInput label={t("name")} props={register("name", {
-                    required: true
-                })}></FloatingLabelInput>
-                
-                <FloatingLabelTextarea label={t("bio")} props={register("bio")}></FloatingLabelTextarea>
-                
-                <h4 className={"mt-4 mb-2 font-semibold"}>{t("profileImage")}</h4>
-                <div className={"mx-3 mb-4"}>
-                    <div className={"relative mb-1"}>
-                        <Image src={imgSource.src} alt={t("altRandomAvatar")} width={"100%"}
-                               height={"100%"}
-                               layout={"responsive"} objectFit={"contain"} className={"rounded-full"}/>
+                    <FloatingLabelInput label={t("username")} props={register("username", {
+                        required: true,
+                        validate: validateUsername
+                    })} error={formatUsernameError()}></FloatingLabelInput>
+            
+                    <div className={"mt-2"}></div>
+                    <FloatingLabelInput label={t("name")} props={register("name", {
+                        required: true
+                    })}></FloatingLabelInput>
+            
+                    <FloatingLabelTextarea label={t("bio")} props={register("bio")}></FloatingLabelTextarea>
+            
+                    <h4 className={"mt-4 mb-2 font-semibold"}>{t("profileImage")}</h4>
+                    <div className={"mx-3 mb-4"}>
+                        <div className={"relative mb-1"}>
+                            <Image src={imgSource.src} alt={t("altRandomAvatar")} width={"100%"}
+                                   height={"100%"}
+                                   layout={"responsive"} objectFit={"contain"} className={"rounded-full"}/>
+                        </div>
+                        <div className={"flex gap-1 justify-center"}>
+                            <BtnSecondary type={"button"} onClick={() => setImgSource(randId())}>{t("random")}</BtnSecondary>
+                            <BtnSecondary type={"button"} onClick={() => setImgSource(randId())}>{t("chooseFromFile")}</BtnSecondary>
+                            {/*    TODO: implement file*/}
+                        </div>
                     </div>
-                    <div className={"flex gap-1 justify-center"}>
-                        <BtnSecondary type={"button"} onClick={() => setImgSource(randId())}>{t("random")}</BtnSecondary>
-                        <BtnSecondary type={"button"} onClick={() => setImgSource(randId())}>{t("chooseFromFile")}</BtnSecondary>
-                        {/*    TODO: implement file*/}
+            
+                    <div>
+                        <BtnPrimary disabled={busy} type={"submit"}>{t("save")}</BtnPrimary>
                     </div>
-                </div>
-                
-                <div>
-                    <BtnPrimary disabled={busy} type={"submit"}>{t("save")}</BtnPrimary>
-                </div>
-            </form>
-        </Card>
+                </form>
+            </Card>
+        </>
+        
     );
 }
 

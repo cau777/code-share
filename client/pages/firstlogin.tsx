@@ -11,7 +11,7 @@ const FirstLogin: NextPage = () => {
     return (
         <div>
             <Head>
-                <title>{t("signUp")} {AppName}</title>
+                <title>{t("signUp") + " " + AppName}</title>
             </Head>
             
             <div className={"grid-center"}>

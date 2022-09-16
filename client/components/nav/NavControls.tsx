@@ -19,7 +19,10 @@ const NavControls: FC<PropsWithChildren> = (props) => {
             <header className={"bg-back-2"}>
                 <div className={"container"}>
                     <div className={"flex items-center gap-3"}>
-                        <Logo className={"my-auto"}></Logo>
+                        <Link href={"/"}>
+                            {/*TODO: ref*/}
+                            <Logo className={"my-auto cursor-pointer"}></Logo>
+                        </Link>
                         
                         <AboveSm>
                         <span className={"header-link" + mergeClasses({selected: path === "/"})}>

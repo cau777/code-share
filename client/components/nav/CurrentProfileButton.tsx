@@ -31,7 +31,7 @@ const CurrentProfileButton: FC = () => {
                             {context.loggedIn ?
                                 <>
                                     <li className={"w-full mb-2 text-xs cursor-auto word-wrap-normal"} onClick={e => e.stopPropagation()}>
-                                        {t("loggedInAs")} <b>{context.profileData.name}</b>
+                                        {t("loggedInAs")} @<b>{context.profileData.username}</b>
                                     </li>
                                     
                                     <Link href={"/profile"}><li>{t("profile")}</li></Link>

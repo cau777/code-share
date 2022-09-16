@@ -9,7 +9,8 @@ const nextConfig = {
     images: {
         domains: [
             "ckqwtaorsntwgqmcfsmi.supabase.co",
-            "avatars.dicebear.com"
+            "avatars.dicebear.com",
+            "dummyimage.com"
         ]
     }
 }

@@ -95,12 +95,12 @@ const SnippetPost: FC<Props> = (props) => {
                         <div className={"h-12 w-12"}>
                             <ProfilePicture id={props.author.id}></ProfilePicture>
                         </div>
-                        <div>
-                            <Link href={"/profile/" + props.author.username}>
-                                <p className={"cursor-pointer"}>{props.author.name}</p>
-                            </Link>
-                            <p className={"text-font-2 text-sm"}>@{props.author.username}</p>
-                        </div>
+                        <Link href={"/profile/" + props.author.username}>
+                            <div className={"cursor-pointer"}>
+                                <p>{props.author.name}</p>
+                                <p className={"text-font-2 text-sm"}>@{props.author.username}</p>
+                            </div>
+                        </Link>
                     </div>
                     <Link href={"/post/" + props.id}>
                         <div className={"cursor-pointer"}>
