@@ -9,7 +9,16 @@ const nextConfig = {
     images: {
         domains: [
             "ckqwtaorsntwgqmcfsmi.supabase.co",
-            "avatars.dicebear.com"
+            "avatars.dicebear.com",
+            "dummyimage.com"
+        ]
+    },
+    async rewrites() {
+        return [
+            {
+                source: "/api/convert_image",
+                destination: "https://code-share-image-service.livelybay-b5b6ca38.brazilsouth.azurecontainerapps.io/convert"
+            }
         ]
     }
 }

@@ -1,4 +1,4 @@
-import {FC, useContext, useState} from "react";
+import {ChangeEvent, FC, useContext, useEffect, useState} from "react";
 import TextWriteAnimation from "../animated/TextWriteAnimation";
 import Card from "../Card";
 import {useForm} from "react-hook-form";
@@ -12,11 +12,11 @@ import {useRouter} from "next/router";
 import BlockError from "../basic/BlockError";
 import Image from "next/image";
 import {nanoid} from "nanoid";
-import {createDicebearUrl} from "../../src/images";
+import {createDicebearUrl, CropAndResize, cropAndResizeCall, getImageDims} from "../../src/images";
 import BtnSecondary from "../basic/BtnSecondary";
 import axios from "axios";
 import {useTranslation} from "next-i18next";
-import Redirect from "../basic/Redirect";
+import ImageCropAndResize from "../basic/ImageCropAndResize";
 
 type Form = {
     username: string;
@@ -29,6 +29,13 @@ type ImgSource = {
     src: string;
 }
 
+type ChoosingFileState = {
+    file: File;
+    src: string;
+    width: number;
+    height: number;
+}
+
 function randId(): ImgSource {
     return {type: "dicebear", src: createDicebearUrl(nanoid(10))};
 }
@@ -38,17 +45,27 @@ const FirstLoginForm: FC = () => {
     let [busy, setBusy] = useState(false);
     let [error, setError] = useState<string>();
     let [imgSource, setImgSource] = useState<ImgSource>(randId());
+    let [choosingFile, setChoosingFile] = useState<ChoosingFileState>();
     
     let {t} = useTranslation();
     let context = useContext(AuthContext);
     let router = useRouter();
     
+    useEffect(()=>{
+        return () => {
+            if (imgSource.type === "file")
+                URL.revokeObjectURL(imgSource.src)
+            if (choosingFile !== undefined)
+                URL.revokeObjectURL(choosingFile.src);
+        }
+    }, [])
+    
     if (!context.loggedIn)
         return (<MustBeLoggedIn actionKey={"createYouProfile"}></MustBeLoggedIn>);
     
     if (context.completedProfile) {
-        router.push("/").then();
-        return (<Redirect message={t("errorProfileDone")} target={t("home")}></Redirect>)
+        // router.push("/").then(); TODO
+        // return (<Redirect message={t("errorProfileDone")} target={t("home")}></Redirect>)
     }
     
     async function submit(data: Form) {
@@ -99,48 +116,87 @@ const FirstLoginForm: FC = () => {
             return t("cantChangeLater");
     }
     
+    async function startCropAndResize(e: ChangeEvent<HTMLInputElement>) {
+        let element = e.currentTarget;
+        if (element.files === null || element.files === undefined) return;
+        let file = element.files[0];
+        let src = URL.createObjectURL(file);
+        let size = await getImageDims(src);
+        setChoosingFile({file, src, ...size});
+    }
+    
+    function endCropAndResize() {
+        if (!choosingFile) return;
+        setChoosingFile(undefined);
+    }
+    
+    async function submitFile(value: CropAndResize) {
+        if (!choosingFile) return;
+        if (imgSource.type === "file")
+            URL.revokeObjectURL(imgSource.src)
+        
+        endCropAndResize();
+        let blob = await cropAndResizeCall(choosingFile.file, value);
+        
+        setImgSource({
+            type: "file",
+            src: URL.createObjectURL(blob.data)
+        });
+    }
+    
     return (
-        <Card>
-            <div className={"mb-3"}>
-                <h1 className={"monospace text-primary-200 flex justify-center"}>
-                    <TextWriteAnimation text={t("aLittleAboutYou")} triggerView={true}></TextWriteAnimation>
-                </h1>
-            </div>
-            
-            <form className={"w-[20rem]"} onSubmit={handleSubmit(submit)}>
-                <BlockError>{error}</BlockError>
-                
-                <FloatingLabelInput label={t("username")} props={register("username", {
-                    required: true,
-                    validate: validateUsername
-                })} error={formatUsernameError()}></FloatingLabelInput>
-                
-                <div className={"mt-2"}></div>
-                <FloatingLabelInput label={t("name")} props={register("name", {
-                    required: true
-                })}></FloatingLabelInput>
-                
-                <FloatingLabelTextarea label={t("bio")} props={register("bio")}></FloatingLabelTextarea>
-                
-                <h4 className={"mt-4 mb-2 font-semibold"}>{t("profileImage")}</h4>
-                <div className={"mx-3 mb-4"}>
-                    <div className={"relative mb-1"}>
-                        <Image src={imgSource.src} alt={t("altRandomAvatar")} width={"100%"}
-                               height={"100%"}
-                               layout={"responsive"} objectFit={"contain"} className={"rounded-full"}/>
-                    </div>
-                    <div className={"flex gap-1 justify-center"}>
-                        <BtnSecondary type={"button"} onClick={() => setImgSource(randId())}>{t("random")}</BtnSecondary>
-                        <BtnSecondary type={"button"} onClick={() => setImgSource(randId())}>{t("chooseFromFile")}</BtnSecondary>
-                        {/*    TODO: implement file*/}
-                    </div>
+        <>
+            {choosingFile && (
+                <ImageCropAndResize width={choosingFile.width} height={choosingFile.height} src={choosingFile.src}
+                                    onCancel={endCropAndResize} onSubmit={submitFile}></ImageCropAndResize>)}
+            <Card>
+                <div className={"mb-3"}>
+                    <h1 className={"monospace text-primary-200 flex justify-center"}>
+                        <TextWriteAnimation text={t("aLittleAboutYou")} triggerView={true}></TextWriteAnimation>
+                    </h1>
                 </div>
                 
-                <div>
-                    <BtnPrimary disabled={busy} type={"submit"}>{t("save")}</BtnPrimary>
-                </div>
-            </form>
-        </Card>
+                <form className={"w-[20rem]"} onSubmit={handleSubmit(submit)}>
+                    <BlockError>{error}</BlockError>
+                    
+                    <FloatingLabelInput label={t("username")} props={register("username", {
+                        required: true,
+                        validate: validateUsername
+                    })} error={formatUsernameError()}></FloatingLabelInput>
+                    
+                    <div className={"mt-2"}></div>
+                    <FloatingLabelInput label={t("name")} props={register("name", {
+                        required: true
+                    })}></FloatingLabelInput>
+                    
+                    <FloatingLabelTextarea label={t("bio")} props={register("bio")}></FloatingLabelTextarea>
+                    
+                    <h4 className={"mt-4 mb-2 font-semibold"}>{t("profileImage")}</h4>
+                    <div className={"mx-3 mb-4"}>
+                        <div className={"relative mb-1"}>
+                            <Image src={imgSource.src} alt={t("altRandomAvatar")} width={"100%"}
+                                   height={"100%"}
+                                   layout={"responsive"} objectFit={"contain"} className={"rounded-full"}/>
+                        </div>
+                        <div className={"flex gap-1 justify-center"}>
+                            <BtnSecondary type={"button"}
+                                          onClick={() => setImgSource(randId())}>{t("random")}</BtnSecondary>
+                            
+                            <BtnSecondary type={"button"}>
+                                <label htmlFor={"fileInput"}>{t("chooseFromFile")}</label>
+                                <input type={"file"} className={"hidden"} id={"fileInput"}
+                                       onChange={startCropAndResize}/>
+                            </BtnSecondary>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <BtnPrimary disabled={busy} type={"submit"}>{t("save")}</BtnPrimary>
+                    </div>
+                </form>
+            </Card>
+        </>
+    
     );
 }
 

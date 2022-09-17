@@ -50,6 +50,10 @@
     @apply px-2 py-1 rounded-lg;
   }
 
+  input[type="range"] {
+    @apply accent-primary-500;
+  }
+
   .word-wrap-normal {
     word-wrap: normal;
   }
