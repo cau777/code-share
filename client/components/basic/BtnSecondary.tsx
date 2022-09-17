@@ -2,7 +2,7 @@ import {FC, HTMLProps, PropsWithChildren} from "react";
 
 type Props = HTMLProps<HTMLButtonElement>;
 
-const BtnPrimary: FC<PropsWithChildren<Props>> = (props) => {
+const BtnSecondary: FC<PropsWithChildren<Props>> = (props) => {
     return (
         // @ts-ignore
         <button {...props}
@@ -11,4 +11,4 @@ const BtnPrimary: FC<PropsWithChildren<Props>> = (props) => {
     )
 }
 
-export default BtnPrimary;
+export default BtnSecondary;

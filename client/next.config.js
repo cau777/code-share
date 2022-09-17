@@ -12,6 +12,14 @@ const nextConfig = {
             "avatars.dicebear.com",
             "dummyimage.com"
         ]
+    },
+    async rewrites() {
+        return [
+            {
+                source: "/api/convert_image",
+                destination: "https://code-share-image-service.livelybay-b5b6ca38.brazilsouth.azurecontainerapps.io/convert"
+            }
+        ]
     }
 }
 

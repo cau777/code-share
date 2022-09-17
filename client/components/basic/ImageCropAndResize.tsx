@@ -5,6 +5,9 @@ import Image from "next/image";
 import CircleMask from "../icons/CircleMaskIcon";
 import MagnifyingGlassMinusIcon from "../icons/MagnifyingGlassMinusIcon";
 import MagnifyingGlassPlusIcon from "../icons/MagnifyingGlassPlusIcon";
+import BtnSecondary from "./BtnSecondary";
+import BtnPrimary from "./BtnPrimary";
+import {useTranslation} from "next-i18next";
 
 type Props = {
     onCancel: () => void;
@@ -25,6 +28,7 @@ function clamp(value: number, min: number, max: number) {
 const ImageCropAndResize: FC<Props> = (props) => {
     let minScale = Math.max(100, 100 / props.height * props.width);
     
+    let {t} = useTranslation();
     let [scale, setScale] = useState(minScale);
     let [position, setPosition] = useState<Position>({top: 0, left: 0});
     let [dragStart, setDragStart] = useState<DragStart>();
@@ -86,6 +90,16 @@ const ImageCropAndResize: FC<Props> = (props) => {
         setScale(value);
     }
     
+    function submit() {
+        let mask = maskRef.current;
+        if (mask === null) return;
+        props.onSubmit({
+            scale: scale,
+            top: -position.top / mask.clientHeight,
+            left: -position.left / mask.clientHeight
+        });
+    }
+    
     return (
         <>
             <div className={"absolute top-0 left-0 w-full h-full"}>
@@ -106,17 +120,21 @@ const ImageCropAndResize: FC<Props> = (props) => {
                                 top: position.top,
                                 left: position.left
                             }}>
-                                <Image src={props.src} layout={"responsive"} width={props.width} height={props.height}
-                                       alt={"chosen file"}></Image>
+                                <Image src={props.src} layout={"responsive"} width={props.width} height={props.height} alt={"chosen file"}></Image>
                             </div>
                         
                         </div>
                         
-                        <div className={"flex justify-end gap-1 align-middle"}>
+                        <div className={"flex justify-end gap-1 align-middle mb-2"}>
                             <MagnifyingGlassMinusIcon height={"1.5rem"}></MagnifyingGlassMinusIcon>
                             <input type={"range"} min={minScale} max={minScale * 2.5} value={scale}
                                    onChange={o => changeScale(Number(o.currentTarget.value))}/>
                             <MagnifyingGlassPlusIcon height={"1.5rem"}></MagnifyingGlassPlusIcon>
+                        </div>
+                        
+                        <div className={"flex gap-2"}>
+                            <BtnSecondary type={"button"} onClick={props.onCancel}>{t("cancel")}</BtnSecondary>
+                            <BtnPrimary type={"button"} onClick={submit}>{t("save")}</BtnPrimary>
                         </div>
                     </Card>
                 </div>

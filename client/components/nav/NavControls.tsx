@@ -20,8 +20,9 @@ const NavControls: FC<PropsWithChildren> = (props) => {
                 <div className={"container"}>
                     <div className={"flex items-center gap-3"}>
                         <Link href={"/"}>
-                            {/*TODO: ref*/}
-                            <Logo className={"my-auto cursor-pointer"}></Logo>
+                            <div>
+                                <Logo className={"my-auto cursor-pointer"}></Logo>
+                            </div>
                         </Link>
                         
                         <AboveSm>
