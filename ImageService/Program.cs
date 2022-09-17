@@ -1,3 +1,6 @@
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +18,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseRequestLocalization(o =>
+{
+    o.DefaultRequestCulture = new RequestCulture(CultureInfo.InvariantCulture);
+});
 
 app.UseHttpsRedirection();
 

@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using ImageProcessor;
+using ImageProcessor.Imaging.Formats;
 using ImageProcessor.Plugins.WebP.Imaging.Formats;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,20 +19,35 @@ public class ConverterController : ControllerBase
     }
 
     [HttpPost(Name = "ConvertImage")]
-    public async Task<IActionResult> Post([FromForm] [Required] IFormFile file)
+    public async Task<IActionResult> Post([FromForm] [Required] IFormFile file, [FromForm] [Required] double top,
+        [FromForm] [Required] double left, [FromForm] [Required] double scale)
     {
-        Stream webpFileStream = new MemoryStream();
+        Stream jpegFileStream = new MemoryStream();
         await Task.Run(() =>
         {
             using ImageFactory factory = new();
+            factory.Load(file.OpenReadStream());
 
-            factory.Load(file.OpenReadStream())
-                .Format(new WebPFormat())
-                .Quality(70)
-                .Resize(new Size(500, 500))
-                .Save(webpFileStream);
+            double height = factory.Image.Width;
+            double ratio = scale / 100;
+            int viewSize = (int) (height / ratio);
+
+            Rectangle crop = new((int) (left * height / ratio),
+                (int) (top * height / ratio),
+                viewSize,
+                viewSize);
+
+            factory.Crop(crop);
+            double cropHeight = factory.Image.Height;
+            if (cropHeight > 500)
+                factory.Resize(new Size(500, 500));
+            
+            factory
+                .Format(new JpegFormat())
+                .Quality(80)
+                .Save(jpegFileStream);
         });
 
-        return File(webpFileStream, "image/webp");
+        return File(jpegFileStream, "image/webp");
     }
 }
