@@ -21,7 +21,6 @@ export function getImageDims(src: string) {
     });
 }
 
-// TODO
 export function cropAndResizeCall(file: File, options: CropAndResize): Promise<AxiosResponse<Blob>> {
     return axios.postForm("/api/convert_image", {
         file,
@@ -29,4 +28,8 @@ export function cropAndResizeCall(file: File, options: CropAndResize): Promise<A
         top: options.top,
         left: options.left
     }, {responseType: "blob"});
+}
+
+export function createUserImageUrl(id: string) {
+    return id + ".jpg";
 }

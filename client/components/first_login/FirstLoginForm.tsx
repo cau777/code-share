@@ -12,7 +12,7 @@ import {useRouter} from "next/router";
 import BlockError from "../basic/BlockError";
 import Image from "next/image";
 import {nanoid} from "nanoid";
-import {createDicebearUrl, CropAndResize, cropAndResizeCall, getImageDims} from "../../src/images";
+import {createDicebearUrl, createUserImageUrl, CropAndResize, cropAndResizeCall, getImageDims} from "../../src/images";
 import BtnSecondary from "../basic/BtnSecondary";
 import axios from "axios";
 import {useTranslation} from "next-i18next";
@@ -25,9 +25,13 @@ type Form = {
 }
 
 type ImgSource = {
-    type: "file" | "dicebear";
+    type: "dicebear";
     src: string;
-}
+} | {
+    type: "file";
+    blob: Blob
+    src: string;
+};
 
 type ChoosingFileState = {
     file: File;
@@ -51,7 +55,7 @@ const FirstLoginForm: FC = () => {
     let context = useContext(AuthContext);
     let router = useRouter();
     
-    useEffect(()=>{
+    useEffect(() => {
         return () => {
             if (imgSource.type === "file")
                 URL.revokeObjectURL(imgSource.src)
@@ -75,7 +79,10 @@ const FirstLoginForm: FC = () => {
         if (imgSource.type === "dicebear") {
             let buffer = await axios.get<Blob>(imgSource.src, {responseType: "blob"});
             await fromStorage(supabase, "profile-pictures")
-                .upload(context.id + ".jpg", buffer.data);
+                .upload(createUserImageUrl(context.id), buffer.data);
+        } else if (imgSource.type === "file") {
+            await fromStorage(supabase, "profile-pictures")
+                .upload(createUserImageUrl(context.id), imgSource.blob);
         }
         
         let response = await fromTable(supabase, "UserPublicInfo")
@@ -126,6 +133,8 @@ const FirstLoginForm: FC = () => {
     }
     
     function endCropAndResize() {
+        let input = document.getElementById("fileInput") as HTMLInputElement;
+        input.value = null!;
         if (!choosingFile) return;
         setChoosingFile(undefined);
     }
@@ -136,11 +145,12 @@ const FirstLoginForm: FC = () => {
             URL.revokeObjectURL(imgSource.src)
         
         endCropAndResize();
-        let blob = await cropAndResizeCall(choosingFile.file, value);
+        let response = await cropAndResizeCall(choosingFile.file, value);
         
         setImgSource({
             type: "file",
-            src: URL.createObjectURL(blob.data)
+            src: URL.createObjectURL(response.data),
+            blob: response.data
         });
     }
     

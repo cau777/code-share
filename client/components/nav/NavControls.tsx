@@ -35,14 +35,6 @@ const NavControls: FC<PropsWithChildren> = (props) => {
                             <span className={"header-link" + mergeClasses({selected: path === "/profile"})}>
                             <Link href={"/profile"}>{t("profile")}</Link>
                         </span>
-                            <span
-                                className={"header-link" + mergeClasses({selected: path === "/profile/test1"})}>
-                            <Link href={"/profile/test1"}>Profile 1</Link>
-                        </span>
-                            <span
-                                className={"header-link" + mergeClasses({selected: path === "/profile/test2"})}>
-                            <Link href={"/profile/test2"}>Profile 2</Link>
-                        </span>
                         </AboveSm>
                         
                         <div className={"ml-auto"}>
