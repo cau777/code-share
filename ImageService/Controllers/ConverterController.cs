@@ -22,6 +22,7 @@ public class ConverterController : ControllerBase
     public async Task<IActionResult> Post([FromForm] [Required] IFormFile file, [FromForm] [Required] double top,
         [FromForm] [Required] double left, [FromForm] [Required] double scale)
     {
+		_logger.LogInformation("Processing request");
         Stream jpegFileStream = new MemoryStream();
         await Task.Run(() =>
         {
@@ -48,6 +49,6 @@ public class ConverterController : ControllerBase
                 .Save(jpegFileStream);
         });
 
-        return File(jpegFileStream, "image/webp");
+        return File(jpegFileStream, "image/jpeg");
     }
 }
