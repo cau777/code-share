@@ -24,6 +24,7 @@ const Profile: FC<Props> = (props) => {
                                  setEditing(false);
                              }}></ProfileDataEdit>
             : <>
+                {/*TODO: image update*/}
                 {(context.loggedIn && context.id === props.id) &&
                     <button
                         className={"float-right rounded bg-back-3 p-1 grid-center cursor-pointer"}
