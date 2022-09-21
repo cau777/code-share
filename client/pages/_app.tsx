@@ -10,7 +10,6 @@ import AssertProfileComplete from "../components/AssertProfileComplete";
 import {appWithTranslation, useTranslation} from "next-i18next";
 
 // TODO: PWA
-// TODO: Search
 function MyApp({Component, pageProps}: AppProps) {
     let {t} = useTranslation();
     
