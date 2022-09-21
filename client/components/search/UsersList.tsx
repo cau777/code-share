@@ -7,7 +7,7 @@ import ProfilePicture from "../basic/ProfilePicture";
 import Link from "next/link";
 
 type Props = {
-    query?: string;
+    query?: string[];
 }
 
 type User = {
@@ -28,11 +28,15 @@ const UsersList: FC<Props> = (props) => {
         let query = fromTable(supabase, "UserPublicInfo")
             .select("*")
         
-        if (props.query)
-            query = query.or(`or(username.fts.%${props.query}%), or(name.fts.%${props.query}%)`);
-    
+        if (props.query) {
+            let usernameChecks = props.query.map(o => `username.fts.%${o}%`);
+            let nameChecks = props.query.map(o => `name.fts.%${o}%`);
+            let checks = [...usernameChecks, nameChecks];
+            query = query.or(checks.map(o => "or(" + o + ")").join(", "));
+        }
+        
         const records = await query;
-    
+        
         if (records.data === null) {
             setError(records.error.message);
             return;
@@ -46,6 +50,9 @@ const UsersList: FC<Props> = (props) => {
     
     if (state === undefined)
         return (<Loading></Loading>);
+    
+    if (state.data.length === 0)
+        return (<></>);
     
     return (
         <div className={"rounded-lg bg-back-2 p-3 pb-1"}>

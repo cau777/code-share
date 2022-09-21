@@ -165,7 +165,7 @@
     text-align: center;
   }
 
-  .hide-one-child:nth-last-child(2) {
+  .hide-one-child:only-child {
     display: none;
   }
 }

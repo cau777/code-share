@@ -28,13 +28,13 @@ const FirstLogin: NextPage = () => {
             
             {(q && typeof q === "string") && (
                 <div key={q}>
-                    <section className={""}>
-                        <h2>Users</h2>
-                        <UsersList></UsersList>
+                    <section>
+                        <h2 className={"hide-one-child"}>{t("users")}</h2>
+                        <UsersList query={q.split(" ")}></UsersList>
                     </section>
                     
                     <section>
-                        <h2>Posts</h2>
+                        <h2>{t("posts")}</h2>
                         <SnippetsFeed queryFilter={q.split(" ")}></SnippetsFeed>
                     </section>
                 </div>

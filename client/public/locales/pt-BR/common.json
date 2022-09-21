@@ -35,6 +35,8 @@
   "username": "Nome de usuário",
   "redirectingTo": "Redirecionando para",
   "search": "Pesquisa",
+  "posts": "Publicações",
+  "users": "Usuários",
 
   "errorInvalidCredentials": "Credenciais inválidas",
   "errorProfileNotFound": "Esse perfil não pôde ser encontrado",
