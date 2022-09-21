@@ -11,7 +11,6 @@ import {appWithTranslation, useTranslation} from "next-i18next";
 
 // TODO: PWA
 //TODO: Search
-// TODO: favicon
 function MyApp({Component, pageProps}: AppProps) {
     let {t} = useTranslation();
     
