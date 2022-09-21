@@ -8,6 +8,8 @@ import {AboveSm, BelowMd} from "../basic/Breakpoints";
 import HomeIcon from "../icons/HomeIcon";
 import CodeSquareIcon from "../icons/CodeSquareIcon";
 import Logo from "../basic/Logo";
+import SearchBar from "../search/SearchBar";
+import MagnifyingGlassIcon from "../icons/MagnifyingGlassIcon";
 
 const NavControls: FC<PropsWithChildren> = (props) => {
     let router = useRouter();
@@ -35,6 +37,10 @@ const NavControls: FC<PropsWithChildren> = (props) => {
                             <span className={"header-link" + mergeClasses({selected: path === "/profile"})}>
                             <Link href={"/profile"}>{t("profile")}</Link>
                         </span>
+                        
+                        <div className={"w-52 ml-2"}>
+                            <SearchBar></SearchBar>
+                        </div>
                         </AboveSm>
                         
                         <div className={"ml-auto"}>
@@ -60,6 +66,13 @@ const NavControls: FC<PropsWithChildren> = (props) => {
                             <Link href={"/post"}>
                                 <span>
                                 <CodeSquareIcon height={"2rem"}></CodeSquareIcon>
+                                </span>
+                            </Link>
+                        </span>
+                        <span className={"header-link" + mergeClasses({selected: path === "/search"})}>
+                            <Link href={"/search"}>
+                                <span>
+                                <MagnifyingGlassIcon className={"p-0.5"} height={"2rem"}></MagnifyingGlassIcon>
                                 </span>
                             </Link>
                         </span>

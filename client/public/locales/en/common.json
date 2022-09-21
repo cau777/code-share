@@ -34,6 +34,7 @@
   "chooseFromFile": "Choose from file",
   "username": "Username",
   "redirectingTo": "Redirecting to",
+  "search": "Search",
 
   "errorInvalidCredentials": "Invalid login credentials",
   "errorProfileNotFound": "This profile could not be found",
@@ -48,6 +49,7 @@
   "errorUsernameHasSpace": "Username can't contain spaces",
   "errorUsernameCharset": "Username can't have special characters",
   "errorPostNotFound": "This post could not be found",
+  "errorInvalidSearch": "Invalid search",
 
   "altRandomAvatar": "Randomly generated robot avatar"
 }

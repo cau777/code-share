@@ -26,7 +26,9 @@ export type Snippet = {
 }
 
 type Props = {
-    specificUser?: string;
+    userFilter?: string;
+    queryFilter?: string[];
+    
 }
 
 type State = {
@@ -46,6 +48,7 @@ const SnippetsFeed: FC<Props> = (props) => {
     let {t} = useTranslation();
     
     useEffectOnMount(() => {
+        console.log("mount feed", props)
         next().then();
     });
     
@@ -55,8 +58,17 @@ const SnippetsFeed: FC<Props> = (props) => {
             .order("created_at", {ascending: false})
             .lt("created_at", state.initialTime) // Ignore snippets posted after query
         
-        if (props.specificUser)
-            query = query.match({author: props.specificUser});
+        if (props.userFilter)
+            query = query.match({author: props.userFilter});
+        
+        if (props.queryFilter) {
+            let targets = ["title", "description"];
+            let ftsString = props.queryFilter.join(" | ");
+            let fts = targets.map(o => `${o}.fts.%${ftsString}%`);
+            let querySearch = props.queryFilter.map(o => `keywords.cs.{${o}}`);
+            
+            query = query.or([...fts, ...querySearch].map(o => "or(" + o + ")").join(","));
+        }
         
         query = query.range(state.page * PageSize, (state.page + 1) * PageSize);
         let records = await query;

@@ -45,9 +45,7 @@ const AuthProvider: FC<PropsWithChildren> = (props) => {
     }, []);
     
     return (
-        // TODO: needed?
-        // Key attribute forces re-render when the user data changes
-        <AuthContext.Provider value={state} key={JSON.stringify(state)}>
+        <AuthContext.Provider value={state}>
             {props.children}
         </AuthContext.Provider>
     )

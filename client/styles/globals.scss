@@ -67,7 +67,7 @@
       @apply border-primary-500 shadow-2xl #{!important};
     }
 
-    .search-select__value-container,  .search-select__indicator {
+    .search-select__value-container, .search-select__indicator {
       @apply bg-back-1;
     }
 
@@ -163,6 +163,10 @@
 
   .text-center {
     text-align: center;
+  }
+
+  .hide-one-child:nth-last-child(2) {
+    display: none;
   }
 }
 

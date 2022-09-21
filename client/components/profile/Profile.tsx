@@ -33,7 +33,7 @@ const Profile: FC<Props> = (props) => {
                     </button>}
                 <h2>{props.name}</h2>
                 <h3 className={"text-font-2"}>@{props.username}</h3>
-                <hr className={"my-2"}/>
+                {props.bio.length !== 0 ? (<hr className={"my-2"}/>) : (<></>)}
                 <p>{props.bio}</p>
             </>
     }
@@ -54,7 +54,7 @@ const Profile: FC<Props> = (props) => {
                         <span className={"grid-center h-full"}><VerticalLine></VerticalLine></span>
                     </div>
                     <div className={"w-[73%]"}>
-                        <SnippetsFeed key={"feed " + props.id} specificUser={props.id}></SnippetsFeed>
+                        <SnippetsFeed key={"feed " + props.id} userFilter={props.id}></SnippetsFeed>
                     </div>
                 </div>
             </AboveSm>
@@ -72,7 +72,7 @@ const Profile: FC<Props> = (props) => {
                 </Card>
                 <hr className={"my-2"}/>
                 <div className={"flex-grow"}>
-                    <SnippetsFeed specificUser={props.id}></SnippetsFeed>
+                    <SnippetsFeed userFilter={props.id}></SnippetsFeed>
                 </div>
             </BelowMd>
         </>
