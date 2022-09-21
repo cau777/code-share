@@ -18,6 +18,10 @@ const nextConfig = {
             {
                 source: "/api/convert_image",
                 destination: "https://code-share-image-service.livelybay-b5b6ca38.brazilsouth.azurecontainerapps.io/convert"
+            },
+            {
+                source: "/api/extract_keywords",
+                destination: "https://code-share-key-terms-extractor.livelybay-b5b6ca38.brazilsouth.azurecontainerapps.io/extract"
             }
         ]
     }
