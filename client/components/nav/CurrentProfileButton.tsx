@@ -26,7 +26,7 @@ const CurrentProfileButton: FC = () => {
         <>
             {state.open && <ScreenCover onClick={() => setState({open: false})}></ScreenCover>}
             
-            <div className={"flex items-center cursor-pointer"} onClick={() => setState({open: !state.open})}>
+            <div className={"flex items-center cursor-pointer"} onClick={() => setState({open: !state.open})} key={JSON.stringify(context)}>
                 <div className={"h-8 w-8 m-1"}>
                     <ProfilePicture id={context.loggedIn ? context.id : undefined}></ProfilePicture>
                 </div>
