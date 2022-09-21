@@ -8,9 +8,9 @@ import {getStaticCommonTranslations} from "../src/i18n";
 import {useTranslation} from "next-i18next";
 
 const Login: NextPage = () => {
-    let router = useRouter();
-    let context = useContext(AuthContext);
-    let {t} = useTranslation();
+    const router = useRouter();
+    const context = useContext(AuthContext);
+    const {t} = useTranslation();
     
     useAsyncEffect(async () => {
         await supabase.auth.signOut();

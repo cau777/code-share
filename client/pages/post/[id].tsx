@@ -12,7 +12,7 @@ import BlockError from "../../components/basic/BlockError";
 type Props = { found: false; } | ({ found: true; } & Snippet);
 
 const PostByIdPage: NextPage<Props> = (props) => {
-    let {t} = useTranslation();
+    const {t} = useTranslation();
     
     if (!props.found)
         return (
@@ -34,12 +34,12 @@ const PostByIdPage: NextPage<Props> = (props) => {
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({query, locale}) => {
-    let {id} = query;
-    let {data, error} = await fromTable(supabase, "Posts")
+    const {id} = query;
+    const {data, error} = await fromTable(supabase, "Posts")
         .select("*")
         .match({id: Number(id)})
         .single();
-    let translations = await serverSideTranslations(locale!, ["common"]);
+    const translations = await serverSideTranslations(locale!, ["common"]);
     
     if (error)
         if (error.code === "404")

@@ -8,7 +8,7 @@ export function redirectToLogin(router: NextRouter) {
 }
 
 async function getProfileData(id: string) {
-    let response = await fromTable(supabase, "UserPublicInfo")
+    const response = await fromTable(supabase, "UserPublicInfo")
         .select("*")
         .match({id})
         .single();
@@ -16,8 +16,8 @@ async function getProfileData(id: string) {
 }
 
 export async function login(context: AuthCtx, user: User) {
-    let profileData = await getProfileData(user.id);
-    let result = profileData !== null;
+    const profileData = await getProfileData(user.id);
+    const result = profileData !== null;
     
     context.changeCtx({
         completedProfile: result,

@@ -12,14 +12,14 @@ type Props = {
 }
 
 const DynamicKeywords: FC<Props> = (props) => {
-    let [state, setState] = useState<AsyncState<string[]>>({current: "loading"});
-    let prev = useRef<string[]>();
+    const [state, setState] = useState<AsyncState<string[]>>({current: "loading"});
+    const prev = useRef<string[]>();
     
     useEffect(() => {
         setState({current: "loading"});
         
         KeywordsRequestManager.call(async () => {
-            let data = await fetchPostKeywords(props.title, props.description);
+            const data = await fetchPostKeywords(props.title, props.description);
             prev.current = data;
             setState({current: "ready", value: data});
             await sleep(1_500); // Avoid too many requests

@@ -6,7 +6,7 @@
  * @param end The last index to search (exclusive)
  */
 export function regexTestRange(str: string, regex: RegExp, start: number = 0, end: number = str.length) {
-    let sub = str.substring(start, end);
+    const sub = str.substring(start, end);
     return sub.match(regex) !== null;
 }
 
@@ -20,7 +20,7 @@ export function regexTestRange(str: string, regex: RegExp, start: number = 0, en
 export function countOccurrences(str: string, pattern: string, start: number = 0, end: number = str.length - pattern.length + 1): number {
     let count = 0;
     for (let i = start; i < end; i++) {
-        let sub = str.substring(i, i+pattern.length);
+        const sub = str.substring(i, i + pattern.length);
         if (sub === pattern) count++;
     }
     return count;
@@ -34,7 +34,7 @@ export function countOccurrences(str: string, pattern: string, start: number = 0
  * @param end The last index to search (exclusive)
  */
 export function find(str: string, pattern: string, start: number = 0, end: number = str.length - pattern.length + 1): number | undefined {
-    let targetLen = pattern.length;
+    const targetLen = pattern.length;
     
     for (let i = start; i < end; i++) {
         if (str.substring(i, i+targetLen) === pattern) return i;
@@ -51,7 +51,7 @@ export function find(str: string, pattern: string, start: number = 0, end: numbe
  * @param end The last index to search (exclusive)
  */
 export function findReversed(str: string, pattern: string, start: number = 0, end: number = str.length - pattern.length + 1): number | undefined {
-    let targetLen = pattern.length;
+    const targetLen = pattern.length;
     
     for (let i = end - 1; i >= start; i--) {
         if (str.substring(i, i + targetLen) === pattern) return i;

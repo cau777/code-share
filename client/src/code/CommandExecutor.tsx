@@ -42,17 +42,17 @@ export class CommandExecutor {
         this.saveState(target);
         
         if (this.history.length !== 1) {
-            let prev = this.history.pop();
+            const prev = this.history.pop();
             if (prev)
                 this.undoneHistory.push(prev);
         }
-        
-        let last = this.lastState();
+    
+        const last = this.lastState();
         last.applyState(target);
     }
     
     public redo(target: HTMLTextAreaElement) {
-        let action = this.undoneHistory.pop();
+        const action = this.undoneHistory.pop();
         if (action === undefined) return;
         
         action.applyState(target);
@@ -61,7 +61,7 @@ export class CommandExecutor {
     }
     
     public saveState(target: HTMLTextAreaElement) {
-        let last = this.lastState();
+        const last = this.lastState();
         if (!last.equalState(target))
             this.history.push(new CodeEditorState(last, target));
     }

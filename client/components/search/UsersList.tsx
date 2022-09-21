@@ -21,8 +21,8 @@ type State = {
 }
 
 const UsersList: FC<Props> = (props) => {
-    let [state, setState] = useState<State>();
-    let [error, setError] = useState<string>();
+    const [state, setState] = useState<State>();
+    const [error, setError] = useState<string>();
     
     useAsyncEffect(async () => {
         let query = fromTable(supabase, "UserPublicInfo")
@@ -30,9 +30,9 @@ const UsersList: FC<Props> = (props) => {
         
         if (props.query)
             query = query.or(`or(username.fts.%${props.query}%), or(name.fts.%${props.query}%)`);
-        
-        let records = await query;
-        
+    
+        const records = await query;
+    
         if (records.data === null) {
             setError(records.error.message);
             return;

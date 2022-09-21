@@ -10,8 +10,8 @@ type Props = {
 }
 
 const CodeDisplay: FC<Props> = (props) => {
-    let options = props.language;
-    let linesWithColors = highlightText(props.text, options);
+    const options = props.language;
+    const linesWithColors = highlightText(props.text, options);
     
     return (
         <table className={"w-full whitespace-pre monospace code"}>

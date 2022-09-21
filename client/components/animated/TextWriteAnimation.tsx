@@ -13,41 +13,41 @@ type State = {
 }
 
 const TextWriteAnimation: FC<Props> = (props) => {
-    let len = props.text.length;
-    let [state, setState] = useState<State>({current: len});
-    let shouldTriggerOnView = useRef(props.triggerView);
+    const len = props.text.length;
+    const [state, setState] = useState<State>({current: len});
+    const shouldTriggerOnView = useRef(props.triggerView);
     
     
-    let viewRef = useRef<HTMLSpanElement>(null);
+    const viewRef = useRef<HTMLSpanElement>(null);
     
     
     useEffectOnMount(() => {
         function registerObserver() {
             if (typeof IntersectionObserver === "undefined")
                 return;
-            
-            let observer = new IntersectionObserver(() => {
+    
+            const observer = new IntersectionObserver(() => {
                 if (shouldTriggerOnView.current)
                     startWriteAnimation();
                 shouldTriggerOnView.current = false;
             }, {
                 threshold: 0.9
             });
-            
+    
             if (viewRef.current)
                 observer.observe(viewRef.current);
         }
-        
-        let handle = window.requestIdleCallback(registerObserver);
+    
+        const handle = window.requestIdleCallback(registerObserver);
         return () => window.cancelIdleCallback(handle);
     });
     
-    let ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLDivElement>(null);
     
     function startWriteAnimation() {
         if (state.interval != undefined) return;
-        
-        let interval = setInterval(() => {
+    
+        const interval = setInterval(() => {
             setState(s => {
                 if (s.interval === undefined) return s;
                 if (s.current >= len - 1) {
@@ -57,8 +57,8 @@ const TextWriteAnimation: FC<Props> = (props) => {
                 return {...s, current: s.current + 1};
             })
         }, 1000 / 8);
-        
-        let width = ref.current?.getBoundingClientRect().width;
+    
+        const width = ref.current?.getBoundingClientRect().width;
         setState(() => ({interval, current: 1, fixedWidth: width, first: false}));
     }
     

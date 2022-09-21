@@ -17,7 +17,7 @@ export class Cache<TKey, TValue> {
         this.elements.delete(key);
         this.elements.set(key, value);
         
-        for (let keyToDelete of this.elements.keys()) {
+        for (const keyToDelete of this.elements.keys()) {
             if (this.elements.size < this.maxSize) {
                 break;
             }
@@ -30,8 +30,8 @@ export class Cache<TKey, TValue> {
             // console.log("Used cache for", key);
             return this.getCached(key)!;
         }
-        
-        let value = lazy();
+    
+        const value = lazy();
         this.setCached(key, value);
         return value;
     }

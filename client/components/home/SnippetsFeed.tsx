@@ -43,9 +43,9 @@ function defaultState(): State {
 }
 
 const SnippetsFeed: FC<Props> = (props) => {
-    let [state, setState] = useState<State>(defaultState());
-    let [error, setError] = useState<string>();
-    let {t} = useTranslation();
+    const [state, setState] = useState<State>(defaultState());
+    const [error, setError] = useState<string>();
+    const {t} = useTranslation();
     
     useEffectOnMount(() => {
         next().then();
@@ -61,27 +61,27 @@ const SnippetsFeed: FC<Props> = (props) => {
             query = query.match({author: props.userFilter});
         
         if (props.queryFilter) {
-            let targets = ["title", "description"];
-            let ftsString = props.queryFilter.join(" | ");
-            let fts = targets.map(o => `${o}.fts.%${ftsString}%`);
-            let querySearch = props.queryFilter.map(o => `keywords.cs.{${o}}`);
-            
+            const targets = ["title", "description"];
+            const ftsString = props.queryFilter.join(" | ");
+            const fts = targets.map(o => `${o}.fts.%${ftsString}%`);
+            const querySearch = props.queryFilter.map(o => `keywords.cs.{${o}}`);
+    
             query = query.or([...fts, ...querySearch].map(o => "or(" + o + ")").join(","));
         }
         
         query = query.range(state.page * PageSize, (state.page + 1) * PageSize);
-        let records = await query;
-        
+        const records = await query;
+    
         if (records.data === null) {
             setError(records.error.message);
             return;
         }
-        
-        let promises: Promise<Snippet>[] = records.data.map(completeSnippetData);
-        
-        let data = await Promise.all(promises);
-        
-        let nSnippets: Snippet[] = [...state.snippets, ...data];
+    
+        const promises: Promise<Snippet>[] = records.data.map(completeSnippetData);
+    
+        const data = await Promise.all(promises);
+    
+        const nSnippets: Snippet[] = [...state.snippets, ...data];
         setState({
             snippets: nSnippets,
             page: state.page + 1,

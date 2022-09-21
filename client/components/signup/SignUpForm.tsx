@@ -25,11 +25,11 @@ type State = {
 }
 
 const SignUpForm: FC = () => {
-    let [state, setState] = useState<State>({busy: false});
-    let ctx = useContext(AuthContext);
-    let {register, handleSubmit, formState: {errors}, getValues} = useForm<Form>({});
-    let router = useRouter();
-    let {t} = useTranslation();
+    const [state, setState] = useState<State>({busy: false});
+    const ctx = useContext(AuthContext);
+    const {register, handleSubmit, formState: {errors}, getValues} = useForm<Form>({});
+    const router = useRouter();
+    const {t} = useTranslation();
     
     function translateError(error: ApiError|null) {
         if(error === null) return undefined;
@@ -45,8 +45,8 @@ const SignUpForm: FC = () => {
     
     async function submit(data: Form) {
         setState({busy: true});
-        let {user, error} = await supabase.auth.signUp({email: data.email, password: data.password});
-        
+        const {user, error} = await supabase.auth.signUp({email: data.email, password: data.password});
+    
         if (error) {
             setState({busy: false, error: translateError(error)});
         } else {

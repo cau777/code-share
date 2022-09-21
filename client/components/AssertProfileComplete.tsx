@@ -4,14 +4,15 @@ import {useRouter} from "next/router";
 import {useTranslation} from "next-i18next";
 
 const AssertProfileComplete: FC<PropsWithChildren> = (props) => {
-    let context = useContext(AuthContext);
-    let router = useRouter();
-    let {t} = useTranslation();
-    let [show, setShow] = useState(!context.loggedIn || context.completedProfile);
+    const context = useContext(AuthContext);
+    const router = useRouter();
+    const {t} = useTranslation();
+    const [show, setShow] = useState(!context.loggedIn || context.completedProfile);
+    const loggedCtx = context as LoggedInCtx;
     
     useEffect(() => {
         setShow(!context.loggedIn || context.completedProfile);
-    }, [context.loggedIn, (context as LoggedInCtx).completedProfile, context])
+    }, [context.loggedIn, loggedCtx.completedProfile, context])
     
     if (show || router.pathname.includes("firstlogin"))
         return (<>{props.children}</>);

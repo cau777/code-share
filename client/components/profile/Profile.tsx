@@ -10,10 +10,10 @@ import ProfilePicture from "../basic/ProfilePicture";
 import {UserData} from "../../src/db_types";
 
 type Props = UserData;
-
+// TODO: image switch
 const Profile: FC<Props> = (props) => {
-    let [editing, setEditing] = useState(false);
-    let context = useContext(AuthContext);
+    const [editing, setEditing] = useState(false);
+    const context = useContext(AuthContext);
     
     function profileData() {
         return editing ?

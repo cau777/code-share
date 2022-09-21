@@ -15,10 +15,10 @@ export const BackspaceCommand: Command = {
                 target.selectionStart = Math.max(0, target.selectionStart - 1);
             
                 if (target.selectionEnd !== target.value.length) {
-                    let currentChar = target.value[target.selectionEnd - 1]
-                    let nextChar = target.value[target.selectionEnd];
-                    let closeChar = LinkedCharacters.findCloseCharacter(currentChar);
-                
+                    const currentChar = target.value[target.selectionEnd - 1];
+                    const nextChar = target.value[target.selectionEnd];
+                    const closeChar = LinkedCharacters.findCloseCharacter(currentChar);
+    
                     if (nextChar === closeChar) {
                         // If removing a character like ([{", also remove the next closing character if present
                         target.selectionEnd++;

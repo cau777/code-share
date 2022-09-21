@@ -6,7 +6,7 @@ import {getStaticCommonTranslations} from "../src/i18n";
 import {useTranslation} from "next-i18next";
 
 const SignupPage: NextPage = () => {
-    let {t} = useTranslation();
+    const {t} = useTranslation();
     
     return (
         <div>

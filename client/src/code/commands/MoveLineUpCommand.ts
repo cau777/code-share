@@ -7,22 +7,22 @@ export const MoveLineUpCommand: Command = {
     canExecute: (key, {alt, ctrl, shift}) => alt && !ctrl && !shift && key === "ArrowUp",
     
     perform: target => {
-        let selectionStart = target.selectionStart;
-        let selectionEnd = target.selectionEnd;
+        const selectionStart = target.selectionStart;
+        const selectionEnd = target.selectionEnd;
     
         let currentLineStart = findReversed(target.value, "\n", 0, selectionStart);
         if (!currentLineStart) return;
         currentLineStart++;
     
-        let currentLineEnd = find(target.value, "\n", selectionEnd) ?? target.value.length;
-        let currentLine = target.value.substring(currentLineStart, currentLineEnd);
+        const currentLineEnd = find(target.value, "\n", selectionEnd) ?? target.value.length;
+        const currentLine = target.value.substring(currentLineStart, currentLineEnd);
     
-        let prevLineEnd = currentLineStart - 1;
-        let prevLineStart = (findReversed(target.value, "\n", 0, prevLineEnd - 1) ?? -1) + 1;
+        const prevLineEnd = currentLineStart - 1;
+        const prevLineStart = (findReversed(target.value, "\n", 0, prevLineEnd - 1) ?? -1) + 1;
     
-        let prevLine = target.value.substring(prevLineStart, prevLineEnd);
-        let textBefore = target.value.substring(0, prevLineStart);
-        let textAfter = target.value.substring(currentLineEnd);
+        const prevLine = target.value.substring(prevLineStart, prevLineEnd);
+        const textBefore = target.value.substring(0, prevLineStart);
+        const textAfter = target.value.substring(currentLineEnd);
     
         target.value = textBefore + currentLine + "\n" + prevLine + textAfter;
     

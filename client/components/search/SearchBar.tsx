@@ -3,8 +3,8 @@ import MagnifyingGlassIcon from "../icons/MagnifyingGlassIcon";
 import {useRouter} from "next/router";
 
 const SearchBar: FC = () => {
-    let router = useRouter();
-    let [query, setQuery] = useState("");
+    const router = useRouter();
+    const [query, setQuery] = useState("");
     
     async function submit() {
         if (!query) return;

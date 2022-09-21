@@ -24,19 +24,19 @@ type Form = {
 }
 
 const CreatePostForm: FC = () => {
-    let {register, handleSubmit, setValue, watch, reset} = useForm<Form>({
+    const {register, handleSubmit, setValue, watch, reset} = useForm<Form>({
         defaultValues: {
             title: "",
             description: "",
             code: ""
         }
     });
-    let title = watch("title");
-    let description = watch("description");
-    let lang = watch("lang");
+    const title = watch("title");
+    const description = watch("description");
+    const lang = watch("lang");
     
-    let {t} = useTranslation();
-    let context = useContext(AuthContext);
+    const {t} = useTranslation();
+    const context = useContext(AuthContext);
     
     async function submit(data: Form) {
         if (!context.loggedIn) return;

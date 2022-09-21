@@ -9,8 +9,8 @@ type Props = {
 };
 
 const FloatingLabelTextarea: FC<Props> = (props) => {
-    let id = props.label.replace(" ", "_") + "_input";
-    let parentRef = useRef<HTMLDivElement>(null);
+    const id = props.label.replace(" ", "_") + "_input";
+    const parentRef = useRef<HTMLDivElement>(null);
     
     useEffect(() => {
         updateHeight(parentRef.current!.querySelector("textarea")!)

@@ -9,28 +9,28 @@ export default class OpenCloseSet {
     }
     
     public isOpenCharacter(char: string) {
-        for (let [open] of this.elements) {
+        for (const [open] of this.elements) {
             if (char === open) return true;
         }
         return false;
     }
     
     public isCloseCharacter(char: string) {
-        for (let [, close] of this.elements) {
+        for (const [, close] of this.elements) {
             if (char === close) return true;
         }
         return false;
     }
     
     public findCloseCharacter(openChar: string) {
-        for (let [open, close] of this.elements) {
+        for (const [open, close] of this.elements) {
             if (open === openChar) return close;
         }
         return "";
     }
     
     public findOpenCharacter(closeChar: string) {
-        for (let [open, close] of this.elements) {
+        for (const [open, close] of this.elements) {
             if (close === closeChar) return open;
         }
         return "";

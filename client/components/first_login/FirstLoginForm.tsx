@@ -45,15 +45,15 @@ function randId(): ImgSource {
 }
 
 const FirstLoginForm: FC = () => {
-    let {handleSubmit, register, formState} = useForm<Form>({defaultValues: {bio: ""}});
-    let [busy, setBusy] = useState(false);
-    let [error, setError] = useState<string>();
-    let [imgSource, setImgSource] = useState<ImgSource>(randId());
-    let [choosingFile, setChoosingFile] = useState<ChoosingFileState>();
+    const {handleSubmit, register, formState} = useForm<Form>({defaultValues: {bio: ""}});
+    const [busy, setBusy] = useState(false);
+    const [error, setError] = useState<string>();
+    const [imgSource, setImgSource] = useState<ImgSource>(randId());
+    const [choosingFile, setChoosingFile] = useState<ChoosingFileState>();
     
-    let {t} = useTranslation();
-    let context = useContext(AuthContext);
-    let router = useRouter();
+    const {t} = useTranslation();
+    const context = useContext(AuthContext);
+    const router = useRouter();
     
     useEffect(() => {
         return () => {
@@ -77,17 +77,17 @@ const FirstLoginForm: FC = () => {
         setBusy(true);
         
         if (imgSource.type === "dicebear") {
-            let buffer = await axios.get<Blob>(imgSource.src, {responseType: "blob"});
+            const buffer = await axios.get<Blob>(imgSource.src, {responseType: "blob"});
             await fromStorage(supabase, "profile-pictures")
                 .upload(createUserImageUrl(context.id), buffer.data);
         } else if (imgSource.type === "file") {
             await fromStorage(supabase, "profile-pictures")
                 .upload(createUserImageUrl(context.id), imgSource.blob);
         }
-        
-        let response = await fromTable(supabase, "UserPublicInfo")
+    
+        const response = await fromTable(supabase, "UserPublicInfo")
             .insert({id: context.id, name: data.name, bio: data.bio, username: data.username});
-        
+    
         if (response.error) {
             setError(response.error.message);
             setBusy(false);
@@ -105,8 +105,8 @@ const FirstLoginForm: FC = () => {
         if (username === undefined) return false;
         if (username.includes(" ")) return t("errorUsernameHasSpace");
         if (!/^[\x00-\x7F]+$/.test(username)) return t("errorUsernameCharset");
-        
-        let response = await fromTable(supabase, "UserPublicInfo")
+    
+        const response = await fromTable(supabase, "UserPublicInfo")
             .select("username")
             .match({username})
             .maybeSingle();
@@ -124,16 +124,16 @@ const FirstLoginForm: FC = () => {
     }
     
     async function startCropAndResize(e: ChangeEvent<HTMLInputElement>) {
-        let element = e.currentTarget;
+        const element = e.currentTarget;
         if (element.files === null || element.files === undefined) return;
-        let file = element.files[0];
-        let src = URL.createObjectURL(file);
-        let size = await getImageDims(src);
+        const file = element.files[0];
+        const src = URL.createObjectURL(file);
+        const size = await getImageDims(src);
         setChoosingFile({file, src, ...size});
     }
     
     function endCropAndResize() {
-        let input = document.getElementById("fileInput") as HTMLInputElement;
+        const input = document.getElementById("fileInput") as HTMLInputElement;
         input.value = null!;
         if (!choosingFile) return;
         setChoosingFile(undefined);
@@ -145,8 +145,8 @@ const FirstLoginForm: FC = () => {
             URL.revokeObjectURL(imgSource.src)
         
         endCropAndResize();
-        let response = await cropAndResizeCall(choosingFile.file, value);
-        
+        const response = await cropAndResizeCall(choosingFile.file, value);
+    
         setImgSource({
             type: "file",
             src: URL.createObjectURL(response.data),

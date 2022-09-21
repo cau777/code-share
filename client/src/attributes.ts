@@ -1,7 +1,7 @@
 export function mergeClasses(...items: any[]) {
     let result = " ";
     
-    for (let item of items) {
+    for (const item of items) {
         switch (typeof item) {
             case "undefined":
                 continue;
@@ -28,7 +28,7 @@ export type AsyncState<T> = {
 }
 
 export function compareEntriesBut<T>(object1: T, object2: T, except: (keyof T)[]) {
-    let exceptSet = new Set(except);
+    const exceptSet = new Set(except);
     
     for (const key in object1) {
         if (exceptSet.has(key))

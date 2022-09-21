@@ -16,21 +16,21 @@ function generate(text: string, charColors: Uint8Array) {
         return [<span key={spanIndex++}>{" "}</span>];
     }
     
-    let result: JSX.Element[] = [];
+    const result: JSX.Element[] = [];
     let currentColor = HighlightColorCodes.None;
     let textBuffer = "";
     
     for (let i = 0; i <= text.length; i++) {
-        let char = text.charAt(i);
-        
+        const char = text.charAt(i);
+    
         if (char === "\n" || i === text.length) {
             if (textBuffer !== "")
                 result.push(<span key={spanIndex++}
                                   className={"code-" + HighlightColorNames[currentColor]}>{textBuffer}</span>);
             return result;
         } else {
-            let color = charColors[i];
-            
+            const color = charColors[i];
+    
             // If the color of the current character is different from the previous
             if (char !== " " && currentColor !== color) {
                 if (textBuffer !== "")

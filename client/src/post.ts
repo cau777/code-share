@@ -3,7 +3,7 @@ import {Snippet} from "../components/home/SnippetsFeed";
 import {Tables} from "./db_types";
 
 export async function completeSnippetData(o: Tables["Posts"]): Promise<Snippet> {
-    let userData = await fromTable(supabase, "UserPublicInfo")
+    const userData = await fromTable(supabase, "UserPublicInfo")
         .select("id, name, username")
         .match({id: o.author})
         .single();

@@ -10,9 +10,9 @@ import SearchBar from "../components/search/SearchBar";
 import UsersList from "../components/search/UsersList";
 
 const FirstLogin: NextPage = () => {
-    let {t} = useTranslation();
-    let router = useRouter();
-    let {q} = router.query;
+    const {t} = useTranslation();
+    const router = useRouter();
+    const {q} = router.query;
     
     return (
         <>

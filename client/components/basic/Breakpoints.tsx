@@ -25,7 +25,7 @@ export const BelowXl: Breakpoint = (props) =>
 
 // noinspection JSUnusedLocalSymbols - WebStorm gives wrong inspection
 const Breakpoint: FC<{ minWidth?: number, maxWidth?: number, render: RenderCallback }> = (props) => {
-    let windowWidth = useWindowWidth() ?? MdScreen;
+    const windowWidth = useWindowWidth() ?? MdScreen;
     
     return (props.minWidth !== undefined && windowWidth <= props.minWidth) || (props.maxWidth !== undefined && windowWidth > props.maxWidth)
         ? <></>

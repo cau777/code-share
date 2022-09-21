@@ -18,9 +18,9 @@ export const HighlightColorNames = [
 const HighlightCache = new Cache<string, Uint8Array>(60);
 
 function applyRegex(text: string, target: Uint8Array, regex: RegExp, code: HighlightColorCodes) {
-    let matches = text.matchAll(regex);
-    for (let match of matches) {
-        let start = match.index;
+    const matches = text.matchAll(regex);
+    for (const match of matches) {
+        const start = match.index;
         if (start === undefined) continue;
         
         for (let groupIndex = 0; groupIndex < match[0].length; groupIndex++) {
@@ -30,7 +30,7 @@ function applyRegex(text: string, target: Uint8Array, regex: RegExp, code: Highl
 }
 
 function applyMultilineRegex(text: string, target: Uint8Array[], regex: RegExp, code: HighlightColorCodes) {
-    let matches = text.matchAll(regex);
+    const matches = text.matchAll(regex);
     let arrayIndex = 0;
     let index = 0;
     let totalIndex = 0;
@@ -44,8 +44,8 @@ function applyMultilineRegex(text: string, target: Uint8Array[], regex: RegExp, 
         }
     }
     
-    for (let match of matches) {
-        let start = match.index;
+    for (const match of matches) {
+        const start = match.index;
         if (start === undefined) continue;
         
         while (totalIndex < start) skip();
@@ -60,8 +60,8 @@ function applyMultilineRegex(text: string, target: Uint8Array[], regex: RegExp, 
 function highlightStrings(text: string, target: Uint8Array) {
     let enclosedBy = ""; // Can be either " or '
     for (let i = 0; i < text.length; i++) {
-        let char = text.charAt(i);
-        let escaping = i !== 0 && text.charAt(i - 1) === "\\"; // Don't consider quotes if the previous character is \
+        const char = text.charAt(i);
+        const escaping = i !== 0 && text.charAt(i - 1) === "\\"; // Don't consider quotes if the previous character is \
         
         if (enclosedBy === "") {
             if ((char === "\"" || char === "'") && !escaping) {
@@ -78,7 +78,7 @@ function highlightStrings(text: string, target: Uint8Array) {
 }
 
 function highlightLine(line: string, options: LanguageOptions) {
-    let charColors = new Uint8Array(line.length + 1);
+    const charColors = new Uint8Array(line.length + 1);
     
     if (options.keywordsRegex)
         applyRegex(line, charColors, options.keywordsRegex, HighlightColorCodes.Keywords);
@@ -99,8 +99,8 @@ function highlightLine(line: string, options: LanguageOptions) {
 }
 
 export function highlightText(text: string, options: LanguageOptions): [string, Uint8Array][] {
-    let lines = text.split("\n");
-    let charColors = lines.map(o =>
+    const lines = text.split("\n");
+    const charColors = lines.map(o =>
         HighlightCache.getCachedOr(options.name + "|||" + o, () => highlightLine(o, options)));
     
     if (options.multilineCommentsRegex)

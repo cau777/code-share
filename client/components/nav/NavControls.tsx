@@ -12,9 +12,9 @@ import SearchBar from "../search/SearchBar";
 import MagnifyingGlassIcon from "../icons/MagnifyingGlassIcon";
 
 const NavControls: FC<PropsWithChildren> = (props) => {
-    let router = useRouter();
-    let {t} = useTranslation();
-    let path = router.pathname;
+    const router = useRouter();
+    const {t} = useTranslation();
+    const path = router.pathname;
     
     return (
         <>

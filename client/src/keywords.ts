@@ -11,6 +11,6 @@ export const KeywordsRequestManager = new SingleRequestManager();
 export const KeywordsCache = new Cache<string, Promise<string[]>>(10);
 
 export function fetchPostKeywords(title: string, description: string) {
-    let text = title.trim() + ". " + description.trim()
+    const text = title.trim() + ". " + description.trim();
     return KeywordsCache.getCachedOr(text, () => fetchKeywords(text));
 }

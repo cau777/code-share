@@ -20,8 +20,8 @@ type Form = {
 }
 
 const ProfileDataEdit: FC<Props> = (props) => {
-    let {register, handleSubmit} = useForm<Form>({defaultValues: {name: props.data.name, bio: props.data.bio}});
-    let {t} = useTranslation();
+    const {register, handleSubmit} = useForm<Form>({defaultValues: {name: props.data.name, bio: props.data.bio}});
+    const {t} = useTranslation();
     
     async function submit(data: Form) {
         await fromTable(supabase, "UserPublicInfo")

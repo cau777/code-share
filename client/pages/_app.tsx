@@ -12,7 +12,7 @@ import {appWithTranslation, useTranslation} from "next-i18next";
 
 // TODO: PWA
 function MyApp({Component, pageProps}: AppProps) {
-    let {t} = useTranslation();
+    const {t} = useTranslation();
     
     return (
         <>

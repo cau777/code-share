@@ -17,10 +17,10 @@ function changeLocale(router: NextRouter, lang: string) {
 }
 
 const CurrentProfileButton: FC = () => {
-    let context = useContext(AuthContext);
-    let [state, setState] = useState<State>({open: false});
-    let {t} = useTranslation();
-    let router = useRouter();
+    const context = useContext(AuthContext);
+    const [state, setState] = useState<State>({open: false});
+    const {t} = useTranslation();
+    const router = useRouter();
     
     return (
         <>

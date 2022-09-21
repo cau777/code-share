@@ -53,7 +53,7 @@ export function useWindowWidth() {
 }
 
 export function useRelativeWindowSize() {
-    let width = useWindowWidth();
+    const width = useWindowWidth();
     if (width === undefined)
         return "";
     if (width < SmScreen)

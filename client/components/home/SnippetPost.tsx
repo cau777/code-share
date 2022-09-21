@@ -24,19 +24,19 @@ type LikeState = {
 
 //TODO: no render out of sight + intersection observer + recalc size when screen changes
 const SnippetPost: FC<Props> = (props) => {
-    let date = new Date(props.created_at);
-    let [likeState, setLikeState] = useState<LikeState>();
-    let [error, setError] = useState<string>();
-    let context = useContext(AuthContext);
+    const date = new Date(props.created_at);
+    const [likeState, setLikeState] = useState<LikeState>();
+    const [error, setError] = useState<string>();
+    const context = useContext(AuthContext);
     
     async function updateLikeState() {
         let hasLikedResult = false;
         if (context.loggedIn) {
-            let result = await fromTable(supabase, "Likes")
+            const result = await fromTable(supabase, "Likes")
                 .select("target, author")
                 .match({target: props.id})
-                .match({author: context.id})
-            
+                .match({author: context.id});
+    
             if (result.error) {
                 setError(result.error.message);
                 return;
@@ -44,11 +44,11 @@ const SnippetPost: FC<Props> = (props) => {
             
             hasLikedResult = result.body !== null && result.body.length !== 0;
         }
-        
-        let likesCountResult = await fromTable(supabase, "Likes")
+    
+        const likesCountResult = await fromTable(supabase, "Likes")
             .select("target")
             .match({target: props.id});
-        
+    
         if (likesCountResult.error) {
             setError(likesCountResult.error.message);
             return;

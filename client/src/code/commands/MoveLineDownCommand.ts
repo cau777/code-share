@@ -7,21 +7,21 @@ export const MoveLineDownCommand: Command = {
     canExecute: (key, {alt, ctrl, shift}) => alt && !ctrl && !shift && key === "ArrowDown",
     
     perform: target => {
-        let selectionStart = target.selectionStart;
-        let selectionEnd = target.selectionEnd;
+        const selectionStart = target.selectionStart;
+        const selectionEnd = target.selectionEnd;
     
-        let currentLineStart = (findReversed(target.value, "\n", 0, selectionStart) ?? -1) + 1;
-        let currentLineEnd = find(target.value, "\n", selectionEnd);
+        const currentLineStart = (findReversed(target.value, "\n", 0, selectionStart) ?? -1) + 1;
+        const currentLineEnd = find(target.value, "\n", selectionEnd);
         if (!currentLineEnd) return;
     
-        let currentLine = target.value.substring(currentLineStart, currentLineEnd);
+        const currentLine = target.value.substring(currentLineStart, currentLineEnd);
     
-        let nextLineStart = currentLineEnd + 1;
-        let nextLineEnd = find(target.value, "\n", nextLineStart) ?? target.value.length;
+        const nextLineStart = currentLineEnd + 1;
+        const nextLineEnd = find(target.value, "\n", nextLineStart) ?? target.value.length;
     
-        let nextLine = target.value.substring(nextLineStart, nextLineEnd);
-        let textBefore = target.value.substring(0, currentLineStart);
-        let textAfter = target.value.substring(nextLineEnd);
+        const nextLine = target.value.substring(nextLineStart, nextLineEnd);
+        const textBefore = target.value.substring(0, currentLineStart);
+        const textAfter = target.value.substring(nextLineEnd);
     
         target.value = textBefore + nextLine + "\n" + currentLine + textAfter;
     

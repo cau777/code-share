@@ -26,16 +26,16 @@ function clamp(value: number, min: number, max: number) {
 }
 
 const ImageCropAndResize: FC<Props> = (props) => {
-    let minScale = Math.max(100, 100 / props.height * props.width);
+    const minScale = Math.max(100, 100 / props.height * props.width);
     
-    let {t} = useTranslation();
-    let [scale, setScale] = useState(minScale);
-    let [position, setPosition] = useState<Position>({top: 0, left: 0});
-    let [dragStart, setDragStart] = useState<DragStart>();
-    let isDragging = dragStart !== undefined;
+    const {t} = useTranslation();
+    const [scale, setScale] = useState(minScale);
+    const [position, setPosition] = useState<Position>({top: 0, left: 0});
+    const [dragStart, setDragStart] = useState<DragStart>();
+    const isDragging = dragStart !== undefined;
     
-    let maskRef = useRef<HTMLDivElement>(null);
-    let imageRef = useRef<HTMLDivElement>(null);
+    const maskRef = useRef<HTMLDivElement>(null);
+    const imageRef = useRef<HTMLDivElement>(null);
     
     useEffect(() => {
         if (!isDragging) return;
@@ -68,8 +68,8 @@ const ImageCropAndResize: FC<Props> = (props) => {
     }
     
     function clampPosition(pos: Position): Position {
-        let mask = maskRef.current;
-        let image = imageRef.current;
+        const mask = maskRef.current;
+        const image = imageRef.current;
         if (mask === null || image === null) return pos;
         
         return {
@@ -91,7 +91,7 @@ const ImageCropAndResize: FC<Props> = (props) => {
     }
     
     function submit() {
-        let mask = maskRef.current;
+        const mask = maskRef.current;
         if (mask === null) return;
         props.onSubmit({
             scale: scale,

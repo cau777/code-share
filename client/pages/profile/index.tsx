@@ -8,7 +8,7 @@ import MustBeLoggedIn from "../../components/basic/MustBeLoggedIn";
 import {getStaticCommonTranslations} from "../../src/i18n";
 
 const ProfilePage: NextPage = () => {
-    let context = useContext(AuthContext);
+    const context = useContext(AuthContext);
     
     if (!context.loggedIn) {
         return (<MustBeLoggedIn actionKey={"accessOwnProfile"}></MustBeLoggedIn>);

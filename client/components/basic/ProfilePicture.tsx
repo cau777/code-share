@@ -14,7 +14,7 @@ function getState(id: string | undefined) {
 }
 
 const ProfilePicture: FC<Props> = (props) => {
-    let [url, setUrl] = useState(getState(props.id));
+    const [url, setUrl] = useState(getState(props.id));
     
     useEffect(() => setUrl(getState(props.id)), [props.id]);
     

@@ -7,7 +7,7 @@ type Props = {
 }
 
 const CodeLineNumbers: FC<Props> = (props) => {
-    let children: JSX.Element[] = [];
+    const children: JSX.Element[] = [];
     
     for (let i = 0; i < props.lineCount; i++) {
         children.push(

@@ -3,7 +3,7 @@ import resolveConfig from "tailwindcss/resolveConfig";
 
 export const AppName = "Code.Share";
 
-let resolved = resolveConfig(config);
+const resolved = resolveConfig(config);
 
 function parseWidth(text: string) {
     return Number.parseInt(text.substring(0, text.length-2)); // Remove -px and parse

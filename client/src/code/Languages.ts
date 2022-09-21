@@ -9,7 +9,7 @@ function createPattern(matches: string[]) {
 
 export const Languages: LanguageOptions[] = Object.entries(LanguagesConfig)
     .map(([name, props]) => {
-        let keywords = props.keywords ?? [];
+        const keywords = props.keywords ?? [];
         if (props.accessModifiers)
             keywords.push("public", "private", "protected");
         

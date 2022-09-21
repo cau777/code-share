@@ -7,7 +7,7 @@ type Props = {
 }
 
 const MustBeLoggedIn: FC<Props> = (props) => {
-    let {t} = useTranslation();
+    const {t} = useTranslation();
     
     return (
         <h3>

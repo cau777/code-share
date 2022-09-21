@@ -4,7 +4,7 @@ import {FC} from "react";
 type Props = IconProps & { full?: boolean };
 
 const HeartIcon: FC<Props> = (props) => {
-    let elementProps = {...props, full: undefined};
+    const elementProps = {...props, full: undefined};
     
     return props.full ? (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...elementProps}>

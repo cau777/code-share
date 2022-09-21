@@ -7,7 +7,7 @@ type Props = {
 }
 
 const Redirect: FC<Props> = (props) => {
-    let {t} = useTranslation();
+    const {t} = useTranslation();
     
     return (
         <div>

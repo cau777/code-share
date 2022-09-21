@@ -14,7 +14,7 @@ export class SingleRequestManager {
         this.busy = true;
         promise().then(() => {
             this.busy = false;
-            let queue = this.queue;
+            const queue = this.queue;
             this.queue = undefined;
             if (queue)
                 this.call(queue);

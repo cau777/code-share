@@ -10,7 +10,7 @@ type Props = {
 };
 
 const FloatingLabelInput: FC<Props> = (props) => {
-    let id = props.label.replace(" ", "_") + "_input";
+    const id = props.label.replace(" ", "_") + "_input";
     
     return (
         <div className={"mb-2"}>

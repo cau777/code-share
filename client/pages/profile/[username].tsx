@@ -14,9 +14,9 @@ import {useTranslation} from "next-i18next";
 type Props = { found: false; } | ({ found: true; } & UserData);
 
 const ProfileByUsernamePage: NextPage<Props> = (props) => {
-    let router = useRouter();
-    let context = useContext(AuthContext);
-    let {t} = useTranslation();
+    const router = useRouter();
+    const context = useContext(AuthContext);
+    const {t} = useTranslation();
     
     useEffect(() => {
         if (props.found && context.loggedIn && context.profileData.username === props.username)
@@ -40,14 +40,14 @@ const ProfileByUsernamePage: NextPage<Props> = (props) => {
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({locale, query}) => {
-    let {username} = query;
+    const {username} = query;
     
-    let {data} = await fromTable(supabase, "UserPublicInfo")
+    const {data} = await fromTable(supabase, "UserPublicInfo")
         .select("*")
         .match({username})
         .single();
     
-    let translations = await serverSideTranslations(locale!, ["common"]);
+    const translations = await serverSideTranslations(locale!, ["common"]);
     
     return data === null ? {
         props: {

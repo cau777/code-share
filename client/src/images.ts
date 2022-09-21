@@ -12,9 +12,9 @@ export type CropAndResize = {
 
 export function getImageDims(src: string) {
     return new Promise<{ width: number, height: number }>(resolve => {
-        let image = new Image();
+        const image = new Image();
         image.onload = (e) => {
-            let element = e.target as HTMLImageElement;
+            const element = e.target as HTMLImageElement;
             resolve({width: element.width, height: element.height});
         }
         image.src = src;

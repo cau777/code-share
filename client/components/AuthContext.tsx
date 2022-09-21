@@ -25,20 +25,20 @@ export type AuthCtx = LoggedInCtx | LoggedOutCtx;
 export const AuthContext = createContext<AuthCtx>(undefined);
 
 const AuthProvider: FC<PropsWithChildren> = (props) => {
-    let [state, setState] = useState<AuthCtx>({loggedIn: false, changeCtx: (ctx) => setState(ctx)});
+    const [state, setState] = useState<AuthCtx>({loggedIn: false, changeCtx: (ctx) => setState(ctx)});
     
     useAsyncEffect(async () => {
-        let context: AuthCtx = {loggedIn: false, changeCtx: (ctx) => setState(ctx)};
-        
+        const context: AuthCtx = {loggedIn: false, changeCtx: (ctx) => setState(ctx)};
+    
         async function tryLogIn() {
-            let token = localStorage.getItem("refresh_token");
+            const token = localStorage.getItem("refresh_token");
             if (!token) return false;
-            let {user} = await supabase.auth.signIn({refreshToken: token});
+            const {user} = await supabase.auth.signIn({refreshToken: token});
             if (!user) return false;
             return await login(context, user);
         }
-        
-        let result = await tryLogIn();
+    
+        const result = await tryLogIn();
         if (!result) // If the callback in login() wasn't called
             setState(context);
     }, []);

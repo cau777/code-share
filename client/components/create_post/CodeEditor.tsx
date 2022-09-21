@@ -44,12 +44,12 @@ function prepareKey(key: string) {
 }
 
 const CodeEditor: FC<Props> = (props) => {
-    let [state, setState] = useState<State>({selected: 0, rows: 1});
-    let language = props.language ?? findLanguageByName("Other")!;
-    let executorRef = useRef<CommandExecutor>(new CommandExecutor());
-    let lineNumbersRef = useRef<HTMLTableElement>(null);
-    let textareaParentRef = useRef<HTMLDivElement>(null);
-    let codeTextRef = useRef<HTMLDivElement>(null);
+    const [state, setState] = useState<State>({selected: 0, rows: 1});
+    const language = props.language ?? findLanguageByName("Other")!;
+    const executorRef = useRef<CommandExecutor>(new CommandExecutor());
+    const lineNumbersRef = useRef<HTMLTableElement>(null);
+    const textareaParentRef = useRef<HTMLDivElement>(null);
+    const codeTextRef = useRef<HTMLDivElement>(null);
     
     useEffect(() => {
         updateRowsAndCols(getTextarea());
@@ -60,16 +60,16 @@ const CodeEditor: FC<Props> = (props) => {
     }
     
     function updateSelectedRow(target: HTMLTextAreaElement) {
-        let lineNum = countOccurrences(target.value, "\n", 0, target.selectionEnd);
+        const lineNum = countOccurrences(target.value, "\n", 0, target.selectionEnd);
         setState(s => ({...s, selected: lineNum}));
     }
     
     function updateRowsAndCols(target: HTMLTextAreaElement) {
-        let lines = (target.value + "\n").match(/.*\n/g) || [];
-        let rows = lines.length;
+        const lines = (target.value + "\n").match(/.*\n/g) || [];
+        const rows = lines.length;
         let longestRow = 0;
         
-        for (let line of lines) {
+        for (const line of lines) {
             longestRow = Math.max(longestRow, line.length);
         }
         
@@ -78,17 +78,17 @@ const CodeEditor: FC<Props> = (props) => {
     }
     
     async function change(e: { target: any, type?: any, currentTarget: HTMLTextAreaElement }) {
-        let target = e.currentTarget;
+        const target = e.currentTarget;
         updateRowsAndCols(target);
         setState(s => ({...s, text: target.value}));
         await props.onChange(target.value);
     }
     
     function scrollNumbers(event: UIEvent<HTMLTextAreaElement>) {
-        let target = event.currentTarget;
-        let lines = lineNumbersRef.current;
-        let codeText = codeTextRef.current;
-        
+        const target = event.currentTarget;
+        const lines = lineNumbersRef.current;
+        const codeText = codeTextRef.current;
+    
         if (lines) {
             lines.style.top = -target.scrollTop + "px";
             lines.style.left = "0";
@@ -102,9 +102,9 @@ const CodeEditor: FC<Props> = (props) => {
     }
     
     function keyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
-        let executor = executorRef.current;
-        let target = e.currentTarget;
-        
+        const executor = executorRef.current;
+        const target = e.currentTarget;
+    
         if (!e.altKey && e.ctrlKey && !e.shiftKey && e.key === "z") {
             executor.undo(target);
             e.preventDefault();
@@ -112,9 +112,9 @@ const CodeEditor: FC<Props> = (props) => {
             executor.redo(target);
             e.preventDefault();
         } else {
-            let key = prepareKey(e.key);
-            
-            for (let command of Commands) { // Chooses the appropriate and passes it to the executor
+            const key = prepareKey(e.key);
+    
+            for (const command of Commands) { // Chooses the appropriate and passes it to the executor
                 if (command.canExecute(key, {alt: e.altKey, ctrl: e.ctrlKey, shift: e.shiftKey})) {
                     e.preventDefault();
                     executor.execute(command, target, language, key);
@@ -128,7 +128,7 @@ const CodeEditor: FC<Props> = (props) => {
     
     function executeCustom(e: any, func: (executor: CommandExecutor, target: HTMLTextAreaElement) => void) {
         e.preventDefault();
-        let target = getTextarea();
+        const target = getTextarea();
         func(executorRef.current, target);
         change({currentTarget: target, target, type: "keydown"}).then();
         target.focus();
