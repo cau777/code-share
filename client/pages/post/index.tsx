@@ -11,7 +11,7 @@ const CreatePostPage: NextPage = () => {
     return (
         <div>
             <Head>
-                <title>{t("postSnippet")} {AppName}</title>
+                <title>{t("postSnippet") + " " + AppName}</title>
             </Head>
             <CreatePostForm></CreatePostForm>
         </div>

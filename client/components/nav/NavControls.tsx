@@ -43,7 +43,7 @@ const NavControls: FC<PropsWithChildren> = (props) => {
                     </div>
                 </div>
             </header>
-            <div className={"container mt-3"}>
+            <div className={"container mt-3 mb-12"}>
                 {props.children}
             </div>
             <BelowMd>
