@@ -1,0 +1,34 @@
+.loading-animated {
+  font-family: monospace;
+  &:after {
+    animation: loading-bar 4s linear infinite;
+    display: block;
+    content: ".------";
+    font-family: monospace;
+    transform: translate(0, -40%);
+  }
+}
+
+@keyframes loading-bar {
+  12% {
+    content: ".------";
+  }
+  25% {
+    content: "-.-----";
+  }
+  38% {
+    content: "--.----";
+  }
+  50% {
+    content: "---.---";
+  }
+  62% {
+    content: "----.--";
+  }
+  75% {
+    content: "-----.-";
+  }
+  88% {
+    content: "------.";
+  }
+}

@@ -106,7 +106,7 @@ const CreatePostForm: FC = () => {
                                 {editor()}
                             </Card>
                         </div>
-                        <div className={"basis-1/4"}>
+                        <div className={"w-[30%]"}>
                             <Card>
                                 {basicFields()}
                                 {buttons()}

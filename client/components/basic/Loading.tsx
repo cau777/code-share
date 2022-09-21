@@ -1,9 +1,8 @@
 import {FC} from "react";
 
 const Loading: FC = () => {
-    //TODO: animation
     return (
-        <span>
+        <span className={"loading-animated text-primary-200 text-lg"}>
             Loading
         </span>
     );

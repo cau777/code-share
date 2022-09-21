@@ -34,7 +34,7 @@ const ProfileByUsernamePage: NextPage<Props> = (props) => {
             <Head>
                 <title>{props.name + " " + AppName}</title>
             </Head>
-            <Profile name={props.name} bio={props.bio} username={props.username} id={props.id}></Profile>
+            <Profile name={props.name} bio={props.bio} username={props.username} id={props.id} key={props.username}></Profile>
         </>
     )
 }
