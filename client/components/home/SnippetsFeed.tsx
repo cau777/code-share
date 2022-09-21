@@ -48,7 +48,6 @@ const SnippetsFeed: FC<Props> = (props) => {
     let {t} = useTranslation();
     
     useEffectOnMount(() => {
-        console.log("mount feed", props)
         next().then();
     });
     

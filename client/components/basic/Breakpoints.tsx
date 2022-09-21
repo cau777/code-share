@@ -1,32 +1,33 @@
-import {FC, PropsWithChildren} from "react";
+import {FC} from "react";
 import {useWindowWidth} from "../../src/hooks";
 import {LgScreen, MdScreen, XlScreen} from "../../src/styling";
 
-type Breakpoint = FC<PropsWithChildren>
+type RenderCallback = () => JSX.Element;
+type Breakpoint = FC<{ render: RenderCallback }>;
 
-export const AboveSm: Breakpoint=(props) =>
-    (<Breakpoint minWidth={MdScreen}>{props.children}</Breakpoint>);
+export const AboveSm: Breakpoint = (props) =>
+    (<Breakpoint minWidth={MdScreen} render={props.render}></Breakpoint>);
 
-export const AboveMd: Breakpoint=(props) =>
-    (<Breakpoint minWidth={LgScreen}>{props.children}</Breakpoint>);
+export const AboveMd: Breakpoint = (props) =>
+    (<Breakpoint minWidth={LgScreen} render={props.render}></Breakpoint>);
 
-export const AboveLg: Breakpoint=(props) =>
-    (<Breakpoint minWidth={XlScreen}>{props.children}</Breakpoint>);
+export const AboveLg: Breakpoint = (props) =>
+    (<Breakpoint minWidth={XlScreen} render={props.render}></Breakpoint>);
 
 export const BelowMd: Breakpoint = (props) =>
-    (<Breakpoint maxWidth={MdScreen}>{props.children}</Breakpoint>);
+    (<Breakpoint maxWidth={MdScreen} render={props.render}></Breakpoint>);
 
 export const BelowLg: Breakpoint = (props) =>
-    (<Breakpoint maxWidth={LgScreen}>{props.children}</Breakpoint>);
+    (<Breakpoint maxWidth={LgScreen} render={props.render}></Breakpoint>);
 
 export const BelowXl: Breakpoint = (props) =>
-    (<Breakpoint maxWidth={XlScreen}>{props.children}</Breakpoint>);
+    (<Breakpoint maxWidth={XlScreen} render={props.render}></Breakpoint>);
 
 // noinspection JSUnusedLocalSymbols - WebStorm gives wrong inspection
-const Breakpoint: FC<PropsWithChildren<{ minWidth?: number, maxWidth?: number }>> = (props) => {
+const Breakpoint: FC<{ minWidth?: number, maxWidth?: number, render: RenderCallback }> = (props) => {
     let windowWidth = useWindowWidth() ?? MdScreen;
     
     return (props.minWidth !== undefined && windowWidth <= props.minWidth) || (props.maxWidth !== undefined && windowWidth > props.maxWidth)
         ? <></>
-        : <>{props.children}</>;
+        : <>{props.render()}</>;
 }

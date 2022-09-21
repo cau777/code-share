@@ -40,7 +40,7 @@ const Profile: FC<Props> = (props) => {
     
     return (
         <>
-            <AboveSm>
+            <AboveSm render={() => (
                 <div className={"flex gap-3 w-full"}>
                     <div className={"w-[24%]"}>
                         <Card>
@@ -57,24 +57,26 @@ const Profile: FC<Props> = (props) => {
                         <SnippetsFeed key={"feed " + props.id} userFilter={props.id}></SnippetsFeed>
                     </div>
                 </div>
-            </AboveSm>
+            )}></AboveSm>
             
-            <BelowMd>
-                <Card>
-                    <div className={"flex gap-4"}>
-                        <div className={"basis-1/4"}>
-                            <ProfilePicture id={props.id}></ProfilePicture>
+            <BelowMd render={() => (
+                <>
+                    <Card>
+                        <div className={"flex gap-4"}>
+                            <div className={"basis-1/4"}>
+                                <ProfilePicture id={props.id}></ProfilePicture>
+                            </div>
+                            <div className={"basis-3/4"}>
+                                {profileData()}
+                            </div>
                         </div>
-                        <div className={"basis-3/4"}>
-                            {profileData()}
-                        </div>
+                    </Card>
+                    <hr className={"my-2"}/>
+                    <div className={"flex-grow"}>
+                        <SnippetsFeed userFilter={props.id}></SnippetsFeed>
                     </div>
-                </Card>
-                <hr className={"my-2"}/>
-                <div className={"flex-grow"}>
-                    <SnippetsFeed userFilter={props.id}></SnippetsFeed>
-                </div>
-            </BelowMd>
+                </>
+            )}></BelowMd>
         </>
     );
 }

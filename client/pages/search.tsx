@@ -20,11 +20,11 @@ const FirstLogin: NextPage = () => {
                 <title>{t("search") + " " + AppName}</title>
             </Head>
             
-            <BelowMd>
+            <BelowMd render={() => (
                 <div className={"mb-4"}>
                     <SearchBar></SearchBar>
                 </div>
-            </BelowMd>
+            )}></BelowMd>
             
             {(q && typeof q === "string") && (
                 <div key={q}>

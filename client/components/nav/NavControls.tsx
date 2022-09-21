@@ -27,21 +27,23 @@ const NavControls: FC<PropsWithChildren> = (props) => {
                             </div>
                         </Link>
                         
-                        <AboveSm>
-                        <span className={"header-link" + mergeClasses({selected: path === "/"})}>
-                            <Link href={"/"}>{t("home")}</Link>
-                        </span>
-                            <span className={"header-link" + mergeClasses({selected: path === "/post"})}>
-                            <Link href={"/post"}>{t("postSnippet")}</Link>
-                        </span>
-                            <span className={"header-link" + mergeClasses({selected: path === "/profile"})}>
-                            <Link href={"/profile"}>{t("profile")}</Link>
-                        </span>
-                        
-                        <div className={"w-52 ml-2"}>
-                            <SearchBar></SearchBar>
-                        </div>
-                        </AboveSm>
+                        <AboveSm render={() => (
+                            <>
+                                <div className={"header-link" + mergeClasses({selected: path === "/"})}>
+                                    <Link href={"/"}>{t("home")}</Link>
+                                </div>
+                                <div className={"header-link" + mergeClasses({selected: path === "/post"})}>
+                                    <Link href={"/post"}>{t("postSnippet")}</Link>
+                                </div>
+                                <div className={"header-link" + mergeClasses({selected: path === "/profile"})}>
+                                    <Link href={"/profile"}>{t("profile")}</Link>
+                                </div>
+                                
+                                <div className={"w-52 ml-2"}>
+                                    <SearchBar></SearchBar>
+                                </div>
+                            </>
+                        )}></AboveSm>
                         
                         <div className={"ml-auto"}>
                             <CurrentProfileButton></CurrentProfileButton>
@@ -52,7 +54,7 @@ const NavControls: FC<PropsWithChildren> = (props) => {
             <div className={"container mt-3 mb-12"}>
                 {props.children}
             </div>
-            <BelowMd>
+            <BelowMd render={() => (
                 <footer className={"fixed left-0 bottom-0 w-full bg-back-2 border-t-2 border-back-1 z-50"}>
                     <div className={"flex justify-around my-1"}>
                         <span className={"header-link" + mergeClasses({selected: path === "/"})}>
@@ -78,7 +80,7 @@ const NavControls: FC<PropsWithChildren> = (props) => {
                         </span>
                     </div>
                 </footer>
-            </BelowMd>
+            )}></BelowMd>
         </>
     );
 }

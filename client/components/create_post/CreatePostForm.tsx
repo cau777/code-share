@@ -99,7 +99,7 @@ const CreatePostForm: FC = () => {
     return (
         <>
             <form onSubmit={handleSubmit(submit)}>
-                <AboveLg>
+                <AboveLg render={() => (
                     <div className={"flex gap-2 items-stretch"}>
                         <div className={"self-stretch flex-grow"}>
                             <Card className={"h-full"}>
@@ -113,14 +113,14 @@ const CreatePostForm: FC = () => {
                             </Card>
                         </div>
                     </div>
-                </AboveLg>
-                <BelowXl>
+                )}></AboveLg>
+                <BelowXl render={() => (
                     <Card>
                         {basicFields()}
                         {editor()}
                         {buttons()}
                     </Card>
-                </BelowXl>
+                )}></BelowXl>
             </form>
         </>
     );
