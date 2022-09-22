@@ -37,7 +37,8 @@ const AuthProvider: FC<PropsWithChildren> = (props) => {
             }
             if (event === "SIGNED_IN") {
                 await login(state, session!.user!);
-                await router.push("/");
+                if (router.pathname.includes("login"))
+                    await router.push("/");
             }
         });
     });

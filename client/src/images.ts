@@ -67,15 +67,17 @@ export async function uploadImage(image: ImgSource, userId: string) {
     }
 }
 
+const CacheControl = "max-age=30";
+
 export async function updateImage(image: ImgSource, userId: string) {
     const name = createUserImageName(userId);
     
     if (image.type === "dicebear") {
         const buffer = await axios.get<Blob>(image.src, {responseType: "blob"});
         await fromStorage(supabase, "profile-pictures")
-            .upload(name, buffer.data, {cacheControl: "100s", upsert: true, contentType: "image/jpg"});
+            .upload(name, buffer.data, {cacheControl: CacheControl, upsert: true, contentType: "image/jpg"});
     } else if (image.type === "file") {
         await fromStorage(supabase, "profile-pictures")
-            .upload(name, image.blob, {cacheControl: "100s", upsert: true, contentType: "image/jpg"});
+            .upload(name, image.blob, {cacheControl: CacheControl, upsert: true, contentType: "image/jpg"});
     }
 }
