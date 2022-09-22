@@ -1,10 +1,12 @@
 import {FC, useState} from "react";
 import MagnifyingGlassIcon from "../icons/MagnifyingGlassIcon";
 import {useRouter} from "next/router";
+import {useTranslation} from "next-i18next";
 
 const SearchBar: FC = () => {
     const router = useRouter();
     const [query, setQuery] = useState("");
+    const {t} = useTranslation();
     
     async function submit() {
         if (!query) return;
@@ -17,7 +19,7 @@ const SearchBar: FC = () => {
                    value={query} onChange={o => setQuery(o.currentTarget.value)}
                    onKeyDown={({key}) => {
                        if (key === "Enter") submit().then();
-                   }}/>
+                   }} placeholder={t("search")}/>
             <MagnifyingGlassIcon className={"my-auto cursor-pointer"} height={"1rem"} onClick={submit}></MagnifyingGlassIcon>
         </label>
     )
