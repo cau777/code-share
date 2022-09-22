@@ -7,6 +7,7 @@ import ProfilePicture from "../basic/ProfilePicture";
 import {useTranslation} from "next-i18next";
 import {NextRouter, useRouter} from "next/router";
 import {mergeClasses} from "../../src/attributes";
+import {supabase} from "../../src/supabase_client";
 
 type State = {
     open: boolean;
@@ -45,9 +46,12 @@ const CurrentProfileButton: FC = () => {
                                     <Link href={"/profile"}>
                                         <li>{t("profile")}</li>
                                     </Link>
-                                    <Link href={"/logout"}>
-                                        <li>{t("logOut")}</li>
-                                    </Link>
+                                    {/*<Link href={"/logout"}>*/}
+                                    {/*    <li>{t("logOut")}</li>*/}
+                                    {/*</Link>*/}
+                                    <li>
+                                        <button className={"p-0"} onClick={() => supabase.auth.signOut()}>{t("logOut")}</button>
+                                    </li>
                                 </> : <>
                                     <Link href={"/login"}>
                                         <li>{t("login")}</li>

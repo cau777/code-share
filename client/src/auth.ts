@@ -1,11 +1,6 @@
-import {NextRouter} from "next/router";
 import {AuthCtx} from "../components/AuthContext";
 import {User} from "@supabase/gotrue-js";
 import {fromTable, supabase} from "./supabase_client";
-
-export function redirectToLogin(router: NextRouter) {
-    return router.push("/login");
-}
 
 async function getProfileData(id: string) {
     const response = await fromTable(supabase, "UserPublicInfo")
@@ -28,4 +23,11 @@ export async function login(context: AuthCtx, user: User) {
     });
     
     return result;
+}
+
+export function logout(context: AuthCtx) {
+    context.changeCtx({
+        loggedIn: false,
+        changeCtx: context.changeCtx
+    });
 }

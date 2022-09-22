@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, useContext, useEffect, useState} from "react";
+import {ChangeEvent, FC, useContext, useState} from "react";
 import TextWriteAnimation from "../animated/TextWriteAnimation";
 import Card from "../Card";
 import {useForm} from "react-hook-form";
@@ -17,6 +17,8 @@ import BtnSecondary from "../basic/BtnSecondary";
 import axios from "axios";
 import {useTranslation} from "next-i18next";
 import ImageCropAndResize from "../basic/ImageCropAndResize";
+import Redirect from "../basic/Redirect";
+import {useEffectOnMount} from "../../src/hooks";
 
 type Form = {
     username: string;
@@ -55,21 +57,21 @@ const FirstLoginForm: FC = () => {
     const context = useContext(AuthContext);
     const router = useRouter();
     
-    useEffect(() => {
+    useEffectOnMount(() => {
         return () => {
             if (imgSource.type === "file")
                 URL.revokeObjectURL(imgSource.src)
             if (choosingFile !== undefined)
                 URL.revokeObjectURL(choosingFile.src);
         }
-    }, [])
+    });
     
     if (!context.loggedIn)
         return (<MustBeLoggedIn actionKey={"createYouProfile"}></MustBeLoggedIn>);
     
     if (context.completedProfile) {
-        // router.push("/").then(); TODO
-        // return (<Redirect message={t("errorProfileDone")} target={t("home")}></Redirect>)
+        router.push("/").then();
+        return (<Redirect message={t("errorProfileDone")} target={t("home")}></Redirect>)
     }
     
     async function submit(data: Form) {

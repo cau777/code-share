@@ -1,17 +1,16 @@
-import {FC, useContext, useState} from "react";
+import {FC, useState} from "react";
 import FloatingLabelInput from "../basic/FloatingLabelInput";
 import Card from "../Card";
 import BtnPrimary from "../basic/BtnPrimary";
 import Link from "next/link";
 import {useForm} from "react-hook-form";
 import {supabase} from "../../src/supabase_client";
-import {AuthContext} from "../AuthContext";
-import {useRouter} from "next/router";
 import {login} from "../../src/auth";
 import TextWriteAnimation from "../animated/TextWriteAnimation";
 import {useTranslation} from "next-i18next";
 import BlockError from "../basic/BlockError";
 import {ApiError} from "@supabase/gotrue-js";
+import ProviderButton from "../basic/ProviderButton";
 
 type Form = {
     email: string;
@@ -26,9 +25,7 @@ type State = {
 
 const SignUpForm: FC = () => {
     const [state, setState] = useState<State>({busy: false});
-    const ctx = useContext(AuthContext);
     const {register, handleSubmit, formState: {errors}, getValues} = useForm<Form>({});
-    const router = useRouter();
     const {t} = useTranslation();
     
     function translateError(error: ApiError|null) {
@@ -45,13 +42,10 @@ const SignUpForm: FC = () => {
     
     async function submit(data: Form) {
         setState({busy: true});
-        const {user, error} = await supabase.auth.signUp({email: data.email, password: data.password});
+        const {error} = await supabase.auth.signUp({email: data.email, password: data.password});
     
         if (error) {
             setState({busy: false, error: translateError(error)});
-        } else {
-            await login(ctx, user!);
-            await router.push("/firstlogin");
         }
     }
     
@@ -90,8 +84,9 @@ const SignUpForm: FC = () => {
                                     props={register("passwordRepeat", {
                                         validate: o => o === getValues("password") ? undefined : t("errorPasswordsDontMatch")
                                     })}></FloatingLabelInput>
-                <div className={"mt-3"}>
+                <div className={"mt-3 flex gap-1"}>
                     <BtnPrimary disabled={state.busy} type={"submit"}>{t("signUp")}</BtnPrimary>
+                    <ProviderButton provider={"github"}></ProviderButton>
                 </div>
             </form>
             <p className={"mt-2 text-sm"}>{t("alreadyRegistered?")} <span className={"simple-link"}><Link href={"/login"}>{t("login")}</Link></span></p>

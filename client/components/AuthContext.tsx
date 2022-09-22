@@ -1,8 +1,9 @@
 import {createContext, FC, PropsWithChildren, useState} from "react";
 import {ProfileData} from "../src/db_types";
-import {useAsyncEffect} from "../src/hooks";
-import {supabase} from "../src/supabase_client";
-import {login} from "../src/auth";
+import {useEffectOnMount} from "../src/hooks";
+import {login, logout} from "../src/auth";
+import {useRouter} from "next/router";
+import {AuthCallbackBuffer} from "../src/supabase_client";
 
 type BaseCtx = {
     changeCtx: (ctx: AuthCtx) => void;
@@ -26,22 +27,21 @@ export const AuthContext = createContext<AuthCtx>(undefined);
 
 const AuthProvider: FC<PropsWithChildren> = (props) => {
     const [state, setState] = useState<AuthCtx>({loggedIn: false, changeCtx: (ctx) => setState(ctx)});
+    let router = useRouter();
     
-    useAsyncEffect(async () => {
-        const context: AuthCtx = {loggedIn: false, changeCtx: (ctx) => setState(ctx)};
-    
-        async function tryLogIn() {
-            const token = localStorage.getItem("refresh_token");
-            if (!token) return false;
-            const {user} = await supabase.auth.signIn({refreshToken: token});
-            if (!user) return false;
-            return await login(context, user);
-        }
-    
-        const result = await tryLogIn();
-        if (!result) // If the callback in login() wasn't called
-            setState(context);
-    }, []);
+    useEffectOnMount(() => {
+        AuthCallbackBuffer.registerEffect(async ({event, session}) => {
+            // console.log(event, session)
+            if (event === "SIGNED_OUT") {
+                logout(state);
+                await router.push("/login");
+            }
+            if (event === "SIGNED_IN") {
+                await login(state, session!.user!);
+                await router.push("/");
+            }
+        });
+    });
     
     return (
         <AuthContext.Provider value={state}>

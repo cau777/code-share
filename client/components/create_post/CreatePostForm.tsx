@@ -57,7 +57,6 @@ const CreatePostForm: FC = () => {
     function basicFields() {
         return (
             <>
-                {/*TODO: wrap*/}
                 <FloatingLabelInput label={t("postTitle")} props={register("title", {required: true, maxLength: 120})}></FloatingLabelInput>
                 <FloatingLabelTextarea label={t("postDescription")}
                                        props={register("description", {required: true, maxLength: 500})}></FloatingLabelTextarea>

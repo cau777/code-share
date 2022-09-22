@@ -22,7 +22,6 @@ type LikeState = {
     likeCount: number;
 }
 
-//TODO: no render out of sight + intersection observer + recalc size when screen changes
 const SnippetPost: FC<Props> = (props) => {
     const date = new Date(props.created_at);
     const [likeState, setLikeState] = useState<LikeState>();
