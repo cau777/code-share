@@ -53,5 +53,7 @@
   "errorPostNotFound": "Essa publicação não pôde ser encontrada",
   "errorInvalidSearch": "Pesquisa inválida",
 
-  "altRandomAvatar": "Avatar de robô gerado aleatoriamente"
+  "altRandomAvatar": "Avatar de robô gerado aleatoriamente",
+  "profileImageUpdateSoon": "Sua foto de perfil será atualizada em breve",
+  "tipClickImageEdit": "Dica: você pode clicar na foto de perfil para alterá-la"
 }

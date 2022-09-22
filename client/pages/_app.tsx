@@ -11,6 +11,7 @@ import AssertProfileComplete from "../components/AssertProfileComplete";
 import {appWithTranslation, useTranslation} from "next-i18next";
 
 // TODO: PWA
+//TODO: change auth deploy
 function MyApp({Component, pageProps}: AppProps) {
     const {t} = useTranslation();
     

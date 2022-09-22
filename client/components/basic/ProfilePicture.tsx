@@ -1,7 +1,7 @@
 import {FC, useEffect, useState} from "react";
 import Image from "next/image";
-import {fromStorage, supabase} from "../../src/supabase_client";
 import defaultUser from "../../public/img/profile_avatar.png";
+import {createUserImageUrl} from "../../src/images";
 
 type Props = {
     id?: string;
@@ -9,7 +9,7 @@ type Props = {
 
 function getState(id: string | undefined) {
     return id
-        ? (fromStorage(supabase, "profile-pictures").getPublicUrl(id + ".jpg").publicURL ?? defaultUser)
+        ? (createUserImageUrl(id) ?? defaultUser)
         : defaultUser
 }
 

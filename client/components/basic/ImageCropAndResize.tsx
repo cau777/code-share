@@ -103,7 +103,7 @@ const ImageCropAndResize: FC<Props> = (props) => {
     return (
         <>
             <div className={"absolute top-0 left-0 w-full h-full"}>
-                <div className={"relative h-full z-40 bg-black bg-opacity-60 grid-center"} onClick={props.onCancel}>
+                <div className={"relative h-full z-50 bg-black bg-opacity-60 grid-center"} onClick={props.onCancel}>
                     <Card className={"my-auto w-[90vmin] md:w-[60vmin]"} onClick={e => e.stopPropagation()}>
                         <h2 className={"mb-2"}>Crop and Resize</h2>
                         

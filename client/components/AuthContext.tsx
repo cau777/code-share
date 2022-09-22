@@ -31,7 +31,6 @@ const AuthProvider: FC<PropsWithChildren> = (props) => {
     
     useEffectOnMount(() => {
         AuthCallbackBuffer.registerEffect(async ({event, session}) => {
-            // console.log(event, session)
             if (event === "SIGNED_OUT") {
                 logout(state);
                 await router.push("/login");

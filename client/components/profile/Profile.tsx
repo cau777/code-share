@@ -8,21 +8,32 @@ import {AuthContext} from "../AuthContext";
 import {AboveSm, BelowMd} from "../basic/Breakpoints";
 import ProfilePicture from "../basic/ProfilePicture";
 import {UserData} from "../../src/db_types";
+import ProfileImageEditSection from "./ProfileImageEditSection";
+import {updateImage} from "../../src/images";
+import {useTranslation} from "next-i18next";
 
 type Props = UserData;
-// TODO: image switch
+
 const Profile: FC<Props> = (props) => {
     const [editing, setEditing] = useState(false);
+    const [editingImg, setEditingImg] = useState(false);
     const context = useContext(AuthContext);
+    const {t} = useTranslation();
     
     function profileData() {
         return editing ?
-            <ProfileDataEdit data={props} id={context.loggedIn ? context.id : null!}
-                             onSave={(data) => {
-                                 if (data && context.loggedIn)
-                                     context.changeCtx({...context, profileData: {...context.profileData, ...data}});
-                                 setEditing(false);
-                             }}></ProfileDataEdit>
+            <>
+                <p>{t("tipClickImageEdit")}</p>
+                <ProfileDataEdit data={props} id={context.loggedIn ? context.id : null!}
+                                 onSave={(data) => {
+                                     if (data && context.loggedIn)
+                                         context.changeCtx({
+                                             ...context,
+                                             profileData: {...context.profileData, ...data}
+                                         });
+                                     setEditing(false);
+                                 }}></ProfileDataEdit>
+            </>
             : <>
                 {(context.loggedIn && context.id === props.id) &&
                     <button
@@ -37,15 +48,29 @@ const Profile: FC<Props> = (props) => {
             </>
     }
     
+    function profilePicture() {
+        return (context.loggedIn && editingImg) ? (
+            <ProfileImageEditSection
+                id={context.id} onCancel={() => setEditingImg(false)}
+                onSave={async (image) => {
+                    await updateImage(image, context.id);
+                    setEditingImg(false);
+                    window.alert(t("profileImageUpdateSoon"));
+                }}></ProfileImageEditSection>
+        ) : (
+            <div className={"m-2 cursor-pointer"} onClick={() => setEditingImg(true)}>
+                <ProfilePicture id={props.id}></ProfilePicture>
+            </div>
+        );
+    }
+    
     return (
         <>
             <AboveSm render={() => (
                 <div className={"flex gap-3 w-full"}>
                     <div className={"w-[24%]"}>
                         <Card>
-                            <div className={"p-2"}>
-                                <ProfilePicture id={props.id}></ProfilePicture>
-                            </div>
+                            {profilePicture()}
                             {profileData()}
                         </Card>
                     </div>
@@ -63,7 +88,7 @@ const Profile: FC<Props> = (props) => {
                     <Card>
                         <div className={"flex gap-4"}>
                             <div className={"basis-1/4"}>
-                                <ProfilePicture id={props.id}></ProfilePicture>
+                                {profilePicture()}
                             </div>
                             <div className={"basis-3/4"}>
                                 {profileData()}

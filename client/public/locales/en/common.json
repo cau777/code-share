@@ -53,5 +53,8 @@
   "errorPostNotFound": "This post could not be found",
   "errorInvalidSearch": "Invalid search",
 
-  "altRandomAvatar": "Randomly generated robot avatar"
+  "altRandomAvatar": "Randomly generated robot avatar",
+  "profileImageUpdateSoon": "Your profile image will be updated soon",
+
+  "tipClickImageEdit": "Tip: You can click on the image to change it"
 }
