@@ -37,6 +37,9 @@
   "search": "Search",
   "posts": "Posts",
   "users": "Users",
+  "seeMore": "See more",
+  "comment": "Comment",
+  "leaveComment": "Leave your comment",
 
   "errorInvalidCredentials": "Invalid login credentials",
   "errorProfileNotFound": "This profile could not be found",

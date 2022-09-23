@@ -37,6 +37,9 @@
   "search": "Pesquisa",
   "posts": "Publicações",
   "users": "Usuários",
+  "seeMore": "Ver mais",
+  "comment": "Comentar",
+  "leaveComment": "Deixe seu comentário",
 
   "errorInvalidCredentials": "Credenciais inválidas",
   "errorProfileNotFound": "Esse perfil não pôde ser encontrado",

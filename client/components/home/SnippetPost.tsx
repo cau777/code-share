@@ -14,8 +14,11 @@ import {AuthContext} from "../AuthContext";
 import BlockError from "../basic/BlockError";
 import Link from "next/link";
 import {mergeClasses} from "../../src/attributes";
+import SnippetComments from "./SnippetComments";
+import {useRouter} from "next/router";
+import {formatPostTime} from "../../src/i18n";
 
-type Props = Snippet & { limitHeight?: boolean };
+type Props = Snippet & { limitHeight?: boolean, compact?: boolean };
 
 type LikeState = {
     hasLiked: boolean;
@@ -23,10 +26,12 @@ type LikeState = {
 }
 
 const SnippetPost: FC<Props> = (props) => {
-    const date = new Date(props.created_at);
     const [likeState, setLikeState] = useState<LikeState>();
     const [error, setError] = useState<string>();
     const context = useContext(AuthContext);
+    let router = useRouter();
+    
+    const date = formatPostTime(props.created_at, router.locale!);
     
     async function updateLikeState() {
         let hasLikedResult = false;
@@ -127,9 +132,15 @@ const SnippetPost: FC<Props> = (props) => {
                         </>
                     )}
                     <div className={"ml-auto"}>
-                        <span className={"text-xs inline-block align-middle"}>{date.toLocaleString()}</span>
+                        <span className={"text-xs inline-block align-middle"}>{date}</span>
                     </div>
                 </footer>
+                
+                <hr className={"my-3"}/>
+                
+                <section>
+                    <SnippetComments postId={props.id} limit={props.compact ? 5 : undefined}></SnippetComments>
+                </section>
             </Card>
         </article>
     );

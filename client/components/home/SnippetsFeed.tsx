@@ -96,7 +96,7 @@ const SnippetsFeed: FC<Props> = (props) => {
             <InfiniteScroll next={next} hasMore={state.hasMore}
                             endMessage={<p className={"text-center"}>{t("feedEnd")}</p>}
                             loader={<Loading></Loading>} dataLength={state.snippets.length}>
-                {state.snippets.map(o => (<SnippetPost limitHeight={true} {...o} key={o.id}></SnippetPost>))}
+                {state.snippets.map(o => (<SnippetPost compact={true} limitHeight={true} {...o} key={o.id}></SnippetPost>))}
             </InfiniteScroll>
         </>
     )

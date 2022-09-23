@@ -5,7 +5,7 @@ import Profile from "../../components/profile/Profile";
 import {AppName} from "../../src/styling";
 import Head from "next/head";
 import MustBeLoggedIn from "../../components/basic/MustBeLoggedIn";
-import {getStaticCommonTranslations} from "../../src/i18n";
+import {getStaticCommonTranslations} from "../../src/i18n_server";
 
 const ProfilePage: NextPage = () => {
     const context = useContext(AuthContext);

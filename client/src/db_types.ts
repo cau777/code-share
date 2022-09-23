@@ -20,6 +20,13 @@ export type Tables = {
         author: string;
         target: number;
         created_at: string;
+    },
+    Comments: {
+        id: number;
+        post: number;
+        author: string;
+        created_at: string;
+        text: string;
     }
 }
 

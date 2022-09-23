@@ -67,3 +67,8 @@ export function findReversed(str: string, pattern: string, start: number = 0, en
 export function escapeRegExp(str: string) {
     return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
+
+export function capitalize(str: string) {
+    if (str.length < 2) return str;
+    return str[0].toUpperCase() + str.substring(1);
+}

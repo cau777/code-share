@@ -1,26 +1,18 @@
-import {GetServerSideProps, GetStaticProps} from "next";
-import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import {capitalize} from "./text";
 
-export function getStaticTranslations(namespaces: string[]): GetStaticProps {
-    return async ({locale}) => ({
-        props: {
-            ...(await serverSideTranslations(locale!, namespaces)),
-        }
-    });
-}
-
-export function getStaticCommonTranslations() {
-    return getStaticTranslations(["common"]);
-}
-
-export function getServerTranslations(namespaces: string[]): GetServerSideProps {
-    return async ({locale}) => ({
-        props: {
-            ...(await serverSideTranslations(locale!, namespaces)),
-        }
-    });
-}
-
-export function getServerCommonTranslations() {
-    return getStaticTranslations(["common"]);
+export function formatPostTime(dateStr: string, format: string) {
+    const formatter = new Intl.RelativeTimeFormat(format);
+    const date = new Date(dateStr);
+    const millis = new Date().getTime() - date.getTime();
+    
+    const minutes = Math.round(millis / 1_000 / 60);
+    if (minutes < 64)
+        return capitalize(formatter.format(-minutes, "minutes"));
+    
+    const hours = Math.round(minutes / 60);
+    if (hours < 24)
+        return capitalize(formatter.format(-hours, "hours"));
+    
+    const days = Math.round(hours / 24);
+    return capitalize(formatter.format(-days, "days"));
 }

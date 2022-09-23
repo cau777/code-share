@@ -2,7 +2,7 @@ import type {NextPage} from "next"
 import Head from "next/head"
 import {AppName} from "../src/styling";
 import Home from "../components/home/Home";
-import {getStaticCommonTranslations} from "../src/i18n";
+import {getStaticCommonTranslations} from "../src/i18n_server";
 
 const HomePage: NextPage = () => {
     return (

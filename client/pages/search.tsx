@@ -1,4 +1,4 @@
-import {getStaticCommonTranslations} from "../src/i18n";
+import {getStaticCommonTranslations} from "../src/i18n_server";
 import {NextPage} from "next";
 import {useTranslation} from "next-i18next";
 import Head from "next/head";
