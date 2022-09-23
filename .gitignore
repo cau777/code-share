@@ -1,1 +1,5 @@
 .idea/
+client/public/sw.js
+client/public/sw.js.map
+client/public/worker-*.js
+client/public/worker-*.js.map

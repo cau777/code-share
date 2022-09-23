@@ -56,17 +56,6 @@ export function randImgId(): ImgSource {
     return {type: "dicebear", src: createDicebearUrl(nanoid(10))};
 }
 
-export async function uploadImage(image: ImgSource, userId: string) {
-    if (image.type === "dicebear") {
-        const buffer = await axios.get<Blob>(image.src, {responseType: "blob"});
-        await fromStorage(supabase, "profile-pictures")
-            .upload(createUserImageName(userId), buffer.data);
-    } else if (image.type === "file") {
-        await fromStorage(supabase, "profile-pictures")
-            .upload(createUserImageName(userId), image.blob);
-    }
-}
-
 const CacheControl = "max-age=30";
 
 export async function updateImage(image: ImgSource, userId: string) {

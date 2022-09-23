@@ -26,27 +26,3 @@ export type AsyncState<T> = {
     current: "ready",
     value: T
 }
-
-export function compareEntriesBut<T>(object1: T, object2: T, except: (keyof T)[]) {
-    const exceptSet = new Set(except);
-    
-    for (const key in object1) {
-        if (exceptSet.has(key))
-            continue;
-        if (object1[key] !== object2[key]) {
-            return false;
-        }
-    }
-    
-    return true;
-}
-
-export function compareEntries<T>(object1: T, object2: T) {
-    for (const key in object1) {
-        if (object1[key] !== object2[key]) {
-            return false;
-        }
-    }
-    
-    return true;
-}

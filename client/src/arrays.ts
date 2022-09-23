@@ -1,17 +1,3 @@
-export function concatArrays(...arrays: ArrayLike<number>[]) {
-    const totalLength = arrays.reduce((acc, value) => acc + value.length, 0);
-    const result = new Uint8Array(totalLength);
-    
-    let length = 0;
-    for(const array of arrays) {
-        result.set(array, length);
-        length += array.length;
-    }
-    
-    return result;
-}
-
-
 export function arraysAreEqual<T>(arr1: Uint8Array, arr2: Uint8Array) {
     return arr1.every((val, index) => val === arr2[index]);
 }

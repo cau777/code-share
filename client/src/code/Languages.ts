@@ -29,8 +29,6 @@ export const Languages: LanguageOptions[] = Object.entries(LanguagesConfig)
         };
     });
 
-export const LanguageNames = Languages.map(o => o.name);
-
 export function findLanguageByName(name: string) {
     return Languages.find(o => o.name === name) ?? Languages.find(o => o.name === "Other");
 }

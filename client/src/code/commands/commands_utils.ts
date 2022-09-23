@@ -30,11 +30,6 @@ export function calcIndentationLevel(target: HTMLTextAreaElement) {
     return Math.max(0, level);
 }
 
-export function moveCursor(target: HTMLTextAreaElement, pos: number) {
-    target.selectionStart = pos;
-    target.selectionEnd = target.selectionStart;
-}
-
 export function generateIndentation(level: number, options: LanguageOptions) {
     return options.tab.repeat(level);
 }

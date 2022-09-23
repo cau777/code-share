@@ -16,12 +16,6 @@ export function useEffectOnMount(func: EffectCallback) {
     useEffect(func, []);
 }
 
-export function useAsyncEffectOnMount(func: () => Promise<any>) {
-    useEffect(() => {
-        func().then()
-    }, []);
-}
-
 function getWindowSize() {
     return {
         width: window.innerWidth,
@@ -52,16 +46,3 @@ export function useWindowWidth() {
     return useWindowSize().width;
 }
 
-export function useRelativeWindowSize() {
-    const width = useWindowWidth();
-    if (width === undefined)
-        return "";
-    if (width < SmScreen)
-        return "sm";
-    if (width < MdScreen)
-        return "md";
-    if (width < LgScreen)
-        return "lg";
-    if (width < XlScreen)
-        return "xl";
-}

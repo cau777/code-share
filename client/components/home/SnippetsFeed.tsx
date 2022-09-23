@@ -8,7 +8,7 @@ import {useTranslation} from "next-i18next";
 import BlockError from "../basic/BlockError";
 import {completeSnippetData} from "../../src/post";
 
-const PageSize = 15;
+const PageSize = 6;
 
 export type Snippet = {
     id: number;
