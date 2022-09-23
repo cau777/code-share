@@ -55,6 +55,7 @@
   "errorUsernameCharset": "O nome de usuário não pode conter caracteres especiais",
   "errorPostNotFound": "Essa publicação não pôde ser encontrada",
   "errorInvalidSearch": "Pesquisa inválida",
+  "errorLikeLogin": "Você deve entrar para curtir publicações",
 
   "altRandomAvatar": "Avatar de robô gerado aleatoriamente",
   "profileImageUpdateSoon": "Sua foto de perfil será atualizada em breve",

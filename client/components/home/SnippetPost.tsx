@@ -17,6 +17,7 @@ import {mergeClasses} from "../../src/attributes";
 import SnippetComments from "./SnippetComments";
 import {useRouter} from "next/router";
 import {formatPostTime} from "../../src/i18n";
+import {useTranslation} from "next-i18next";
 
 type Props = Snippet & { limitHeight?: boolean, compact?: boolean };
 
@@ -29,7 +30,8 @@ const SnippetPost: FC<Props> = (props) => {
     const [likeState, setLikeState] = useState<LikeState>();
     const [error, setError] = useState<string>();
     const context = useContext(AuthContext);
-    let router = useRouter();
+    const router = useRouter();
+    const {t} = useTranslation();
     
     const date = formatPostTime(props.created_at, router.locale!);
     
@@ -65,7 +67,10 @@ const SnippetPost: FC<Props> = (props) => {
     useAsyncEffect(updateLikeState, [context.loggedIn]);
     
     async function like() {
-        if (!likeState || !context.loggedIn) return; // TODO: logged tooltip
+        if (!likeState || !context.loggedIn){
+            setError(t("errorLikeLogin"));
+            return;
+        }
         if (likeState.hasLiked) {
             let result = await fromTable(supabase, "Likes")
                 .delete()

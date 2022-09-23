@@ -55,6 +55,7 @@
   "errorUsernameCharset": "Username can't have special characters",
   "errorPostNotFound": "This post could not be found",
   "errorInvalidSearch": "Invalid search",
+  "errorLikeLogin": "You must log in to like posts",
 
   "altRandomAvatar": "Randomly generated robot avatar",
   "profileImageUpdateSoon": "Your profile image will be updated soon",
