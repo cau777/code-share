@@ -42,7 +42,7 @@ const SnippetPost: FC<Props> = (props) => {
                 .select("target, author")
                 .match({target: props.id})
                 .match({author: context.id});
-    
+            
             if (result.error) {
                 setError(result.error.message);
                 return;
@@ -50,11 +50,11 @@ const SnippetPost: FC<Props> = (props) => {
             
             hasLikedResult = result.body !== null && result.body.length !== 0;
         }
-    
+        
         const likesCountResult = await fromTable(supabase, "Likes")
             .select("target")
             .match({target: props.id});
-    
+        
         if (likesCountResult.error) {
             setError(likesCountResult.error.message);
             return;
@@ -67,7 +67,7 @@ const SnippetPost: FC<Props> = (props) => {
     useAsyncEffect(updateLikeState, [context.loggedIn]);
     
     async function like() {
-        if (!likeState || !context.loggedIn){
+        if (!likeState || !context.loggedIn) {
             setError(t("errorLikeLogin"));
             return;
         }
@@ -141,9 +141,9 @@ const SnippetPost: FC<Props> = (props) => {
                     </div>
                 </footer>
                 
-                <hr className={"my-3"}/>
                 
                 <section>
+                    <hr className={"my-3 hide-one-child"}/>
                     <SnippetComments postId={props.id} limit={props.compact ? 5 : undefined}></SnippetComments>
                 </section>
             </Card>
