@@ -59,7 +59,7 @@ const CreatePostForm: FC = () => {
             <>
                 <FloatingLabelInput label={t("postTitle")} props={register("title", {required: true, maxLength: 120})}></FloatingLabelInput>
                 <FloatingLabelTextarea label={t("postDescription")}
-                                       props={register("description", {required: true, maxLength: 500})}></FloatingLabelTextarea>
+                                       props={register("description", {maxLength: 500})}></FloatingLabelTextarea>
                 
                 <div className={"mb-2"}>
                     <SearchSelect onChange={(o: any) => setValue("lang", o.value)} placeholder={t("postLanguage")}

@@ -26,8 +26,8 @@ const CodeLineNumbers: FC<Props> = (props) => {
                 <tbody>
                 {children}
                 <tr>
-                    {/* Offset some display errors */}
-                    {props.offsetBottom && <td height={4}/>}
+                    {/* Offset scroll */}
+                    {props.offsetBottom ? (<td height={16}/>) : (<></>)}
                 </tr>
                 </tbody>
             </table>

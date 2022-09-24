@@ -123,8 +123,8 @@ const SnippetPost: FC<Props> = (props) => {
                 <div
                     className={mergeClasses("mt-2 mb-2 flex rounded border-back-1 border-2 overflow-auto monospace overflow-auto", {"max-h-[40vh]": props.limitHeight})}>
                     <CodeEditorLineNumbers
-                        lineCount={countOccurrences(props.code, "\n") + 1}></CodeEditorLineNumbers>
-                    <CodeDisplay text={props.code}
+                        lineCount={countOccurrences(props.code, "\n") + 2}></CodeEditorLineNumbers>
+                    <CodeDisplay text={props.code + "\n"}
                                  language={findLanguageByName(props.lang) ?? OtherLanguage}></CodeDisplay>
                 </div>
                 

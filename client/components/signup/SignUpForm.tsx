@@ -11,6 +11,7 @@ import {useTranslation} from "next-i18next";
 import BlockError from "../basic/BlockError";
 import {ApiError} from "@supabase/gotrue-js";
 import ProviderButton from "../basic/ProviderButton";
+import {useRouter} from "next/router";
 
 type Form = {
     email: string;
@@ -27,10 +28,11 @@ const SignUpForm: FC = () => {
     const [state, setState] = useState<State>({busy: false});
     const {register, handleSubmit, formState: {errors}, getValues} = useForm<Form>({});
     const {t} = useTranslation();
+    const router = useRouter();
     
-    function translateError(error: ApiError|null) {
-        if(error === null) return undefined;
-    
+    function translateError(error: ApiError | null) {
+        if (error === null) return undefined;
+        
         // console.log(error.status, error.message);
         switch (error.status) {
             case 400:
@@ -43,9 +45,11 @@ const SignUpForm: FC = () => {
     async function submit(data: Form) {
         setState({busy: true});
         const {error} = await supabase.auth.signUp({email: data.email, password: data.password});
-    
+        
         if (error) {
             setState({busy: false, error: translateError(error)});
+        } else {
+            await router.push("/");
         }
     }
     
@@ -68,7 +72,8 @@ const SignUpForm: FC = () => {
             <form className={"w-[20rem]"} onSubmit={handleSubmit(submit)}>
                 <BlockError>{state.error}</BlockError>
                 
-                <FloatingLabelInput label={t("email")} inputType={"text"} error={errors.email?.message} autoCapitalize={"off"}
+                <FloatingLabelInput label={t("email")} inputType={"text"} error={errors.email?.message}
+                                    autoCapitalize={"off"}
                                     props={register("email", {
                                         pattern: {value: /\w+@\w+\.\w+/, message: t("errorInvalidEmail")},
                                     })}></FloatingLabelInput>
@@ -89,7 +94,8 @@ const SignUpForm: FC = () => {
                     <ProviderButton provider={"github"}></ProviderButton>
                 </div>
             </form>
-            <p className={"mt-2 text-sm"}>{t("alreadyRegistered?")} <span className={"simple-link"}><Link href={"/login"}>{t("login")}</Link></span></p>
+            <p className={"mt-2 text-sm"}>{t("alreadyRegistered?")} <span className={"simple-link"}><Link
+                href={"/login"}>{t("login")}</Link></span></p>
         </Card>
     )
 }

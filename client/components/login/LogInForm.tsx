@@ -11,6 +11,7 @@ import {useTranslation} from "next-i18next";
 import BlockError from "../basic/BlockError";
 import {ApiError} from "@supabase/gotrue-js";
 import ProviderButton from "../basic/ProviderButton";
+import {useRouter} from "next/router";
 
 type Form = {
     email: string;
@@ -26,6 +27,7 @@ const LogInForm: FC = () => {
     const [state, setState] = useState<State>({busy: false});
     const {register, handleSubmit, formState: {errors}} = useForm<Form>({});
     const {t} = useTranslation();
+    const router = useRouter();
     
     function translateError(error: ApiError | null) {
         if (error === null) return undefined;
@@ -44,9 +46,10 @@ const LogInForm: FC = () => {
         
         if (error) {
             setState({busy: false, error: translateError(error)});
+        } else {
+            await router.push("/");
         }
     }
-    
     
     
     return (

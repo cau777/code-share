@@ -109,7 +109,7 @@ const SnippetComments: FC<Props> = (props) => {
                 <form onSubmit={handleSubmit(submit)}>
                     <div className={"flex align-middle gap-3"}>
                         <div className={"w-12 my-auto"}>
-                            <ProfilePicture></ProfilePicture>
+                            <ProfilePicture id={context.id}></ProfilePicture>
                         </div>
                         
                         <div className={"flex-grow"}>

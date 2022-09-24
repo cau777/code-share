@@ -11,12 +11,11 @@ type Props = {
     language: LanguageOptions;
 }
 
-
 const CodeDisplay: FC<Props> = (props) => {
     const options = props.language;
     const height = 23 * countOccurrences(props.text, "\n");
     const [visible, setVisible] = useState(false);
-    const [state, setState] = useState< [string, Uint8Array][]>([]);
+    const [state, setState] = useState<[string, Uint8Array][]>([]);
     
     const {ref} = useInView({
         threshold: 0.001,
