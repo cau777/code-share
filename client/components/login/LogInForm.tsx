@@ -73,6 +73,11 @@ const LogInForm: FC = () => {
                     <ProviderButton provider={"github"}></ProviderButton>
                 </div>
             </form>
+            <div className={"text-sm"}>
+                <p>Debug login</p>
+                <p>test1@gmail.com</p>
+                <p>asdASD123</p>
+            </div>
             <p className={"mt-2 text-sm"}>{t("noAccount?")} <span className={"simple-link"}><Link
                 href={"/signup"}>{t("signUp")}</Link></span></p>
         </Card>
