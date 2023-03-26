@@ -43,7 +43,7 @@ Twitter and GitHub, and made using NextJs.
 
 ## Screenshots
 
-1) ![Home Page](https://github.com/cau777/code-share/blob/master/screenshots/home.png)
-2) ![Post Snippet Page](https://github.com/cau777/code-share/blob/master/screenshots/post_snippet.png)
-3) ![Profile Page](https://github.com/cau777/code-share/blob/master/screenshots/profile.png)
-4) ![Lighthouse Score](https://github.com/cau777/code-share/blob/master/screenshots/lighthouse.png)
+1) ![Home Page](https://github.com/cau777/code-share/blob/main/screenshots/home.png)
+2) ![Post Snippet Page](https://github.com/cau777/code-share/blob/main/screenshots/post_snippet.png)
+3) ![Profile Page](https://github.com/cau777/code-share/blob/main/screenshots/profile.png)
+4) ![Lighthouse Score](https://github.com/cau777/code-share/blob/main/screenshots/lighthouse.png)
