@@ -24,8 +24,6 @@ app.UseRequestLocalization(o =>
     o.DefaultRequestCulture = new RequestCulture(CultureInfo.InvariantCulture);
 });
 
-app.UseHttpsRedirection();
-
 app.MapControllers();
 
 app.Run();
