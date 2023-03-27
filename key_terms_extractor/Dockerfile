@@ -1,6 +1,8 @@
 FROM python:slim-buster
 WORKDIR /app
 
+RUN apt install build-essential
+
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
