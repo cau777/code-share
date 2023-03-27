@@ -16,18 +16,6 @@ var nextConfig = {
             "dummyimage.com"
         ]
     },
-    async rewrites() {
-        return [
-            {
-                source: "/api/convert_image",
-                destination: "https://caua-rinaldi.dev/api/convert-image"
-            },
-            {
-                source: "/api/extract_keywords",
-                destination: "https://caua-rinaldi.dev/api/extract-keywords"
-            }
-        ]
-    }
 }
 
 nextConfig = withPWA({
