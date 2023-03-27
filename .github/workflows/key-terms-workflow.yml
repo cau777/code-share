@@ -1,4 +1,4 @@
-name: Docker Deploy
+name: Docker Deploy key-terms-extractor
 
 on:
   # Allow manually trigger
@@ -16,17 +16,8 @@ jobs:
       - name: Docker login
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Docker build client
-        run: docker build -t cau777/code-share-nextjs ./client
-
-      - name: Docker build image-service
-        run: docker build -t cau777/code-share-image-service ./ImageService
-
       - name: Docker build key-terms-extractor
         run: docker build -t cau777/code-share-key-terms-extractor ./key_terms_extractor
 
       - name: Docker push
-        run: >
-          docker push cau777/code-share-nextjs:latest && 
-          docker push cau777/code-share-image-service:latest &&
-          docker push cau777/code-share-key-terms-extractor:latest
+        run: docker push cau777/code-share-key-terms-extractor:latest
