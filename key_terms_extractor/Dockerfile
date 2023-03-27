@@ -1,7 +1,8 @@
 FROM python:slim-buster
 WORKDIR /app
 
-RUN apt install build-essential
+RUN apt update
+RUN apt install -y build-essential
 
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
