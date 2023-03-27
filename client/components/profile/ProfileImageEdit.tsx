@@ -59,13 +59,17 @@ const ProfileImageEdit: FC<Props> = (props) => {
             URL.revokeObjectURL(imgSource.src)
         
         endCropAndResize();
-        const response = await cropAndResizeCall(choosingFile.file, value);
-        
-        changeImg({
-            type: "file",
-            src: URL.createObjectURL(response.data),
-            blob: response.data
-        })
+        try{
+            const response = await cropAndResizeCall(choosingFile.file, value);
+            
+            changeImg({
+                type: "file",
+                src: URL.createObjectURL(response.data),
+                blob: response.data
+            });
+        } catch (e) {
+            alert("Sorry, this image format might not be supported")
+        }
     }
     
     function changeImg(value: ImgSource) {
