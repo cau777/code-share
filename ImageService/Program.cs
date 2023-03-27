@@ -1,6 +1,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Rewrite;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -18,6 +19,10 @@ builder.Services.AddHttpLogging(o =>
 });
 
 WebApplication app = builder.Build();
+var options = new RewriteOptions();
+// Remove double slashes
+options.AddRewrite("/*(.*)", "$1", false);
+app.UseRewriter(options);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
