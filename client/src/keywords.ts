@@ -4,7 +4,7 @@ import {Cache} from "./data/Cache";
 
 export async function fetchKeywords(text: string) {
     if (text === "") return [];
-    return (await axios.post<string[]>("/api/extract-keywords", {text, count: 5})).data ?? [];
+    return (await axios.post<string[]>("/api/key-terms/extract", {text, count: 5})).data ?? [];
 }
 
 export const KeywordsRequestManager = new SingleRequestManager();

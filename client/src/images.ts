@@ -24,7 +24,7 @@ export function getImageDims(src: string) {
 }
 
 export function cropAndResizeCall(file: File, options: CropAndResize): Promise<AxiosResponse<Blob>> {
-    return axios.postForm("/api/convert-image", {
+    return axios.postForm("/api/image-service/convert", {
         file,
         scale: options.scale,
         top: options.top,
