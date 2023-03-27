@@ -1,7 +1,10 @@
 using System.Globalization;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Localization;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.Logging.ClearProviders();
+builder.Logging.AddSimpleConsole();
 
 // Add services to the container.
 
@@ -9,6 +12,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpLogging(o =>
+{
+    o.LoggingFields = HttpLoggingFields.RequestProperties;
+});
 
 WebApplication app = builder.Build();
 
