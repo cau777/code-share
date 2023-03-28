@@ -1,5 +1,6 @@
 import {capitalize} from "./text";
 
+// Uses Intl.RelativeTimeFormat to format a date more precisely
 export function formatPostTime(dateStr: string, format: string) {
     const formatter = new Intl.RelativeTimeFormat(format);
     const date = new Date(dateStr);

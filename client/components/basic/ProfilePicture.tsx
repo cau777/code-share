@@ -13,6 +13,7 @@ function getState(id: string | undefined) {
         : defaultUser
 }
 
+// Rounded profile picture
 const ProfilePicture: FC<Props> = (props) => {
     const [url, setUrl] = useState(getState(props.id));
     

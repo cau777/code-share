@@ -11,6 +11,7 @@ type Props = {
     description: string;
 }
 
+// Displays keywords for the current title and description. Has a mechanism to avoid flooding the API with calls.
 const DynamicKeywords: FC<Props> = (props) => {
     const [state, setState] = useState<AsyncState<string[]>>({current: "loading"});
     const prev = useRef<string[]>();

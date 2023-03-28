@@ -6,6 +6,8 @@ type Props = {
     actionKey: string;
 }
 
+// Component that displays says the user is not logged in, orienting them to log in or sign up.
+// It doesn't check if the user is logged in or not
 const MustBeLoggedIn: FC<Props> = (props) => {
     const {t} = useTranslation();
     

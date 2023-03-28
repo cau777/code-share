@@ -16,6 +16,7 @@ supabase.auth.onAuthStateChange((event, session) =>
     AuthCallbackBuffer.call({event, session}));
 
 supabase.auth.onAuthStateChange((event, session) => {
+    // Save the refresh_token in local storage if it's present
     if (!session?.refresh_token)
         localStorage.removeItem("refresh_token");
     else
@@ -24,10 +25,12 @@ supabase.auth.onAuthStateChange((event, session) => {
 
 export type StorageBuckets = "profile-pictures";
 
+// Add strong typing to Supabase call
 export function fromTable<T extends keyof Tables>(supabase: SupabaseClient, name: T): SupabaseQueryBuilder<Tables[T]> {
     return supabase.from<Tables[T]>(name);
 }
 
+// Add strong typing to Supabase call
 export function fromStorage(supabase: SupabaseClient, name: StorageBuckets) {
     return supabase.storage.from(name);
 }

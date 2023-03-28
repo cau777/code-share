@@ -25,12 +25,13 @@ export type AuthCtx = LoggedInCtx | LoggedOutCtx;
 // @ts-ignore
 export const AuthContext = createContext<AuthCtx>(undefined);
 
+// AuthContext provider
 const AuthProvider: FC<PropsWithChildren> = (props) => {
     const [state, setState] = useState<AuthCtx>({loggedIn: false, changeCtx: (ctx) => setState(ctx)});
     let router = useRouter();
     
     useEffectOnMount(() => {
-        AuthCallbackBuffer.registerEffect(async ({event, session}) => {
+        AuthCallbackBuffer.registerListener(async ({event, session}) => {
             if (event === "SIGNED_OUT") {
                 logout(state);
                 await router.push("/login");

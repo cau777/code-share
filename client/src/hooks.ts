@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {EffectCallback, useEffect, useState} from "react";
-import {LgScreen, MdScreen, SmScreen, XlScreen} from "./styling";
 
+// Utility function just to avoid the boilerplate of calling an async function inside useEffect
 export function useAsyncEffect(func: () => Promise<any>, deps?: any[]) {
     useEffect(() => {
         func().then()
@@ -16,6 +16,7 @@ export function useEffectOnMount(func: EffectCallback) {
     useEffect(func, []);
 }
 
+// Get the window height and width
 function getWindowSize() {
     return {
         width: window.innerWidth,
@@ -23,6 +24,8 @@ function getWindowSize() {
     }
 }
 
+// Hook to track the window width and height
+// Warning: Before the window is rendered, the hook returns an empty object
 export function useWindowSize() {
     // Initialize state with undefined width/height so server and client renders match
     // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
@@ -42,6 +45,7 @@ export function useWindowSize() {
     return windowSize;
 }
 
+// Simplification of useWindowSize() hook
 export function useWindowWidth() {
     return useWindowSize().width;
 }

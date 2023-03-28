@@ -49,6 +49,7 @@ async function completeComment(o: Tables["Comments"]): Promise<Comment> {
     };
 }
 
+// Displays the comments of a post and allows the user to post one if logged in
 const SnippetComments: FC<Props> = (props) => {
     const {t} = useTranslation();
     const {handleSubmit, register} = useForm<Form>();

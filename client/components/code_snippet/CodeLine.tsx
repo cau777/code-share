@@ -47,6 +47,7 @@ function generate(text: string, charColors: Uint8Array) {
     return result;
 }
 
+// Displays a single line of code. It's different if the line is selected
 const CodeLine: FC<Props> = (props) => {
     return (
         <tr>

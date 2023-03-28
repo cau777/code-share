@@ -2,6 +2,7 @@ import axios, {AxiosResponse} from "axios";
 import {nanoid} from "nanoid";
 import {fromStorage, supabase} from "./supabase_client";
 
+// Create a url to call the Dicebear API with a seed
 export function createDicebearUrl(seed: string) {
     return `https://avatars.dicebear.com/api/bottts/${seed}.jpg?scale=85&size=256`
 }
@@ -12,6 +13,8 @@ export type CropAndResize = {
     left: number;
 }
 
+// Get the height and width from an image source url.
+// This method is async because it instantiates an Image element to get its size
 export function getImageDims(src: string) {
     return new Promise<{ width: number, height: number }>(resolve => {
         const image = new Image();
@@ -23,6 +26,7 @@ export function getImageDims(src: string) {
     });
 }
 
+// Calls the image-service api
 export function cropAndResizeCall(file: File, options: CropAndResize): Promise<AxiosResponse<Blob>> {
     return axios.postForm("/api/image-service/convert", {
         file,
@@ -32,10 +36,12 @@ export function cropAndResizeCall(file: File, options: CropAndResize): Promise<A
     }, {responseType: "blob"});
 }
 
+// Get the profile image name associated with a user
 export function createUserImageName(id: string) {
     return id + ".jpg";
 }
 
+// Get the public url of profile image name associated with a user
 export function createUserImageUrl(id: string) {
     return fromStorage(supabase, "profile-pictures").getPublicUrl(createUserImageName(id)).publicURL;
 }
@@ -52,12 +58,14 @@ export type ImgSource = {
     src: string;
 };
 
+// Create and ImgSource object with the url of a Dicebear avatar with random seed
 export function randImgId(): ImgSource {
     return {type: "dicebear", src: createDicebearUrl(nanoid(10))};
 }
 
 const CacheControl = "max-age=30";
 
+// Upload a profile picture to Supabase in name of a specific user
 export async function updateImage(image: ImgSource, userId: string) {
     const name = createUserImageName(userId);
     

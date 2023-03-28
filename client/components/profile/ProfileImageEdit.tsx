@@ -18,6 +18,7 @@ type ChoosingFileState = {
     height: number;
 }
 
+// Inner component to change the profile picture
 const ProfileImageEdit: FC<Props> = (props) => {
     let {t} = useTranslation();
     const [imgSource, setImgSource] = useState<ImgSource>(() => {
@@ -59,7 +60,7 @@ const ProfileImageEdit: FC<Props> = (props) => {
             URL.revokeObjectURL(imgSource.src)
         
         endCropAndResize();
-        try{
+        try {
             const response = await cropAndResizeCall(choosingFile.file, value);
             
             changeImg({

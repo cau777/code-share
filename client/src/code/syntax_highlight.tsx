@@ -11,6 +11,7 @@ export enum HighlightColorCodes {
     Comments = 5
 }
 
+// Array to map the color codes to color names
 export const HighlightColorNames = [
     "", "keyword", "literal", "number", "string", "comment",
 ]
@@ -98,6 +99,8 @@ function highlightLine(line: string, options: LanguageOptions) {
     return charColors;
 }
 
+// Apply the language highlighting rules to a code block
+// @returns An array of lines of tuples. Ach tuple is a line of code as a string and an array with the color of each character
 export function highlightText(text: string, options: LanguageOptions): [string, Uint8Array][] {
     const lines = text.split("\n");
     const charColors = lines.map(o =>

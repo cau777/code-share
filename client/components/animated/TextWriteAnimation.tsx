@@ -12,14 +12,12 @@ type State = {
     interval?: any;
 }
 
+// Animation component that acts like the text is being written in front of the user
 const TextWriteAnimation: FC<Props> = (props) => {
     const len = props.text.length;
     const [state, setState] = useState<State>({current: len});
     const shouldTriggerOnView = useRef(props.triggerView);
-    
-    
     const viewRef = useRef<HTMLSpanElement>(null);
-    
     
     useEffectOnMount(() => {
         function registerObserver() {

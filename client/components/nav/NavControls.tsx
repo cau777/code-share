@@ -11,6 +11,7 @@ import Logo from "../basic/Logo";
 import SearchBar from "../search/SearchBar";
 import MagnifyingGlassIcon from "../icons/MagnifyingGlassIcon";
 
+// Renders just a header in larger screens, and a header and a fixed footer in smaller screens
 const NavControls: FC<PropsWithChildren> = (props) => {
     const router = useRouter();
     const {t} = useTranslation();

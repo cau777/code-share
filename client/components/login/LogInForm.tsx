@@ -23,6 +23,7 @@ type State = {
     busy: boolean;
 }
 
+// Handles form and validation for login
 const LogInForm: FC = () => {
     const [state, setState] = useState<State>({busy: false});
     const {register, handleSubmit, formState: {errors}} = useForm<Form>({});

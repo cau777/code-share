@@ -14,6 +14,8 @@ import {useTranslation} from "next-i18next";
 
 type Props = UserData;
 
+// Show all the public information about a user, including picture, id, name, bio, and posts
+// Automatically, enabled editing if it's referring to the user logged in
 const Profile: FC<Props> = (props) => {
     const [editing, setEditing] = useState(false);
     const [editingImg, setEditingImg] = useState(false);

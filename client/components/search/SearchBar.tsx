@@ -3,6 +3,7 @@ import MagnifyingGlassIcon from "../icons/MagnifyingGlassIcon";
 import {useRouter} from "next/router";
 import {useTranslation} from "next-i18next";
 
+// Search bar to query posts that redirects to a search url with query parameters
 const SearchBar: FC = () => {
     const router = useRouter();
     const [query, setQuery] = useState("");

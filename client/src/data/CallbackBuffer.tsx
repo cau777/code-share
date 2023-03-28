@@ -1,11 +1,12 @@
 import {Queue} from "./Queue";
 
+// Avoid problems when an event needs to be processes in a DOM element, but the listener might not be ready when the event fires
 export class CallbackBuffer<T> {
     private readonly buffer = new Queue<T>()
-    private effect?: (value: T) => (void | Promise<void>);
+    private listener?: (value: T) => (void | Promise<void>);
     
-    public registerEffect(effect: (value: T) => void) {
-        this.effect = effect;
+    public registerListener(effect: (value: T) => void) {
+        this.listener = effect;
         this.callBuffer().then();
     }
     
@@ -15,8 +16,8 @@ export class CallbackBuffer<T> {
     }
     
     private async callBuffer() {
-        if (this.effect === undefined) return;
+        if (this.listener === undefined) return;
         while (this.buffer.length > 0)
-            await this.effect(this.buffer.dequeue());
+            await this.listener(this.buffer.dequeue());
     }
 }

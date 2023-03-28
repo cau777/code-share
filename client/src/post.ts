@@ -2,6 +2,7 @@ import {fromTable, supabase} from "./supabase_client";
 import {Snippet} from "../components/home/SnippetsFeed";
 import {Tables} from "./db_types";
 
+// Given a post downloaded from the Supabase table, it adds to the object information about the user that made the post
 export async function completeSnippetData(o: Tables["Posts"]): Promise<Snippet> {
     const userData = await fromTable(supabase, "UserPublicInfo")
         .select("id, name, username")

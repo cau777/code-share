@@ -42,6 +42,7 @@ function defaultState(): State {
     return {snippets: [], hasMore: true, page: 0, initialTime: new Date().toISOString()};
 }
 
+// Dynamic infinite scrolling feed with the option for filtering results
 const SnippetsFeed: FC<Props> = (props) => {
     const [state, setState] = useState<State>(defaultState());
     const [error, setError] = useState<string>();

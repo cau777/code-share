@@ -1,3 +1,4 @@
+// Types for Supabase table's rows
 export type Tables = {
     UserPublicInfo: {
         id: string;
@@ -30,10 +31,12 @@ export type Tables = {
     }
 }
 
+// Basic information about the profile plus its id
 export type UserData = ProfileData & {
     id: string;
 }
 
+// Basic information about the profile
 export type ProfileData = {
     name: string;
     bio: string;

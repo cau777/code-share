@@ -22,6 +22,7 @@ type Form = {
     image: ImgSource;
 }
 
+// Handle form and validation for profile completion on the first login
 const FirstLoginForm: FC = () => {
     const {handleSubmit, register, formState, setValue} = useForm<Form>({defaultValues: {bio: ""}});
     const [busy, setBusy] = useState(false);

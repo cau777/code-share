@@ -23,6 +23,7 @@ type Form = {
     keywords: string[];
 }
 
+// Handles form and validation for posting a snippet. Includes the code editor and generated keywords
 const CreatePostForm: FC = () => {
     const {register, handleSubmit, setValue, watch, reset} = useForm<Form>({
         defaultValues: {

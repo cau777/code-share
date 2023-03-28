@@ -19,6 +19,7 @@ type Form = {
     bio: string;
 }
 
+// Component to edit name and bio
 const ProfileDataEdit: FC<Props> = (props) => {
     const {register, handleSubmit} = useForm<Form>({defaultValues: {name: props.data.name, bio: props.data.bio}});
     const {t} = useTranslation();

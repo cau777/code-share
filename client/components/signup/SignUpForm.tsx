@@ -24,6 +24,7 @@ type State = {
     busy: boolean;
 }
 
+// Handles form and validation for signing up
 const SignUpForm: FC = () => {
     const [state, setState] = useState<State>({busy: false});
     const {register, handleSubmit, formState: {errors}, getValues} = useForm<Form>({});

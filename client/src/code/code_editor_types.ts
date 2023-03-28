@@ -4,6 +4,7 @@ export type ModifierKeys ={
     shift: boolean;
 }
 
+// Used to operate on text based on the current programming language
 export type LanguageOptions = {
     name: string;
     tab: string;
@@ -16,6 +17,7 @@ export type LanguageOptions = {
     multilineCommentsRegex?: RegExp;
 }
 
+// Used to describe a supported programming language manually
 export type LanguageConfig = {
     inlineComments?: string;
     multilineComments?: {start: string, end: string};
@@ -28,6 +30,7 @@ export type LanguageConfig = {
     spacesNumber?: number;
 }
 
+// Determines a code editor command, executed by a combination of keys, that modifies the normal behaviour of the TextArea
 export type Command = {
     saveStateBefore?: boolean;
     saveStateAfter?: boolean;

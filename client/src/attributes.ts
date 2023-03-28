@@ -1,3 +1,6 @@
+// Accepts any number of items to form a class for html element.
+// An item can be a string to be concatenated or an object where each key is a class and each value is a boolean
+// that determines if that class is added or not
 export function mergeClasses(...items: any[]) {
     let result = " ";
     

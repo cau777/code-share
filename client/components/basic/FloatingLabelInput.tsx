@@ -9,6 +9,7 @@ type Props = {
     autoCapitalize?: HTMLProps<HTMLInputElement>["autoCapitalize"];
 };
 
+// <input> element with a label that floats to the top of the field when focused
 const FloatingLabelInput: FC<Props> = (props) => {
     const id = props.label.replace(" ", "_") + "_input";
     

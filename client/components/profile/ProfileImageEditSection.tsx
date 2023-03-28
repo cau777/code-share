@@ -11,6 +11,7 @@ type Props = {
     onSave: (value: ImgSource) => void;
 }
 
+// Component to change the profile picture, including save and cancel buttons
 const ProfileImageEditSection: FC<Props> = (props) => {
     const initial: ImgSource = {type: "url", src: createUserImageUrl(props.id) ?? defaultUser.src};
     const imgSource = useRef<ImgSource>(initial);

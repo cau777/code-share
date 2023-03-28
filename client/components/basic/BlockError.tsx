@@ -1,6 +1,7 @@
 import {FC, PropsWithChildren} from "react";
 import WarningIcon from "../icons/WarningIcon";
 
+// Generic component to display an error close to the element that originated the error
 const BlockError: FC<PropsWithChildren> = (props) => {
     if (!props.children) return (<></>);
     

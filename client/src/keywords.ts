@@ -2,6 +2,7 @@ import axios from "axios";
 import {SingleRequestManager} from "./data/SingleRequestManager";
 import {Cache} from "./data/Cache";
 
+// Call the key-terms API
 export async function fetchKeywords(text: string) {
     if (text === "") return [];
     return (await axios.post<string[]>("/api/key-terms/extract", {text, count: 5})).data ?? [];

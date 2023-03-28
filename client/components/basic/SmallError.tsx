@@ -5,6 +5,7 @@ type Props = {
     message?: string;
 }
 
+// Simple error message to be displayed inline or below an element
 const SmallError: FC<Props> = (props) => {
     if (!props.message) return <></>;
     return (

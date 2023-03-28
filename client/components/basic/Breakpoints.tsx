@@ -24,6 +24,9 @@ export const BelowXl: Breakpoint = (props) =>
     (<Breakpoint maxWidth={XlScreen} render={props.render}></Breakpoint>);
 
 // noinspection JSUnusedLocalSymbols - WebStorm gives wrong inspection
+
+// Base component to render from a function if the window width is in a range
+// This imitates Tailwind's behaviour, but it doesn't render the component instead of rendering and hiding it
 const Breakpoint: FC<{ minWidth?: number, maxWidth?: number, render: RenderCallback }> = (props) => {
     const windowWidth = useWindowWidth() ?? MdScreen;
     

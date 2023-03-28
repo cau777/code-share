@@ -26,6 +26,7 @@ type LikeState = {
     likeCount: number;
 }
 
+// Displays a post along with comments, likes, and author information
 const SnippetPost: FC<Props> = (props) => {
     const [likeState, setLikeState] = useState<LikeState>();
     const [error, setError] = useState<string>();

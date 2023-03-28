@@ -20,6 +20,7 @@ type State = {
     data: User[];
 }
 
+// List to display a sequence of users with name, id, and picture
 const UsersList: FC<Props> = (props) => {
     const [state, setState] = useState<State>();
     const [error, setError] = useState<string>();

@@ -6,6 +6,8 @@ type Props = {
     target: string;
 }
 
+// Only formats a redirecting text starting with the provided message.
+// It doesn't perform the redirect functionality
 const Redirect: FC<Props> = (props) => {
     const {t} = useTranslation();
     

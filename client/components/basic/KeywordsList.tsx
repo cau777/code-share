@@ -4,6 +4,7 @@ type Props = {
     keywords: string[]
 }
 
+// Flex list of keywords
 const KeywordsList: FC<Props> = (props) => {
     return (
         <div className={"rounded-lg flex gap-2 flex-wrap"}>

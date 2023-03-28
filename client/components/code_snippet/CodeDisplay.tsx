@@ -11,6 +11,7 @@ type Props = {
     language: LanguageOptions;
 }
 
+// Shows a code snippet with highlighting and line numbers
 const CodeDisplay: FC<Props> = (props) => {
     const options = props.language;
     const height = 23 * countOccurrences(props.text, "\n");

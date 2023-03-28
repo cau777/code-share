@@ -1,3 +1,4 @@
+// Map wrapper with maximum size
 export class Cache<TKey, TValue> {
     private readonly elements: Map<TKey, TValue>;
     

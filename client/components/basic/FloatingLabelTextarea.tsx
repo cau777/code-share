@@ -8,6 +8,7 @@ type Props = {
     error?: string;
 };
 
+// <textarea> element with a label that floats to the top of the field when focused
 const FloatingLabelTextarea: FC<Props> = (props) => {
     const id = props.label.replace(" ", "_") + "_input";
     const parentRef = useRef<HTMLDivElement>(null);

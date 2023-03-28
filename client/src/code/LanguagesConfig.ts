@@ -1,7 +1,8 @@
 import {LanguageConfig} from "./code_editor_types";
 
+// This is where support for new languages is implemented
+// Taken from the previous version of this project
 // https://github.com/cau777/CodeSharingNetwork/blob/master/client/src/components/code_editor/languages/Languages.ts
-
 export const LanguagesConfig: { [key: string]: LanguageConfig } = {
     Other: {
         disableAutoIndent: true,

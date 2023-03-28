@@ -3,6 +3,7 @@ import {AuthContext, LoggedInCtx} from "./AuthContext";
 import {useRouter} from "next/router";
 import {useTranslation} from "next-i18next";
 
+// If the user is logged in **AND** has an incomplete profile, redirect to /firstlogin. Otherwise, display the children.
 const AssertProfileComplete: FC<PropsWithChildren> = (props) => {
     const context = useContext(AuthContext);
     const router = useRouter();

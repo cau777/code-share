@@ -17,6 +17,7 @@ function changeLocale(router: NextRouter, lang: string) {
     return router.replace(router.pathname, router.pathname, {locale: lang});
 }
 
+// Displays the current user profile picture along with a chevron that opens a floating menu
 const CurrentProfileButton: FC = () => {
     const context = useContext(AuthContext);
     const [state, setState] = useState<State>({open: false});
@@ -46,9 +47,6 @@ const CurrentProfileButton: FC = () => {
                                     <Link href={"/profile"}>
                                         <li>{t("profile")}</li>
                                     </Link>
-                                    {/*<Link href={"/logout"}>*/}
-                                    {/*    <li>{t("logOut")}</li>*/}
-                                    {/*</Link>*/}
                                     <li>
                                         <button className={"p-0"} onClick={() => supabase.auth.signOut()}>{t("logOut")}</button>
                                     </li>

@@ -25,6 +25,7 @@ function clamp(value: number, min: number, max: number) {
     return Math.max(min, Math.min(max, value));
 }
 
+// Component that takes care of the user interaction for cropping and resizing
 const ImageCropAndResize: FC<Props> = (props) => {
     const minScale = Math.max(100, 100 / props.height * props.width);
     

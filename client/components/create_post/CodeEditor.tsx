@@ -43,6 +43,7 @@ function prepareKey(key: string) {
     }
 }
 
+// One of the main components. Contains all the logic and HTML for the embedded code editor
 const CodeEditor: FC<Props> = (props) => {
     const [state, setState] = useState<State>({selected: 0, rows: 1});
     const language = props.language ?? findLanguageByName("Other")!;

@@ -6,6 +6,7 @@ type Props = {
     offsetBottom?: boolean;
 }
 
+// Displays the line numbers vertically as a single column table. Meant to be used side by side with CodeLines
 const CodeLineNumbers: FC<Props> = (props) => {
     const children: JSX.Element[] = [];
     
