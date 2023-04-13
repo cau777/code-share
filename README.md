@@ -38,8 +38,7 @@ Twitter and GitHub, and made using NextJs.
 * Automatic deployment to Azure Container Apps using GitHub Actions
 * Great score on Lighthouse
 * Available in English and Portuguese
-* Hosted on https://cau777.github.io/code-share/
-  or https://code-share-nextjs.livelybay-b5b6ca38.brazilsouth.azurecontainerapps.io/
+* Hosted on https://caua-rinaldi.dev/projects/code-share
 
 ## Screenshots
 
